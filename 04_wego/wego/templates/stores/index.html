@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}세부 쇼핑 직구 - 위고세부{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&region=KR"></script>
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<!-- <script type="text/JavaScript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script type="text/JavaScript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script> -->
+
+<!-- promotion css,js new -->
+<link rel="stylesheet" href="{% static 'css/promotion.css' %}">
+<link rel="stylesheet" href="{% static 'css/promotion_media.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+<script type="text/javascript" src="{% static 'js/promotion.js' %}"></script>
+<script type="text/JavaScript" src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <!-- Content -->
+	<div class="section1">
+		<div class="sub5_banner center_975">
+			<div class="swiper-container gallery-top slide_box1">
+				<div  class="swiper-wrapper">
+					{% for banner in banners.banners_slide_main %}
+					<div class="swiper-slide">
+						<a href="#{{banner.brand_name}}" class="slide_a banner" name="{{banner.id}}">
+							<img src="{{banner.photo.url}}" >
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- mob navigation buttons -->
+				<div class="slide_mob navi_btn shop">
+					<div class="mob_btn_next">
+					<span class="swiper-button-next swiper-button-white"></span>
+					</div>
+					<div class="mob_btn_prev">
+					<span class="swiper-button-prev swiper-button-white"></span>
+					</div>
+				</div>
+			</div>
+			<div class="slide_box2">
+				<div class="swiper-container gallery-thumbs">
+					<div class="swiper-wrapper">
+						{% for banner in banners.banners_slide_side %}
+						<div class="swiper-slide">
+							<img src="{{banner.photo.url}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<!-- navigation buttons -->
+				<div class="navi_btn">
+					<div class="slide_btn_next swiper-button-next">
+						<img src="{% static 'images/promotion/arrow_up.png' %}">
+					</div>
+					<div class="slide_btn_prev swiper-button-prev">
+						<img src="{% static 'images/promotion/arrow_down.png' %}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section2">
+		<div class="container_promotion center_975">
+			<div class="clear_store">
+				{% for best_store in best_stores %}
+				<div class="sort-box shop-box" data-id="tab1">
+					<div class="roof_top">
+						<img src="{% static 'images/promotion/roof0.png' %}">
+					</div>
+					<div class="wrap">
+						<a href="{{best_store.url_link}}" target="_blank" class="store_views" name="{{best_store.id}}" title="상세페이지로 이동">
+							<div class="img-wrap">
+								<img src="{{best_store.pimg1}}" >
+							</div>
+						</a>
+						<div class="txt-box" data-id="tab1">
+							<p>
+								<a href="{{best_store.url_link}}" target="_blank" class="store_views" name="{{best_store.id}}" title="상세페이지로 이동">
+									{{best_store.title}}
+								</a>
+							</p>
+							<div class="tag-wrap space">
+								<span class="shop_tag b1">{{best_store.item_name}}
+									{% if best_store.click_number %}
+									| {{best_store.click_number|intcomma}} views
+									{% endif %}
+								</span>
+								{% if user.id == best_store.user.id or user.is_staff == True %}
+								<span class="shop_tag2 b1"><a href="javascript:delete_content({{best_store.id}});">삭제</a></span>
+								{% endif %}
+							</div>
+							<p class="pay">
+								<img src="{% static 'images/promotion/ico_won.jpg' %}">
+								<span class="pay_text">{{best_store.price|intcomma}} ~ </span>
+							</p>
+							<a href="{{best_store.url_link}}" target="_blank" name="{{best_store.id}}" class="btn store_views" title="상세페이지로 이동">상세보기</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<!-- paging -->
+			<div class="paging">
+				{% if best_stores.has_other_pages %}
+				<ul>
+					{% if best_stores.has_previous %}
+					<li class="last"><a href="?page={{best_stores.previous_page_number}}"></a></li>
+					{% endif %}
+					{% for i in best_page_range %}
+						{% if best_stores.number == i %}
+						<li class="on"><a href="">{{i}}</a></li>
+						{% else %}
+						<li><a href="?page={{ i }}">{{i}}</a></li>
+						{% endif %}
+					{% endfor %}
+					{% if best_stores.has_next %}
+					<li class="next"><a href="?page={{best_stores.next_page_number}}"></a></li>
+					{% endif %}
+				</ul>
+				{% endif %}
+			</div>
+		</div><!-- container -->
+
+		<div class="banner_s center_975">
+			<div class="banner_left">
+				<a class="banner" href="#{{banners.banners_store.0.brand_name}}" name="{{banners.banners_store.0.id}}">
+					<img src="{{ banners.banners_store.0.photo.url}}">
+				</a>
+			</div>
+			<div class="banner_right">
+				<a class="banner" href="#{{banners.banners_store.1.brand_name}}" name="{{banners.banners_store.1.id}}">
+					<img src="{{ banners.banners_store.1.photo.url}}">
+				</a>
+			</div>
+		</div>
+	</div><!-- section2 -->
+
+	<div class="section3">
+		<div class="container_promotion center_975">
+			{% for store in stores %}
+			<div class="shop-box2">
+				<div class="wrap">
+					<a href="{{store.url_link}}" target="_blank" class="store_views" name="{{store.id}}" title="상세페이지로 이동">
+						<div class="img-wrap">
+							<img src="{{store.pimg1}}">
+						</div>
+					</a>
+					<div class="txt-box2">
+						<p>
+							<a href="{{store.url_link}}" target="_blank" class="store_views" name="{{store.id}}" title="상세페이지로 이동">
+								{{store.title}}
+							</a>
+						</p>
+						<div class="tag-wrap space">
+							<span class="shop_tag b1">{{store.item_name}}
+								{% if store.click_number %}
+								| {{store.click_number|intcomma}} views
+								{% endif %}
+							</span>
+							{% if user.id == store.user.id or user.is_staff == True %}
+							<span class="shop_tag2 b1"><a href="javascript:delete_content({{store.id}});">삭제</a></span>
+							{% endif %}
+						</div>
+					</div>
+					<div class="right-box2">
+						<p class="pay">
+							<img src="{% static 'images/promotion/ico_won.jpg' %}">
+							<span class="pay_text">{{store.price|intcomma}} ~ </span>
+						</p>
+						<a href="{{store.url_link}}" target="_blank" name="{{store.id}}" class="btn store_views" title="상세페이지로 이동">상세보기</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<div class="promotion_write_btn">
+				<a href="{% url 'stores:create' %}">
+					<span>
+						<img src="{% static 'images/promotion/review_04.png' %}" alt="글쓰기">
+					</span>
+					글쓰기
+				</a>
+			</div>
+			<!-- paging -->
+			<div class="paging">
+				{% if stores.has_other_pages %}
+				<ul>
+					{% if stores.has_previous %}
+					<li class="last"><a href="?page={{stores.previous_page_number}}"></a></li>
+					{% endif %}
+					{% for i in page_range %}
+						{% if stores.number == i %}
+						<li class="on"><a href="">{{i}}</a></li>
+						{% else %}
+						<li><a href="?page={{ i }}">{{i}}</a></li>
+						{% endif %}
+					{% endfor %}
+					{% if stores.has_next %}
+					<li class="next"><a href="?page={{stores.next_page_number}}"></a></li>
+					{% endif %}
+				</ul>
+				{% endif %}
+			</div>
+		</div><!-- section3 -->
+
+		<div class="banner_s center_975">
+			<div class="banner_left">
+				<a class="banner" href="#{{banners.banners_store.2.brand_name}}" name="{{banners.banners_store.2.id}}">
+					<img src="{{ banners.banners_store.2.photo.url}}">
+				</a>
+			</div>
+			<div class="banner_right">
+				<a class="banner" href="#{{banners.banners_store.3.brand_name}}" name="{{banners.banners_store.3.id}}">
+					<img src="{{ banners.banners_store.3.photo.url}}">
+				</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		/* 상품 클릭수 */
+	  $(".store_views").click(function(){
+	    var store_id = $(this).attr('name');
+	    $.ajax({
+	      type: "POST",
+	      url: "{% url 'stores:views' %}",
+	      data: {'store_id': store_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+	      dataType: "json",
+	      success: function(response){
+	          window.open(response.url);
+	      },
+	      error: function(request, status, error){
+	          alert("잘못된 접근입니다.")
+	      },
+	    });
+	  });
+		//글삭제
+		function delete_content(id) {
+			if (confirm("삭제하시겠습니까?") == true){
+				var url = "{% url 'stores:delete' 123 %}";
+				// var id = '{{best_store.id}}';
+				document.location.href = url.replace('123', id);
+			}else{
+				return false;
+			}
+		}
+	</script>
+
+	<!-- 배너 클릭스크립트 -->
+	{% include "pages/_banner.html" %}
+
+{% endblock %}

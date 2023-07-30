@@ -1,0 +1,142 @@
+{% load static %}
+<div class="main sec sec10">
+	<h2 class="tit">쇼핑</h2>
+	<ul class="tab2">
+		<li><a href="#">상품</a></li>
+		<li><a href="#">투어</a></li>
+		<li><a href="#">쇼핑</a></li>
+	</ul>
+	<!-- 상품 -->
+	<div class="swiper-container swiper10 tab2_content">
+		<div class="swiper-wrapper">
+		 <div class="swiper-slide">
+		 	<ul>
+				{% for banner in banners.banner_shops.shops1 %}
+				<li>
+					<a href="{{banner.link_url}}" class="banner" name="{{ banner.id }}" target="_blank" rel="nofollow">
+						<span class="img"><img src="{{ banner.photo.url }}" alt="{{ banner.description }}"></span>
+						<span class="img_t">{{ banner.description|linebreaksbr }}</span>
+					</a>
+				</li>
+				{% endfor %}
+		 	</ul>
+		 </div>
+	  </div><!-- swiper-wrapper -->
+   <!-- Add Pagination -->
+	  <div class="swiper-pagination swiper-pagination2"></div>
+	  <!-- Add Arrows -->
+	  <div class="swiper_next swiper_next5"><span></span></div>
+	  <div class="swiper_prev swiper_prev5"><span></span></div>
+	</div><!-- tab2_content -->
+	<script>
+		$(document).ready(function(){
+			var swiper10= new Swiper('.swiper10', {
+			  spaceBetween: 0,
+			  loop:true,
+			  navigation: {
+			  nextEl: '.swiper_next5',
+			  prevEl: '.swiper_prev5',
+			  },
+			  autoplay: {
+			   delay: 5000,
+			   disableOnInteraction: true,
+			  },
+			  pagination: {
+				el: '.swiper-pagination2',
+				type: 'fraction',
+			  },
+			});
+			$(".swiper10").hover(function(){
+				swiper10.autoplay.stop();
+			}, function(){
+				swiper10.autoplay.start();
+			});
+		});
+	</script>
+
+	<!-- 투어 -->
+	<div class="swiper-container swiper11 tab2_content">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+			 <ul>
+				 {% for banner in banners.banner_shops.shops2 %}
+				 <li>
+					 <a href="{{banner.link_url}}" class="banner" name="{{ banner.id }}" target="_blank" rel="nofollow">
+						 <span class="img"><img src="{{ banner.photo.url }}" alt="{{ banner.description }}"></span>
+						 <span class="img_t">{{ banner.description|linebreaksbr }}</span>
+					 </a>
+				 </li>
+				 {% endfor %}
+			 </ul>
+			</div>
+	   </div><!-- swiper-wrapper -->
+	   <!-- Add Pagination -->
+		<div class="swiper-pagination swiper-pagination3"></div>
+		<!-- Add Arrows -->
+		<div class="swiper_next swiper_next6"><span></span></div>
+		<div class="swiper_prev swiper_prev6"><span></span></div>
+	</div><!-- tab2_content -->
+	<script>
+		$(document).ready(function(){
+			var swiper11= new Swiper('.swiper11', {
+			  spaceBetween: 0,
+			  loop:true,
+			  navigation: {
+			  nextEl: '.swiper_next6',
+			  prevEl: '.swiper_prev6',
+			  },
+				autoplay: {
+			   delay: 5000,
+			   disableOnInteraction: true,
+			  },
+			  pagination: {
+				el: '.swiper-pagination3',
+				type: 'fraction',
+			  },
+			});
+		});
+	</script>
+
+	<!-- 쇼핑 -->
+	<div class="swiper-container swiper12 tab2_content">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+			 <ul>
+				 {% for banner in banners.banner_shops.shops3 %}
+				 <li>
+					 <a href="{{banner.link_url}}" class="banner" name="{{ banner.id }}" target="_blank" rel="nofollow">
+						 <span class="img"><img src="{{ banner.photo.url }}" alt="{{ banner.description }}"></span>
+						 <span class="img_t">{{ banner.description|linebreaksbr }}</span>
+					 </a>
+				 </li>
+				 {% endfor %}
+			 </ul>
+			</div>
+	   </div><!-- swiper-wrapper -->
+	   <!-- Add Pagination -->
+		  <div class="swiper-pagination swiper-pagination4"></div>
+		  <!-- Add Arrows -->
+		  <div class="swiper_next swiper_next7"><span></span></div>
+		  <div class="swiper_prev swiper_prev7"><span></span></div>
+	</div><!-- tab2_content -->
+	<script>
+		$(document).ready(function(){
+			var swiper12= new Swiper('.swiper12', {
+			  spaceBetween: 0,
+			  loop:true,
+			  navigation: {
+			  nextEl: '.swiper_next7',
+			  prevEl: '.swiper_prev7',
+			  },
+				autoplay: {
+			   delay: 5000,
+			   disableOnInteraction: true,
+			  },
+			  pagination: {
+				el: '.swiper-pagination4',
+				type: 'fraction',
+			  },
+			});
+		});
+	</script>
+</div><!-- sec10 -->

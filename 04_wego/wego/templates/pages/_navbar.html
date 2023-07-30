@@ -1,0 +1,178 @@
+{% load static %}
+<div class="nav_bar">
+    <h2 class="sound_only">메뉴</h2>
+    <div class="center">
+        <div class="swiper-container swiper4 swiper-container-nav">
+            <div class="swiper-wrapper" >
+                <div class="nav">
+                    <ul>
+                        <li class="swiper-slide"><a href="{% url 'afters:index' %}">후기</a>
+                            <dl class="sub_nav sub_nav_style1 left">
+                                <dt><a>생생후기</a></dt>
+                                <dd><a href="{% url 'afters:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트</a></dd>
+                                <dd><a href="{% url 'afters:index' 'tour' %}">여행</a></dd>
+                                <dd><a href="{% url 'afters:index' 'hotel' %}">숙소</a></dd>
+                                <dd><a href="{% url 'afters:index' 'food' %}">맛집</a></dd>
+                                <dd><a href="{% url 'afters:index' 'massage' %}">마사지</a></dd>
+                                <dd><a href="{% url 'afters:index' 'beauty' %}">뷰티</a></dd>
+                                <dd><a href="{% url 'afters:index' 'etc' %}">기타</a></dd>
+                                <dd>
+                                  <a href="{{ banners.banner_menu.0.link_url }}" target="_blank" name="{{ banners.banner_menu.0.id }}" class="nav_banner nav_banner1 banner">
+                                    <img src="{{ banners.banner_menu.0.photo.url }}" alt="{{ banners.banner_menu.0.description }}">
+                                  </a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'asks:index' %}">질문답변</a>
+                            <dl class="sub_nav">
+                                <dt><a>물어보세요</a></dt>
+                                <dd><a href="{% url 'asks:index' 'hotel' %}">숙소</a></dd>
+                                <dd><a href="{% url 'asks:index' 'tour' %}">여행</a></dd>
+                                <dd><a href="{% url 'asks:index' 'schedule' %}">일정</a></dd>
+                                <dd><a href="{% url 'asks:index' 'cost' %}">비용</a></dd>
+                                <dd><a href="{% url 'asks:index' 'traffic' %}">교통</a></dd>
+                                <dd><a href="{% url 'asks:index' 'etc' %}">기타</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'infos:index' %}">정보공유</a>
+                            <dl class="sub_nav">
+                                <dt><a>꿀팁저장소</a></dt>
+                                <dd><a href="{% url 'infos:index' 'prepare' %}">여행준비</a></dd>
+                                <dd><a href="{% url 'infos:index' 'cebutip' %}">세부팁</a></dd>
+                                <dd><a href="{% url 'infos:chatting' %}">위고채팅</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'communitys:index' %}">커뮤니티</a>
+                            <dl class="sub_nav">
+                                <dt><a>소통해요</a></dt>
+                                <dd><a href="{% url 'communitys:index' 'free' %}">자유게시판</a></dd>
+                                <dd><a href="{% url 'communitys:index' 'visit' %}">방문인사</a></dd>
+                                <dd><a href="{% url 'communitys:index' 'withme' %}">동행</a></dd>
+                                <dd><a href="{% url 'communitys:index' 'buysell' %}">사고팔기</a></dd>
+                            </dl>
+                        </li>
+                        <!-- <li class="swiper-slide">
+                          <a href="{% url 'courses:index' %}"">여행코스</a>
+                          <dl class="sub_nav">
+                              <dt><a>알뜰여행</a></dt>
+                              <dd><a href="{% url 'courses:index' 'oneday' %}">1일플랜</a></dd>
+                              <dd><a href="{% url 'courses:index' 'fiveday' %}">3박 5일</a></dd>
+                              <dd><a href="{% url 'courses:index' 'longday' %}">장기플랜</a></dd>
+                          </dl>
+                        </li> -->
+                        <li class="boder_right swiper-slide"><a href="{% url 'gallerys:index' %}">실시간세부</a>
+                            <dl class="sub_nav">
+                                <dt><a>뽐내보잣</a></dt>
+                                <dd><a href="{% url 'gallerys:index' 'tour' %}">여행샷</a></dd>
+                                <dd><a href="{% url 'gallerys:index' 'food' %}">음식샷</a></dd>
+                                <dd><a href="{% url 'gallerys:index' 'hotel' %}">숙소샷</a></dd>
+                                <dd><a href="{% url 'gallerys:index' 'shopping' %}">쇼핑샷</a></dd>
+                                <dd><a href="{% url 'gallerys:index' 'airport' %}">공항샷</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'promotions:index' %}" class="blue_font">여행사홍보</a>
+                            <dl class="sub_nav sub_nav_style3">
+                                <dt><a>업체둘러보기</a></dt>
+                                <dd><a href="{% url 'promotions:index' %}">전체</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'resort' %}">리조트</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'hotel' %}">호텔</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'kor_good' %}">교민맛집</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'local_food' %}">로컬맛집</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'hopping' %}">호핑</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'daytour' %}">데이투어</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'massage' %}">마사지샵</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'fullvilla' %}">풀빌라</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'beauty' %}">뷰티샵</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'diving' %}">다이빙샵</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'sourvenir' %}">기념품샵</a></dd>
+                                <!-- <dd><a href="{% url 'promotions:index' 'hopping' %}">호핑</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'diving' %}">다이빙</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'hotel' %}">숙소</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'food' %}">맛집</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'massageBeauty' %}">마사지/뷰티</a></dd>
+                                <dd><a href="{% url 'promotions:index' 'etc' %}">기타</a></dd>-->
+                                <dd>
+                                  <a href="{{ banners.banner_menu.1.link_url }}" target="_blank" name="{{ banners.banner_menu.1.id }}" class="nav_banner nav_banner3 banner">
+                                    <img src="{{ banners.banner_menu.1.photo.url }}" alt="{{ banners.banner_menu.1.description }}">
+                                  </a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="boder_right swiper-slide"><a href="{% url 'stores:index' %}" class="blue_font">쇼핑</a>
+                            <dl class="sub_nav sub_nav_style2">
+                                <dt><a href="#">갖고싶다!</a></dt>
+                                <dd><a href="#">추천상품</a></dd>
+                                <dd><a href="#">쇼핑몰</a></dd>
+                                <dd>
+                                  <a href="{{ banners.banner_menu.2.link_url }}" target="_blank" name="{{ banners.banner_menu.2.id }}" class="nav_banner nav_banner2 banner">
+                                    <img src="{{ banners.banner_menu.2.photo.url }}" alt="{{ banners.banner_menu.2.description }}">
+                                  </a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'centers:index' 'notice' %}" class="orange_font">
+                          <img src="{% static 'images/common/main_18.png' %}" alt="위고센터">
+                          위고센터</a>
+                            <dl class="sub_nav">
+                                <dt><a>WEGO CEBU</a></dt>
+                                <dd><a href="{% url 'centers:index' 'notice' %}">공지사항</a></dd>
+                                <dd><a href="{% url 'centers:index' 'customerCenter' %}">고객센터</a></dd>
+                                <dd><a href="{% url 'centers:partnership' %}">제휴신청</a></dd>
+                                <dd><a href="{% url 'centers:wego_roulette'%}">돌려돌림판</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <script>
+            var swiper4 = new Swiper('.swiper4', {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                freeMode: true,
+            });
+        </script>
+        </div><!-- swiper-container-nav -->
+
+        <!-- 급상승검색어 -->
+        {% include 'partials/uprising_keyword.html' %}
+
+        <script type="text/javascript">
+            $(function()
+            {
+                var ticker = function()
+                {
+                    setTimeout(function(){
+                        $('#ticker li:first').animate( {marginTop: '-40px'}, 400, function()
+                        {
+                            $(this).detach().appendTo('ul#ticker').removeAttr('style');
+                        });
+                        ticker();
+                    }, 3000);
+                };
+                ticker();
+            });
+        </script>
+    </div>
+</div><!-- nav_bar -->
+<div class="swiper-container m_touch_nav">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="{% url 'afters:index' %}">후기</a></div>
+        <div class="swiper-slide"><a href="{% url 'asks:index' %}">질문답변</a></div>
+        <div class="swiper-slide"><a href="{% url 'infos:index' %}">정보공유</a></div>
+        <div class="swiper-slide"><a href="{% url 'communitys:index' %}">커뮤니티</a></div>
+        <!-- <div class="swiper-slide"><a href="{% url 'courses:index' %}">여행코스</a></div> -->
+        <div class="swiper-slide"><a href="{% url 'gallerys:index' %}">실시간세부</a></div>
+        <div class="swiper-slide"><a href="{% url 'promotions:index' %}" class="blue_font">여행사홍보</a></div>
+        <div class="swiper-slide"><a href="{% url 'stores:index' %}" class="blue_font">쇼핑</a></div>
+        <div class="swiper-slide"><a href="{% url 'centers:index' 'notice' %}" class="orange_font">위고센터</a></div>
+    </div>
+    <span class="gradi"></span>
+</div>
+<!-- Initialize Swiper -->
+<script>
+  var m_touch_nav = new Swiper('.m_touch_nav', {
+      slidesPerView: 5.5,
+      spaceBetween: 0,
+      freeMode: true,
+  });
+</script>

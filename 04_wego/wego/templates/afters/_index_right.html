@@ -1,0 +1,74 @@
+{% load static %}
+{% load humanize %}
+
+<div class="sec ad_banner">
+  <h2 class="sound_only">광고 배너</h2>
+  {% for banner in banners.banners_review_right|slice:":1" %}
+  <a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}" target="_blank">
+     <img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+  </a>
+  {% endfor %}
+</div>
+<div class="sec best_sec">
+  <h2 class="tit">베스트</h2>
+  <ul class="best_tab">
+    <li><a href="#">01</a></li>
+    <li><a href="#">02</a></li>
+    <li><a href="#">03</a></li>
+  </ul>
+  <div class="best_tab_content">
+    <ul>
+      {% for best in rights.right_bests|slice:":5" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span class="blue_font">{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+      {% for best in rights.right_bests|slice:"5:7" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span>{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="best_tab_content">
+    <ul>
+      {% for best in rights.right_bests|slice:"7:12" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span class="blue_font">{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+      {% for best in rights.right_bests|slice:"12:14" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span>{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="best_tab_content">
+    <ul>
+      {% for best in rights.right_bests|slice:"14:19" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span class="blue_font">{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+      {% for best in rights.right_bests|slice:"19:21" %}
+      <li><a href="{% url 'afters:show' best.id %}"><span>{{best.board_kind}}</span>{{best.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="sec ad_banner">
+  <h2 class="sound_only">광고 배너</h2>
+  {% for banner in banners.banners_review_right|slice:"1:2" %}
+  <a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}" target="_blank">
+     <img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+  </a>
+  {% endfor %}
+</div>
+<div class="sec new_writing">
+  <h2 class="tit">새 글</h2>
+  <ul>
+    {% for new in rights.right_news|slice:":5" %}
+    <li><a href="{% url 'afters:show' new.id %}"><span class="blue_font">•</span>{{new.title}}</a></li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'afters:index' %}" class="more_btn"><i class="fas fa-plus"></i></a>
+</div>
+<div class="sec new_writing">
+  <h2 class="tit">새 댓글</h2>
+  <ul>
+    {% for comment in rights.right_comments|slice:":5" %}
+    <li><a href="{% url 'afters:show' comment.comment_table.id comment.id%}"><span class="blue_font">•</span>{{comment.content}}</a></li>
+    {% endfor %}
+  </ul>
+</div>

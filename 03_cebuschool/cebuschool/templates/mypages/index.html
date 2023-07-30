@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 마이페이지 {% endblock %}
+{% block header %}
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <style>
+        .mypage_left{display: block;}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container center_970">
+        {% include "mypages/_header.html" %}
+        <script>
+        // 화면 1120px 이상일때 강제 url 넘김
+        $(document).ready(function(){
+            if($(window).width() > 1120){
+                location.href = "{% url 'mypages:userinfo' 'index' %}";
+            }
+        });
+        </script>
+        <div class="mypage_left">
+            <div class="rank_box">
+                <img src="{% static 'images/sub/rank.png' %}" alt="">
+                <strong class="rank_tit">세부스쿨 랭킹</strong>
+                <p class="rank_result"><span class="rank_num">26,415</span>위<span class="rank_update">930▲</span></p>
+                <p>아이디님은 세부스쿨 상위 <span class="rank_point"> 36.7%</span> 입니다.</p>
+            </div>
+            <script>
+                var decimal_places = 0;
+                var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 1000;
+
+                $('.rank_num').animateNumber(
+                    {
+                    number: 26415 * decimal_factor,
+
+                    numberStep: function(now, tween) {
+                        var floored_number = Math.floor(now) / decimal_factor,
+                            target = $(tween.elem);
+                        if (decimal_places > 0) {
+                        floored_number = floored_number.toFixed(decimal_places);
+                        }
+
+                        target.text(floored_number);
+                    }
+                    },
+                    {
+                    easing: 'swing',
+                    duration: 5000
+                    }
+                )
+            </script>
+            <div class="sec sec1">
+                <h2 class="tit">소개</h2>
+                <ul class="sec_wrap">
+                    <li class="level"><i class="far fa-address-card"></i><img src="{% static 'images/sub/level_mark.jpg' %}" alt=""><a href="" class="point_color">1레벨(씨앗)</li></a>
+                    <li class="point"><i class="fas fa-coins"></i><a href="" class="point_color">568</a> point</li>
+                    <li class="history"><i class="far fa-user-circle"></i><a href="" class="point_color">2019. 04. 04</a> 세부 스쿨 가입</li>
+                </ul>
+            </div><!-- sec1 -->
+            <div class="sec sec2">
+                <h2 class="tit">정보</h2>
+                <ul class="sec_wrap">
+                    <li><a href="{% url 'mypages:index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+                    {% comment %} <li><a href="#"><i class="far fa-file-alt"></i>게시글</a></li> {% endcomment %}
+                    {% comment %} <li><a href="#"><i class="fas fa-comments"></i>댓글</a></li>
+                    <li><a href="#"><i class="fas fa-id-badge"></i>스크랩</a></li>
+                    <li><a href="#"><i class="fas fa-clipboard-list"></i>이벤트</a></li> {% endcomment %}
+                </ul>
+            </div><!-- sec2 -->
+            <a href="" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false" class="btn_style">쪽지 보내기</a>
+        </div>
+        {% comment %} <div class="mypage_right">
+		    <div class="sec sec7">
+			    <h2 class="tit"><span class="user_name">아이디</span>님의 게시글</h2>
+			    <div class="mypage_board">
+                    <table>
+                        <colgroup>
+                            <col class="col1">
+                            <col class="col2">
+                            <col class="col3">
+                            <col class="col3">
+                        </colgroup>
+                        <tr>
+                            <td class="like_num"><i class="fas fa-heart"></i> 56<span class="category ">가입인사</span></td>
+                            <th class="board_tit">
+                                <a href="#">
+                                    안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요 
+                                    <span class="icon"><img src="{$ static 'images/common/img.gif' %}" alt="사진첨부 있음"></span><span class="score">[ 4 ]</span>
+                                </a>
+                            </th>
+                            <td>16:00</td>
+                            <td>1275</td>
+                        </tr>
+                        <tr>
+                            <td class="like_num"><i class="fas fa-heart"></i> 56<span class="category ">가입인사</span></td>
+                            <th class="board_tit"><a href="#">안녕하세요 </a></th>
+                            <td>16:00</td>
+                            <td>1275</td>
+                        </tr>
+                    </table>
+                    <div class="pager">
+                        <span class="pager_wrap">
+                            <a href="#" class="pager_prev"></a>
+                            <a href="#" class="selected">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#" class="pager_next"></a>
+                        </span>
+                    </div>
+			    </div>
+		    </div>
+		    <? include "mypage_popup.html" ?>
+	    </div> {% endcomment %}
+    </div><!-- container -->
+{% endblock %}

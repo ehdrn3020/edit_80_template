@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 갤러리 글쓰기 {% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_970">
+		<div class="gallery_top">
+			<div class="gallery_banner">
+				<h2 class="tit">실시간세부</h2>
+				<span class="line"></span>
+				<p>생생한 세부를<br>공유해주세요!</p>
+			</div><!-- gallery_banner -->
+			<div class="main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					{% for banner in banners.banners_gallery_top|slice:":2" %}
+					<div class="swiper-slide">
+						<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+				   var swiper1 = new Swiper('.swiper1', {
+					  loop:true,
+					  autoplay: {
+					   delay: 4000,
+					   disableOnInteraction: false,
+					  },
+					  pagination: {
+						el: '.swiper-pagination1',
+						clickable: true,
+					  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- gallery_top -->
+		<div class="sec_ctg sub_top_nav">
+			<div class="breadcrumb">
+				<h2><a href="{% url 'gallerys:index' %}">갤러리</a><i class="fas fa-chevron-right"></i></h2>
+				<h3><a href="#">글쓰기</a></h3>
+			</div><!-- breadcrumb -->
+			<div class="article_btn">
+				<!-- <a href="#"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a> -->
+			</div><!-- article_btn -->
+		</div><!-- sec_ctg -->
+
+		<form action="{% url 'gallerys:create' %}" name="imgFrm" class="imgFrm" method="POST">
+			{% csrf_token %}
+			<div class="board_select">
+				<select name="board_kind" required>
+					<option value="">-게시판 선택-
+					<option value="여행샷" {% if old_data.board_kind == "여행샷" or board_kind == "tour" %} selected {% endif %}>여행샷
+					<option value="음식샷" {% if old_data.board_kind == "음식샷" or board_kind == "food" %} selected {% endif %}>음식샷
+					<option value="숙소샷" {% if old_data.board_kind == "숙소샷" or board_kind == "hotel" %} selected {% endif %}>숙소샷
+					<option value="쇼핑샷" {% if old_data.board_kind == "쇼핑샷" or board_kind == "shopping" %} selected {% endif %}>쇼핑샷
+					<option value="공항샷" {% if old_data.board_kind == "공항샷" or board_kind == "airport" %} selected {% endif %}>공항샷
+				</select>
+			</div><!-- board_select -->
+			<div class="board_content">
+				<div class="imgFrmWrap">
+					<span class="frm_tit">사진</span>
+					<div>
+						<input type="file" id="imgName" name="imgName" multiple>
+						<label for="imgName" class="imgUploadHidden"><i class="far fa-image"></i> 이미지</label>
+						<input type="button" id="imgrotate" style="display: none;">
+						<label for="imgrotate" class="imgUploadHidden" style="background: #4c7ea7;">사진회전</label>
+						<input type="button" id="imgdelete" style="display: none;">
+						<label for="imgdelete" class="imgUploadHidden" style="background: #f1835b;">모두삭제</label>
+					</div>
+
+					<div style="padding-left:10%;">
+						<div class="imgUpload" id="fimg1" {% if old_data.pimg1 %} style="display:" {% else %} style="display:none" {% endif %}>
+							<img id="img1" src="{{ old_data.pimg1 }}">
+							<input type="hidden" id="pimg1" name="pimg1" value="{{ old_data.pimg1 }}">
+							<input type="hidden" id="degree1" value="90">
+							<!-- 이미지 여러장일때 아이콘 추가 , 이미지 1장일때 주석 또는 display:none 처리 -->
+							<!-- <span class="gall_type_icon"><i class="fas fa-clone"></i></span> -->
+						</div>
+						<div class="imgUpload" id="fimg2" {% if old_data.pimg2 %} style="display:" {% else %} style="display:none" {% endif %}>
+							<img id="img2" src="{{ old_data.pimg2 }}">
+							<input type="hidden" id="pimg2" name="pimg2" value="{{ old_data.pimg2 }}">
+							<input type="hidden" id="degree2" value="90">
+						</div>
+						<div class="imgUpload" id="fimg3" {% if old_data.pimg3 %} style="display:" {% else %} style="display:none" {% endif %}>
+							<img id="img3" src="{{ old_data.pimg3 }}">
+							<input type="hidden" id="pimg3" name="pimg3" value="{{ old_data.pimg3 }}">
+							<input type="hidden" id="degree3" value="90">
+						</div>
+						<div class="imgUpload" id="fimg4" {% if old_data.pimg4 %} style="display:" {% else %} style="display:none" {% endif %}>
+							<img id="img4" src="{{ old_data.pimg4 }}">
+							<input type="hidden" id="pimg4" name="pimg4" value="{{ old_data.pimg4 }}">
+							<input type="hidden" id="degree4" value="90">
+						</div>
+						<div class="imgUpload" id="fimg5" {% if old_data.pimg5 %} style="display:" {% else %} style="display:none" {% endif %}>
+							<img id="img5" src="{{ old_data.pimg5 }}">
+							<input type="hidden" id="pimg5" name="pimg5" value="{{ old_data.pimg5 }}">
+							<input type="hidden" id="degree5" value="90">
+						</div>
+					</div>
+				</div>
+				<!-- 이미지업로드 로딩시 -->
+				<div id="overrap_loading">
+					<div id ="progress_loading">
+						<img src="{% static 'images/common/ajax-loader.gif' %}">
+					</div>
+				</div>
+				<script>
+					//파일 첨부 했을때 TEXT칸에 파일 이름 불러오기
+					$("input[name=imgName]").change(function() {
+						//이미지 오브젝트 얻기
+						var files = document.getElementById('imgName').files;
+						// 시작점찾기
+						index=1;
+						for(k=0;k<5;k++){
+							if($('#fimg'+(k+1)).css('display')!='none') index++;
+						}
+						for(i=0; i<files.length; i++){
+							if($('#fimg'+(index)).css('display')=='none'){
+								var data = new FormData();
+					      data.append('file', files[i]);
+								$.ajax({
+					      	data: data,
+					        type: "POST",
+					      	url: "{% url 'gallerys:summernote_tmp' %}",
+					        processData: false,
+					        contentType: false,
+					        cache: false,
+					      	success: function(data) {
+					          if(data.status == 'success'){
+											$('#fimg'+(index)).css('display','');
+					      		  $('#img'+(index)).attr('src', data.img_path);
+											$('#pimg'+(index)).val(data.img_path);
+											index++;
+					          }
+					          else if(data.status == 'ext error'){
+					            alert('파일확장자를 확인해주세요.(.png, .jpg)');
+					          }
+					        },
+					        error: function(request, status, error){
+					          alert("잘못된 접근입니다.");
+					        },
+					    	});
+							}else{
+								index++;
+							}
+						}
+					});
+					// 업로드로딩바
+					$(document).ready(function(){
+						$('#overrap_loading').hide(); //첫 시작시 로딩바를 숨겨준다.
+					})
+					.ajaxStart(function(){
+						$('#overrap_loading').show(); //ajax실행시 로딩바를 보여준다.
+					})
+					.ajaxStop(function(){
+						$('#overrap_loading').hide(); //ajax종료시 로딩바를 숨겨준다.
+					});
+
+					// 사진회전
+					$("#imgrotate").click(function() {
+						var index = prompt("회전할 사진을 선택해주세요. Ex)첫번째사진: 1, 모든사진: 0", "1");
+						var imgurl = [];
+						// 사진 Path배열
+						for(i=0;i<5;i++){
+							imgurl[i] = $('#img'+(i+1)).attr('src').replace('/media', '');
+						}
+						console.log(imgurl[0]);
+						if(index=='1'||index=='2'||index=='3'||index=='4'||index=='5'||index=='0'){
+							$.ajax({
+								type: "POST",
+								url: "{% url 'gallerys:img_rotate' %}",
+								data: {'index': index, 'csrfmiddlewaretoken': '{{ csrf_token }}',
+									'imgurl1': imgurl[0], 'imgurl2': imgurl[1], 'imgurl3': imgurl[2],'imgurl4': imgurl[3], 'imgurl5': imgurl[4]},
+								dataType: "json",
+								success: function(data) {
+									if(data.status == 'success'){
+										// 모두회전일경우
+										if(data.index=='0'){
+											for(l=0;l<5;l++){
+												if($('#img'+l).attr('src')!=''){
+													var degree = $('#degree'+l).val();
+													$('#img'+l).css('transform','rotate('+degree+'deg)');
+													$('#degree'+l).val(Number(degree)+90);
+												}
+											}
+										}else{
+											var degree = $('#degree'+data.index).val();
+											$('#img'+data.index).css('transform','rotate('+degree+'deg)');
+											$('#degree'+data.index).val(Number(degree)+90);
+										}
+									}
+								},
+								error: function(request, status, error){
+									alert("잘못된 접근입니다.");
+								},
+							});
+						}else if(index==null){}
+						else{
+							alert('해당 사진이 없습니다.');
+						}
+					});
+					// 모두삭제
+					$("#imgdelete").click(function() {
+						for(i=1; i<=5; i++){
+							$('#img'+i).attr('src', '');
+							$('#pimg'+i).val('');
+							$('#fimg'+i).css('display','none');
+						}
+					});
+				</script>
+				<div class="gallery_tag"><span class="frm_tit">태그</span><input type="text" name="tag" value="{{ old_data.tag }}" placeholder="ex) #호핑투어 #막탄팔리공원"></div>
+				<div class="gallery_con"><span class="frm_tit">문구</span><textarea name="content" placeholder="글 작성시 {{point.point}}포인트 지급" required>{{ old_data.content }}</textarea></div>
+				<div class="board_submit"><input type="submit" class="board_submit_btn" value="작성완료"></div>
+			</div>
+		</form>
+	</div><!-- board_content -->
+</div><!-- container -->
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+{% endblock %}

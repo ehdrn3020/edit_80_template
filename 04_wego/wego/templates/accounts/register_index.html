@@ -1,0 +1,27 @@
+{% extends "accounts/base_account.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}회원가입 선택{% endblock %}
+{% block content %}
+	<!-- 회원가입 화면 {-->
+	<div id="join_bg">
+		<div class="box_warp">
+			<h3>위고세부 회원가입</h3>
+			<p>소셜계정으로 간편하게 가입하세요!</p>
+			<ul class="sns_login">
+				<li><a href="{% provider_login_url 'naver' %}"><img src="{% static 'images/login/sns_icon1.jpg' %}" alt="네이버회원가입">네이버 회원가입</a></li>
+				<li><a href="#" onclick="alert('준비중입니다');"><img src="{% static 'images/login/sns_icon2.jpg' %}" alt="페이스북회원가입">페이스북 회원가입</a></li>
+				<li><a href="{% provider_login_url 'google' %}"><img src="{% static 'images/login/sns_icon3.jpg' %}" alt="구글회원가입">구글 회원가입</a></li>
+				<li><a href="{% provider_login_url 'kakao' %}"><img src="{% static 'images/login/sns_icon4.jpg' %}" alt="카카오회원가입">카카오 회원가입</a></li>
+				<li><a href="{% url 'accounts:register_create' %}"><img src="{% static 'images/login/email_icon.jpg' %}" alt="이메일회원가입">이메일 회원가입</a></li>
+			</ul>
+			<a href="{% url 'accounts:login' %}" class="btn_style">계정이 있으신가요? 로그인 ></a>
+			<p class="line"></p>
+			<span class="sub_p">
+			운영시간: 10:30 ~ 17:00(토,일, 공휴일 후무) <br>
+			이메일 문의 : cebu@cebuschool.co.kr</span>
+		</div>
+	</div>
+	<!-- } 회원가입 화면 -->
+{% endblock %}

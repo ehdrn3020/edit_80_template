@@ -1,0 +1,181 @@
+{% load static %}
+<div class="nav_bar">
+    <h2 class="sound_only">메뉴</h2>
+    <div class="center">
+        <div class="swiper-container swiper4 swiper-container-nav">
+            <div class="swiper-wrapper" >
+                <div class="nav">
+                    <ul>
+                        <li class="swiper-slide"><a href="{% url 'afters:index' %}">후기</a>
+                            <dl class="sub_nav sub_nav_style1 left">
+                                <dt><a href="#">생생후기</a></dt>
+                                <dd><a href="#">베스트H</a></dd>
+                                <dd><a href="#">마사지/뷰티</a></dd>
+                                <dd><a href="#">여행상품</a></dd>
+                                <dd><a href="#">액티비티/기타</a></dd>
+                                <dd><a href="#">숙소</a></dd>
+                                <dd><a href="#">쇼핑</a></dd>
+                                <dd><a href="#">맛집</a></dd>
+                                <dd><a href="#" class="nav_banner nav_banner1"><img src="{% static 'images/common/main_03.jpg' %}" alt="후기메뉴배너"></a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'asks:index' %}">질문답변</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">물어보세요</a></dt>
+                                <dd><a href="#">숙소</a></dd>
+                                <dd><a href="#">업체</a></dd>
+                                <dd><a href="#">일정</a></dd>
+                                <dd><a href="#">비용</a></dd>
+                                <dd><a href="#">교통</a></dd>
+                                <dd><a href="#">기타</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="#">정보공유</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">꿀팁저장소</a></dt>
+                                <dd><a href="#">여행준비</a></dd>
+                                <dd><a href="#">세부팁</a></dd>
+                                <dd><a href="{% url 'shares:chating' %}">자자채팅</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="#">커뮤니티</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">소통해요</a></dt>
+                                <dd><a href="#">방문인사</a></dd>
+                                <dd><a href="#">자유게시판</a></dd>
+                                <dd><a href="#">동행</a></dd>
+                                <dd><a href="#">사고팔기</a></dd>
+                            </dl>
+                        </li>
+                        <li class="boder_right swiper-slide"><a href="#"><img src="{% static 'images/common/main_18.png' %}" alt="여행코스"> 여행코스</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">알뜰여행</a></dt>
+                                <dd><a href="#">1일플랜</a></dd>
+                                <dd><a href="#">3박 5일</a></dd>
+                                <dd><a href="#">장기플랜</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="{% url 'gallerys:index' %}" class="blue_font">실시간세부</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">뽐내보잣</a></dt>
+                                <dd><a href="#">여행샷</a></dd>
+                                <dd><a href="#">음식샷</a></dd>
+                                <dd><a href="#">숙소샷</a></dd>
+                                <dd><a href="#">쇼핑샷</a></dd>
+                                <dd><a href="#">공항출발샷</a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="#" class="blue_font">쇼핑</a>
+                            <dl class="sub_nav sub_nav_style2">
+                                <dt><a href="#">갖고싶다!</a></dt>
+                                <dd><a href="#">추천상품</a></dd>
+                                <dd><a href="#">쇼핑몰</a></dd>
+                                <dd><a href="#" class="nav_banner nav_banner2"><img src="{% static 'images/common/main_03.jpg' %}" alt=""></a></dd>
+                            </dl>
+                        </li>
+                        <li class="boder_right swiper-slide"><a href="{% url 'promotions:index' %}" class="blue_font">여행사홍보</a>
+                            <dl class="sub_nav sub_nav_style3">
+                                <dt><a href="#">업체둘러보기</a></dt>
+                                <dd><a href="#">여행사</a></dd>
+                                <dd><a href="#">마사지</a></dd>
+                                <dd><a href="#">기념품</a></dd>
+                                <dd><a href="#">호핑</a></dd>
+                                <dd><a href="#">로컬맛집</a></dd>
+                                <dd><a href="#">뷰티</a></dd>
+                                <dd><a href="#">기타</a></dd>
+                                <dd><a href="#">다이빙</a></dd>
+                                <dd><a href="#">교민맛집</a></dd>
+                                <dd><a href="#">액티비티</a></dd>
+                                <dd><a href="#" class="nav_banner nav_banner3"><img src="{% static 'images/common/main_06.jpg' %}" alt=""></a></dd>
+                            </dl>
+                        </li>
+                        <li class="swiper-slide"><a href="#" class="orange_font">상점</a>
+                            <dl class="sub_nav">
+                                <dt><a href="#">상점</a></dt>
+                                <dd><a href="#">이벤트</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <script>
+            var swiper4 = new Swiper('.swiper4', {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                freeMode: true,
+            });
+        </script>
+        </div><!-- swiper-container-nav -->
+        <div class="hot_keyword">
+            <ul id="ticker">
+                <li><a href="#"><span class="num">1</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">2</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">3</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">4</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">5</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">6</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">7</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">8</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">9</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">10</span><span class="keyword">실시간검색어</span></a></li>
+                <li><a href="#"><span class="num">11</span><span class="keyword">실시간검색어</span></a></li>
+            </ul>
+            <span><i class="fas fa-chevron-down"></i></span>
+            <div class="hot_keyword_open">
+                <h2 class="tit">급상승 검색어</h2>
+                    <ul>
+                        <li><a href="#"><span class="num">1</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">2</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">3</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">4</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">5</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">6</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">7</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">8</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">9</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">10</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li><a href="#"><span class="num">11</span><span class="keyword">실시간검색어</span><span><i class="fas fa-external-link-alt"></i></span></a></li>
+                        <li class="live_clock"><a href="#">2019.04.04 11:32:00 기준</a></li>
+                    </ul>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function()
+            {
+                var ticker = function()
+                {
+                    setTimeout(function(){
+                        $('#ticker li:first').animate( {marginTop: '-40px'}, 400, function()
+                        {
+                            $(this).detach().appendTo('ul#ticker').removeAttr('style');
+                        });
+                        ticker();
+                    }, 3000);
+                };
+                ticker();
+            });
+        </script>
+    </div>
+</div><!-- nav_bar -->
+<div class="swiper-container m_touch_nav">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="#">후기</a></div>
+        <div class="swiper-slide"><a href="#">질문답변</a></div>
+        <div class="swiper-slide"><a href="#">정보공유</a></div>
+        <div class="swiper-slide"><a href="#">커뮤니티</a></div>
+        <div class="swiper-slide"><a href="#">여행코스</a></div>
+        <div class="swiper-slide"><a href="#" class="blue_font">실시간세부</a></div>
+        <div class="swiper-slide"><a href="#" class="blue_font">쇼핑</a></div>
+        <div class="swiper-slide"><a href="#" class="blue_font">여행사홍보</a></div>
+        <div class="swiper-slide"><a href="#" class="orange_font">상점</a></div>
+    </div>
+    <span class="gradi"></span>
+</div>
+<!-- Initialize Swiper -->
+<script>
+var m_touch_nav = new Swiper('.m_touch_nav', {
+    slidesPerView: 5,
+    spaceBetween: 0,
+    freeMode: true,
+});
+</script>

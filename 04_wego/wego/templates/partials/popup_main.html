@@ -1,0 +1,21 @@
+{% load static %}
+<div class="popup">
+	<div class="popup_wrap">
+		<h3>세부스쿨 회원가입하고 <br>세부여행 함께하세요! <br>함께하세요!</h3>
+		<div class="popup_cont">
+			<p class="img"><img src="{% static 'images/common/popup_img.png' %}" alt="숙소예약"></p>
+			<p class="txt">세부여행에 색다른 경험을 위한 <br> 다양한 정보가 함께하는 세부스쿨입니다.</p>
+		</div>
+		<div class="popup_btn">
+			<a href="{% url 'accounts:login' %}" class="btn_login">로그인</a>
+			<a href="{% url 'accounts:register_index' %}" class="btn_join">회원가입</a>
+		</div>
+		<div class="popup_close"><i class="fas fa-times"></i></div>
+	</div><!-- popup_wrap -->
+	<div class="popup_bg"></div>
+</div><!-- popup -->
+<script>
+	$(".popup_close").click(function(){
+		$(".popup").hide();
+	});
+</script>

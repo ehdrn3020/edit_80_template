@@ -1,0 +1,48 @@
+{% load static %}
+<script>
+  $('#scrap_btn').click(function(){
+    if (confirm("이 글을 스크랩하시겠습니까?") == true){
+      var user = '{{user.username}}';
+      var tag = '{{content_object}}';
+      var object_id = {{content.id}};
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'pages:addscrap' %}",
+        data: {'user': user, 'tag':tag, 'object_id':object_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        dataType: "json",
+        success: function(response){
+          alert('스크랩 된 글은 마이페이지에서 확인하실 수 있습니다.')
+        },
+        error: function(request, status, error){
+            alert("로그인 후 이용해주세요.");
+        },
+      });
+    }else{
+      return false;
+    }
+  });
+  //모바일
+  $('#scrap_btn_m').click(function(){
+    if (confirm("이 글을 스크랩하시겠습니까?") == true){
+      var user = '{{user.username}}';
+      var tag = '{{content_object}}';
+      var object_id = {{content.id}};
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'pages:addscrap' %}",
+        data: {'user': user, 'tag':tag, 'object_id':object_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        dataType: "json",
+        success: function(response){
+          alert('스크랩 된 글은 마이페이지에서 확인하실 수 있습니다.')
+        },
+        error: function(request, status, error){
+            alert("로그인 후 이용해주세요.");
+        },
+      });
+    }else{
+      return false;
+    }
+  });
+</script>

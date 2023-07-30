@@ -1,0 +1,721 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}세부 여행자 - 위고세부{% endblock %}
+{% block header %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sub.css' %}">
+  <script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+
+  <!-- <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&region=KR"></script> -->
+	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+	<!-- <script type="text/JavaScript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+	<script type="text/JavaScript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- promotion css,js new -->
+  <link rel="stylesheet" href="{% static 'css/promotion.css' %}">
+  <link rel="stylesheet" href="{% static 'css/promotion_media.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+  <script type="text/JavaScript" src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+  <style media="screen">
+    .map_choice {position: relative;padding: 0;border-top: 0px;}
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% include "javascript/promotions_js.html" %}
+  <!-- Content -->
+	<div class="section">
+		<div class="gallery_wrap galleryArea">
+			<div  class="swiper-wrapper popup-gallery galler_slide">
+				<div class="left_gall hover-zoomin gallery__item">
+					<a href="javascript:;">
+						<img src="{{content.pimg1}}">
+					</a>
+				</div>
+				<div class="right_gall">
+					<div class="gall_L" class="">
+						<p class="left_up hover-zoomin">
+							<a href="javascript:;">
+								<img src="{{content.pimg2}}">
+							</a>
+						</p>
+						<p class="left_dwn hover-zoomin">
+							<a href="javascript:;">
+								<img src="{{content.pimg3}}">
+							</a>
+						</p>
+					</div>
+					<div class="gall_R">
+						<p class="right_up hover-zoomin">
+							<a href="javascript:;">
+								<img src="{{content.pimg4}}">
+							</a>
+						</p>
+						<p class="right_dwn hover-zoomin">
+							<a href="javascript:;">
+								<img src="{{content.pimg5}}">
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="btn_view">
+				<img src="{% static 'images/promotion/ico_search.jpg' %}">
+				사진보기
+			</div>
+		</div>
+
+		<!-- photoSwipe -->
+		<div class="swipe_warp">
+			<div class="gall_bg"></div>
+			<div class="slide_box2">
+				<div class="swiper-container gallery-thumbs_">
+					<div class="swiper-wrapper">
+            {% for img in pimg %}
+              {% if img %}
+  						<div class="swiper-slide">
+  							<img src="{{img}}" >
+  						</div>
+              {% endif %}
+            {% endfor %}
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+			<div class="swiper-container gallery-top_ slide_box1 slide_box1">
+				<div  class="swiper-wrapper">
+        {% for img in pimg %}
+          {% if img %}
+					<div class="swiper-slide" id="gallery-top_slide">
+						<a href="javascript:;" class="slide_a">
+							<img src="{{img}}" data-thumb="{{img}}" data-big="{{img}}" class="slide_a_img" id="slide_a_img">
+						</a>
+						<span class="pic_space"></span>
+					</div>
+          {% endif %}
+        {% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+				<!-- mob navigation buttons -->
+				<span class="lg-close lg-icon"><img src="{% static 'images/promotion/ico_close.jpg' %}"></span>
+				<div class="slide_mob navi_btn">
+					<div class="mob_btn_next"></div>
+					<span class="swiper-button-next swiper-button-white test1"></span>
+					<div class="mob_btn_prev"></div>
+					<span class="swiper-button-prev swiper-button-white test2"></span>
+				</div>
+			</div>
+		</div>
+		<!-- // photoSwipe -->
+
+	</div>
+	<div class="contents_wrap center_975">
+		<div class="sec_left">
+			<div class="box_event">
+				{% if content.tag1 %}<span class="selected"><a href="javascript:;">{{content.tag1}}</a></span>{% endif %}
+				{% if content.tag2 %}<span class="selected"><a href="javascript:;">{{content.tag2}}</a></span>{% endif %}
+				{% if content.tag3 %}<span class="selected"><a href="javascript:;">{{content.tag3}}</a></span>{% endif %}
+			</div>
+
+			<div class="left_title">
+				<div class="left">
+					<h2 class="tit">{{content.brand_name}}</h2>
+				</div>
+				<div class="pointer">
+					<div class="circle">
+						<span class="star">
+							<a href="javascript:;">★</a>
+						</span>
+						<span class="score">
+							{{content.star_total}}
+						</span>
+					</div>
+					<span class="part">
+						{{content.star_participate|intcomma}}명 참여
+					</span>
+				</div>
+			</div>
+
+      <!-- 옵션 -->
+			<div class="board_veiw_content">
+				<p>{{content.introduction}}</p>
+			</div>
+			<div class="view_content_in">
+				<div class="title_in">포함사항</div>
+				<div class="icon_contents">
+					{% if content.opt1 %}<span class="icon"><b class="icon_tv">TV</b></span>{% endif %}
+					{% if content.opt2 %}<span class="icon"><b class="icon_air">에어컨</b></span>{% endif %}
+					{% if content.opt3 %}<span class="icon"><b class="icon_p">무료주차</b></span>{% endif %}
+					{% if content.opt4 %}<span class="icon"><b class="icon_wifi">무선인터넷</b></span>{% endif %}
+					{% if content.opt5 %}<span class="icon"><b class="icon_car">무료픽드랍</b></span>{% endif %}
+					{% if content.opt6 %}<span class="icon"><b class="icon_car">유료픽드랍</b></span>{% endif %}
+					{% if content.opt7 %}<span class="icon"><b class="icon_smok">흡연실</b></span>{% endif %}
+					{% if content.opt8 %}<span class="icon"><b class="icon_wash">샤워장</b></span>{% endif %}
+					{% if content.opt9 %}<span class="icon"><b class="icon_washroom">화장실</b></span>{% endif %}
+					{% if content.opt10 %}<span class="icon"><b class="icon_lock">개인락커</b></span>{% endif %}
+
+					{% if content.opt11 %}<span class="icon"><b class="icon_wave">전자레인지</b></span>{% endif %}
+					{% if content.opt12 %}<span class="icon"><b class="icon_animal">반려동물</b></span>{% endif %}
+					{% if content.opt13 %}<span class="icon"><b class="icon_ice">냉장고</b></span>{% endif %}
+					{% if content.opt14 %}<span class="icon"><b class="icon_won">원화결제</b></span>{% endif %}
+					{% if content.opt15 %}<span class="icon"><b class="icon_ko">한국인직원</b></span>{% endif %}
+					{% if content.opt16 %}<span class="icon"><b class="icon_baby">베이비시터</b></span>{% endif %}
+					{% if content.opt17 %}<span class="icon"><b class="icon_rent">렌터카</b></span>{% endif %}
+					{% if content.opt18 %}<span class="icon"><b class="icon_cup">무료음료</b></span>{% endif %}
+					{% if content.opt19 %}<span class="icon"><b class="icon_dc">위고할인10%</b></span>{% endif %}
+					{% if content.opt20 %}<span class="icon"><b class="icon_dc">위고할인5%</b></span>{% endif %}
+				</div>
+			</div>
+
+      <!-- 대표상품 -->
+			<div class="view_content_in">
+				<div class="title_in">대표서비스</div>
+				<div class="icon_contents">
+					<div class="swiper-container slide_reserv">
+						<div  class="swiper-wrapper">
+              {% if content.rep_img1 %}
+							<div class="swiper-slide slide_reserv_">
+								<img style="width:100%;" src="{{content.rep_img1}}" >
+								<div class="text_box">{{content.rep_txt1}}</div>
+							</div>
+              {% endif %}
+              {% if content.rep_img2 %}
+							<div class="swiper-slide slide_reserv_">
+								<img style="width:100%;" src="{{content.rep_img2}}" >
+								<div class="text_box">{{content.rep_txt2}}</div>
+							</div>
+              {% endif %}
+              {% if content.rep_img3 %}
+							<div class="swiper-slide slide_reserv_">
+								<img style="width:100%;" src="{{content.rep_img3}}" >
+								<div class="text_box">{{content.rep_txt3}}</div>
+							</div>
+              {% endif %}
+              {% if content.rep_img4 %}
+							<div class="swiper-slide slide_reserv_">
+								<img style="width:100%;" src="{{content.rep_img4}}" >
+								<div class="text_box">{{content.rep_txt4}}</div>
+							</div>
+              {% endif %}
+              {% if content.rep_img5 %}
+							<div class="swiper-slide slide_reserv_">
+								<img style="width:100%;" src="{{content.rep_img5}}" >
+								<div class="text_box">{{content.rep_txt5}}</div>
+							</div>
+              {% endif %}
+						</div>
+						<div class="swiper-pagination"></div>
+						<!-- navigation buttons -->
+						<div class="btn_next"></div>
+						<div class="swiper-button-next swiper-button-white"></div>
+						<div class="btn_prev"></div>
+						<div class="swiper-button-prev swiper-button-white"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- photoSwipe -->
+			<div class="represent_swipe_warp">
+				<div class="gall_bg"></div>
+				<div class="slide_box2">
+					<div class="swiper-container slide_reserv-thumbs_">
+						<div class="swiper-wrapper">
+				    {% if content.rep_img1 %}
+							<div class="swiper-slide">
+								<img src="{{content.rep_img1}}" >
+							</div>
+				    {% endif %}
+            {% if content.rep_img2 %}
+							<div class="swiper-slide">
+								<img src="{{content.rep_img2}}" >
+							</div>
+				    {% endif %}
+            {% if content.rep_img3 %}
+							<div class="swiper-slide">
+								<img src="{{content.rep_img3}}" >
+							</div>
+				    {% endif %}
+            {% if content.rep_img4 %}
+							<div class="swiper-slide">
+								<img src="{{content.rep_img4}}" >
+							</div>
+				    {% endif %}
+            {% if content.rep_img5 %}
+							<div class="swiper-slide">
+								<img src="{{content.rep_img5}}" >
+							</div>
+				    {% endif %}
+						</div>
+						<div class="swiper-scrollbar"></div>
+					</div>
+				</div>
+				<div class="swiper-container slide_reserv-top_ slide_box1 slide_box1">
+					<div  class="swiper-wrapper">
+			    {% if content.rep_img1 %}
+						<div class="swiper-slide" id="gallery-top_slide">
+							<a href="javascript:;" class="slide_a">
+								<img src="{{content.rep_img1}}" data-thumb="{{content.rep_img1}}" data-big="{{content.rep_img1}}" class="slide_a_img" id="slide_a_img">
+							</a>
+							<span class="pic_space"></span>
+						</div>
+			    {% endif %}
+          {% if content.rep_img2 %}
+						<div class="swiper-slide" id="gallery-top_slide">
+							<a href="javascript:;" class="slide_a">
+								<img src="{{content.rep_img2}}" data-thumb="{{content.rep_img2}}" data-big="{{content.rep_img2}}" class="slide_a_img" id="slide_a_img">
+							</a>
+							<span class="pic_space"></span>
+						</div>
+			    {% endif %}
+          {% if content.rep_img3 %}
+						<div class="swiper-slide" id="gallery-top_slide">
+							<a href="javascript:;" class="slide_a">
+								<img src="{{content.rep_img3}}" data-thumb="{{content.rep_img3}}" data-big="{{content.rep_img3}}" class="slide_a_img" id="slide_a_img">
+							</a>
+							<span class="pic_space"></span>
+						</div>
+			    {% endif %}
+          {% if content.rep_img4 %}
+						<div class="swiper-slide" id="gallery-top_slide">
+							<a href="javascript:;" class="slide_a">
+								<img src="{{content.rep_img4}}" data-thumb="{{content.rep_img4}}" data-big="{{content.rep_img4}}" class="slide_a_img" id="slide_a_img">
+							</a>
+							<span class="pic_space"></span>
+						</div>
+			    {% endif %}
+          {% if content.rep_img5 %}
+						<div class="swiper-slide" id="gallery-top_slide">
+							<a href="javascript:;" class="slide_a">
+								<img src="{{content.rep_img5}}" data-thumb="{{content.rep_img5}}" data-big="{{content.rep_img5}}" class="slide_a_img" id="slide_a_img">
+							</a>
+							<span class="pic_space"></span>
+						</div>
+			    {% endif %}
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<!-- mob navigation buttons -->
+					<span class="lg-close_ lg-icon"><img src="{% static 'images/promotion/ico_close.jpg' %}"></span>
+					<div class="slide_mob navi_btn">
+						<div class="mob_btn_next"></div>
+						<span class="swiper-button-next swiper-button-white test1"></span>
+						<div class="mob_btn_prev"></div>
+						<span class="swiper-button-prev swiper-button-white test2"></span>
+					</div>
+				</div>
+			</div>
+			<!-- // photoSwipe -->
+
+      <!-- 영업정보 -->
+			<div class="view_content_in">
+				<div class="user">
+          <img src="{{content.user.level_icon}}" >
+					<span class="user_id">{{content.user.username}}</span>
+				</div>
+				<div class="business_contents">
+          <div class="business_tel mb_10" id="businessKakaoId">
+            <span class="business tel">카톡ID</span>
+            <span class="col_gray" id="target_kakao">{{content.kakao_id}}</span>
+			      <span class="copy_text" onclick="textCopy('{{content.kakao_id}}')" data-clipboard-action="copy" data-clipboard-target="#target_kakao">
+              <img src="{% static 'images/promotion/copy-file.png' %}"><span style="font-size:0.7em;color:#aaa;">복사하기</span>
+            </span>
+          </div>
+					<div class="business_day">
+						<span class="business day">영업일</span>
+						<span class="circle {%if content.workday_mon%}on{%endif%}">월</span>
+						<span class="circle {%if content.workday_tue%}on{%endif%}">화</span>
+						<span class="circle {%if content.workday_wed%}on{%endif%}">수</span>
+						<span class="circle {%if content.workday_thur%}on{%endif%}">목</span>
+						<span class="circle {%if content.workday_fri%}on{%endif%}">금</span>
+						<span class="circle {%if content.workday_sat%}on{%endif%}">토</span>
+						<span class="circle {%if content.workday_sun%}on{%endif%}">일</span>
+					</div>
+					<div class="business_date mb_10">
+						<span class="business date">영업시간</span>
+						<span class="col_gray">[평일] {{content.worktime_start}} ~ {{content.worktime_finish}}</span>
+					</div>
+          <div class="business_date mb_10">
+            <span class="business date">영업시간</span>
+            <span class="col_gray">[주말] {{content.worktime_start_weekend}} ~ {{content.worktime_finish_weekend}}</span>
+          </div>
+          {% if content.phone %}
+					<div class="business_tel mb_10">
+						<span class="business tel">연락처</span>
+						<span class="col_gray">{{content.phone}}</span>
+					</div>
+          {% endif %}
+          {% if content.address %}
+					<div class="business_addr mb_10">
+						<span class="business addr">주소</span>
+						<span class="col_gray local">{{content.address}}</span>
+					</div>
+          {% endif %}
+				</div>
+			</div>
+
+			<div class="view_content_in">
+				<div class="title_in">설명글</div>
+				<div class="explan_contents col_gray">
+					<br/>{{ content.content|safe }}
+				</div>
+				<div class="wishlist_btn col_gray">
+					<a href="javascript:;" class="scrap_btn" id="scrap_btn">
+						<!-- <span class="icon_heart active">&#9825;</span> -->
+						<span class="icon_heart active">&#9829;</span>
+						마이페이지에 담기
+					</a>
+				</div>
+			</div>
+
+      <!-- 구글지도 표시 -->
+			<div class="view_content_in">
+				<!-- <div class="title_in">위치지도</div> -->
+    			{% if content.g_map1 != 'NONE' %}
+    				{% include 'partials/gmap_show.html' %}
+    			{% endif %}
+				<!-- <div class="map_contents col_gray" id="google_map">
+				</div> -->
+			</div>
+
+			<div class="view_content_in">
+				<div class="title_in" id="reviews">리뷰</div>
+				<div class="review_contents col_gray">
+					<div class="point_wrap col_gray">
+						<div class="score">
+							<span class="star">
+								<a href="javascript:;">★</a>
+							</span>
+							<span class="txt">
+								<b>{{content.star_total}}</b>&emsp;|&emsp;<b>{{content.star_participate|intcomma}}</b>&nbsp;후기
+							</span>
+						</div>
+						<div class="progress_box">
+							 <div class="progress" >
+								<span class="progresstxt">신속한응답</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_response}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">직원친절도</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_kindness}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">가격가성비</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_price}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">상품퀄리티</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_quality}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">청결도</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_clean}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">접근성</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_location}}</span>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">서비스</span>
+								<div class="progressbar" id="progressbar"></div>
+								<span class="point">{{content.star_service}}</span>
+							 </div>
+						</div>
+					</div>
+
+					<div class="write_review col_gray">
+						<div class="title_in">리뷰쓰기</div>
+						<div class="progress_box star_box">
+              <div class="progress" >
+                <span class="progresstxt">종합평점</span>
+                <div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_total" value="3.0">
+                </div>
+               </div>
+							<div class="progress" >
+								<span class="progresstxt">신속한응답</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_response" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">직원친절도</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_kindness" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">가격가성비</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_price" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">상품퀄리티</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_quality" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">청결도</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_clean" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">접근성</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_location" value="3.0">
+								</div>
+							 </div>
+							 <div class="progress" >
+								<span class="progresstxt">서비스</span>
+								<div class="starRev">
+                  <span class="starR1 on">0.5</span>
+                  <span class="starR2 on">1.0</span>
+                  <span class="starR1 on">1.5</span>
+                  <span class="starR2 on">2.0</span>
+                  <span class="starR1 on">2.5</span>
+                  <span class="starR2 on">3.0</span>
+                  <span class="starR1">3.5</span>
+                  <span class="starR2">4.0</span>
+                  <span class="starR1">4.5</span>
+                  <span class="starR2">5.0</span>
+                  <input type="hidden" name="star_service" value="3.0">
+								</div>
+							 </div>
+						</div>
+						<div class="coment_box" >
+							<textarea class="comment_content" name="comment_content"></textarea>
+              <input type="hidden" name="content_id" value="{{content.id}}">
+              <div class="board_submit">
+    						<input type="submit" name="preview" class="board_submit_btn" style="background:#aaa;" value="수정하기" onClick="location.href='{% url 'promotions:edit' content.id %}'">
+    						<input type="submit" class="board_submit_btn" value="작성완료" onClick="location.href='{% url 'promotions:confirm' content.id %}'">
+    					</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+    <!-- 우측 -->
+		<div class="sub2 sec_right move_menu">
+			<div class="pay_sec">
+				<div class="pay_up">
+					<div>
+						<img src="{% static 'images/promotion/ico_pay.jpg' %}">
+						<span class="left">{{content.p_price_min|intcomma}}</span>
+						<span class="right"> ~ {{content.p_price_max|intcomma}}</span>
+					</div>
+					<div class="reserv_won">
+						{% if content.w_price_min %}<span class="left_dw">예약금 {{content.w_price_min|intcomma}}원</span>{% endif %}
+						{% if content.w_price_max %}<span class="right_dw">예약금 {{content.w_price_max|intcomma}}원 </span>{% endif %}
+					</div>
+				</div>
+				<div class="pay_dwn">
+					<span class="star">
+						<a href="javascript:;">★</a>
+					</span>
+					<span class="txt">
+						<b>{{content.star_total}}</b><small>&nbsp;({{content.star_participate|intcomma}})</small>
+					</span>
+					<div class="score_btn">
+						<a href="javascript:;">평점주기</a>
+					</div>
+				</div>
+			</div>
+			<div class="view_content_in">
+				<div class="user">
+          <img src="{{content.user.level_icon}}" >
+					<span class="user_id strong">{{content.user.username}}</span>
+				</div>
+				<div class="business_contents">
+          <div class="business_tel mb_10 right" id="businessKakaoId">
+            <span class="business tel">카톡ID</span>
+            <span class="col_gray">{{content.kakao_id}}</span>
+			      <span class="copy_text" onclick="textCopy('{{content.kakao_id}}')">
+              <img src="{% static 'images/promotion/copy-file.png' %}"><span style="font-size:0.7em;color:#aaa;">복사하기</span>
+            </span>
+          </div>
+					<div class="business_day right">
+						<span class="business day">영업일</span>
+            <span class="circle {%if content.workday_mon%}on{%endif%}">월</span>
+            <span class="circle {%if content.workday_tue%}on{%endif%}">화</span>
+            <span class="circle {%if content.workday_wed%}on{%endif%}">수</span>
+            <span class="circle {%if content.workday_thur%}on{%endif%}">목</span>
+            <span class="circle {%if content.workday_fri%}on{%endif%}">금</span>
+            <span class="circle {%if content.workday_sat%}on{%endif%}">토</span>
+            <span class="circle {%if content.workday_sun%}on{%endif%}">일</span>
+					</div>
+					<div class="business_date mb_10 right">
+						<span class="business date">영업시간</span>
+						<span class="col_gray">[평일] {{content.worktime_start}} ~ {{content.worktime_finish}}</span>
+					</div>
+          <div class="business_date mb_10 right">
+            <span class="business date">영업시간</span>
+						<span class="col_gray">[주말] {{content.worktime_start_weekend}} ~ {{content.worktime_finish_weekend}}</span>
+					</div>
+          {% if content.phone %}
+					<div class="business_tel mb_10 right">
+						<span class="business tel">연락처</span>
+						<span class="col_gray">{{content.phone}}</span>
+					</div>
+          {% endif %}
+          {% if content.address %}
+					<div class="business_addr mb_10 right">
+						<span class="business addr">주소</span>
+						<span class="col_gray">{{content.address}}</span>
+					</div>
+          {% endif %}
+
+					<div class="reserve_btn">
+						<a href="#{{content.brand_name}}" name="{{content.id}}">둘러보기</a>
+					</div>
+					<span class="reserve_txt fl_le">
+						위고세부 할인을 받으시려면<br>업체에 위고아이디를 알려주세요!
+					</span>
+					<span class="reserve_txt dc_img">
+						<img src="{% static 'images/promotion/ico_dc.png' %}">
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="sec_right mob_bar">
+			<div class="pay_sec">
+				<div class="pay_up">
+					<div class="pay_won">
+						<img src="{% static 'images/promotion/ico_pay.jpg' %}">
+						<span class="left">{{content.p_price_min|intcomma}}</span>
+						<span class="right"> ~ {{content.p_price_max|intcomma}}</span>
+						<div class="reserv_won mob_bar">
+							{% if content.w_price_min %}<span class="left_dw">예약금 {{content.w_price_min|intcomma}}원</span>{% endif %}
+							{% if content.w_price_max %}<span class="right_dw">예약금 {{content.w_price_max|intcomma}}원 </span>{% endif %}
+						</div>
+					</div>
+					<div class="reserve_btn">
+						<a href="#{{content.brand_name}}" name="{{content.id}}">둘러보기</a>
+					</div>
+				</div>
+				<div class="pay_dwn mob_bar">
+					<span class="star">
+						<a href="javascript:;">★</a>
+					</span>
+					<span class="txt">
+						<b>{{content.star_total}}</b><small>&nbsp;({{content.star_participate|intcomma}})</small>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- 예약하기 클릭수 check -->
+  <script type="text/javascript">
+  /*kakaoId copy*/
+  function textCopy(copy){
+    var agent = navigator.userAgent.toLowerCase();
+
+    if (agent.indexOf("trident") > -1 || agent.indexOf("'edge/") != -1) {
+      window.clipboardData.setData('Text', copy);
+      console.log('IE 복사완료');
+      alert('클립보드에 복사되었습니다.');
+    }else{
+      var dom = document.getElementById('businessKakaoId');
+      var temp = document.createElement('textarea');
+      //temp.classList.add('position_off'); //hide
+
+      temp.value = copy;
+
+      dom.appendChild(temp); //생성된 input 삽입
+      temp.select(); //value select
+      document.execCommand("copy"); //copy
+      dom.removeChild(temp); //생성했던 input 삭제
+
+      console.log('복사완료');
+      alert('클립보드에 복사되었습니다.');
+
+    }
+
+  }
+  </script>
+	<!-- container -->
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 마이페이지 유저정보 연락처{% endblock %}
+
+{% block content %}
+<div class="container center_970">
+    {% include "mypages/_header.html" %}
+	<script>
+		$(function(){ 
+			$(document).ready(function(){
+				$('.mypage_nav ul li:nth-child(1)').addClass('selected'); 
+				$('.m_mypage_nav').hide();
+				$('.m_mypage_nav').eq(0).show(); 
+			});
+		});
+	</script>
+	<div class="mypage_left">
+		<div class="sec sec1">
+			<h2 class="tit">소개</h2>
+			<ul class="sec_wrap">
+				<li class="level"><i class="far fa-address-card"></i><img src="{% static 'images/sub/level_mark.jpg' %}" alt=""><a href="" class="point_color">1레벨(씨앗)</li></a>
+				<li class="point"><i class="fas fa-coins"></i><a href="" class="point_color">568</a> point</li>
+				<li class="history"><i class="far fa-user-circle"></i><a href="" class="point_color">2019. 04. 04</a> 세부 스쿨 가입</li>
+			</ul>
+		</div><!-- sec1 -->
+		<div class="sec sec2">
+			<h2 class="tit">정보</h2>
+			<ul class="sec_wrap">
+				<li><a href="{% url 'mypages:userinfo' 'index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'profile' %}"><i class="fas fa-user"></i>프로필</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'rank' %}"><i class="fas fa-tachometer-alt"></i>등급</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'phone' %}"><i class="fas fa-id-badge"></i>연락처</a></li>
+			</ul>
+		</div><!-- sec2 -->
+		<a href="message4.html" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false" class="btn_style">쪽지 보내기</a>
+		<div class="rank_box">
+			<img src="{% static 'images/sub/rank.png' %}" alt="">
+			<strong class="rank_tit">세부스쿨 랭킹</strong>
+			<p class="rank_result"><span class="rank_num">26,415</span>위<span class="rank_update">930▲</span></p>
+			<p><span class="user_name">아이디</span>님은 세부스쿨 상위 <span class="rank_point"> 36.7%</span> 입니다.</p>
+		</div>
+	</div>
+	<div class="mypage_right">
+		<div class="sec sec3" id="menu_phone">
+			<h2 class="tit">정보 및 연락처</h2>
+			<a href="{% url 'mypages:userinfo' 'edit' %}" class="crystal_btn"><i class="fas fa-pencil-alt"></i> 수정</a>
+			<div class="mypage_intro_add">
+				 <ul>
+				 	<li>
+					 	<dl>
+				 			<dt><i class="fas fa-user"></i> 비밀번호</dt>
+				 			<dd class="add_ready"><a href="{% url 'mypages:userinfo' 'pwd' %}">+ 비밀번호변경</a></dd>
+				 		</dl>
+				 		<dl>
+				 			<dt><i class="fas fa-mobile-alt"></i> 휴대폰</dt>
+				 			<dd class="add_ready"><a href="{% url 'mypages:userinfo' 'edit' %}">+ 휴대폰 추가</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개 항목입니다.</span></dd>
+				 		</dl>
+				 	</li>
+					<li>
+				 		<dl>
+				 			<dt><i class="fas fa-envelope"></i> 이메일</dt>
+				 			<dd><a href="{% url 'mypages:userinfo' 'edit' %}">test@nate.com</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개 항목입니다.</span></dd>
+				 		</dl>
+				 	</li>
+					<li>
+				 		<dl>
+				 			<dt><i class="fas fa-comments"></i> 카카오톡</dt>
+				 			<dd class="add_ready"><a href="{% url 'mypages:userinfo' 'edit' %}">+ 카카오톡 추가</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개 항목입니다.</span></dd>
+				 		</dl>
+				 	</li>
+				 </ul>
+			</div>
+		</div>
+        <!-- 팝업 -->
+        {% include "mypages/_userpop.html" %}
+	</div>
+</div><!-- container -->
+{% endblock %}

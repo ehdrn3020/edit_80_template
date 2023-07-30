@@ -1,0 +1,589 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}실시간 후기와 세부맛집, 세부호핑{% endblock %}
+{% block header %}
+	<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container center_970">
+	{% include "mypages/_header.html" %}
+	<script>
+	$(function(){
+		$(document).ready(function(){
+			$('.mypage_nav ul li:nth-child(2)').addClass('selected');
+			$('.m_mypage_nav').hide();
+			$('.m_mypage_nav').eq(1).show();
+		});
+	});
+	</script>
+	<div class="mypage_left">
+    <div class="sec sec1">
+			<h2 class="tit">정보</h2>
+			<ul class="sec_wrap">
+					<li><a href="{% url 'mypages:active' 'index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+					<li><a href="{% url 'mypages:active' 'board' %}"><i class="far fa-file-alt"></i>게시글</a></li>
+					<li><a href="{% url 'mypages:active' 'comment' %}"><i class="fas fa-comments"></i>댓글</a></li>
+					<li><a href="{% url 'mypages:active' 'scrap' %}"><i class="fas fa-id-badge"></i>스크랩</a></li>
+					<li><a href="{% url 'mypages:active' 'event' %}"><i class="fas fa-clipboard-list"></i>이벤트</a></li>
+			</ul>
+    </div><!-- sec1 -->
+		<!-- 좌측메뉴 -->
+    {% include "mypages/_left.html" %}
+  </div>
+	<div class="mypage_right">
+		{% if name == 'index' %}
+		<div class="sec sec1">
+			<h2 class="tit">활동레벨 <span class="level_font">{{user.level}}레벨</span></h2>
+			<input type="hidden" id="exprience" value="{{user.exprience}}">
+			<div class="sec_wrap">
+				<div id="progress_graph"></div>
+				<p>다음 레벨까지 <span class="levels">0</span>리터 남았습니다.</p>
+			</div>
+		</div>
+		<script>
+			var ex = $('#exprience').val();
+			$('.levels').text(500-ex);
+			var exbar = ((ex * 2) / 10).toFixed(2);
+			var bar = new ProgressBar.Line(progress_graph, {
+			  strokeWidth: 1,
+			  easing: 'easeInOut',
+			  duration: 1400,
+			  color: '#efa8a8',
+			  trailColor: '#f9f9f9',
+			  trailWidth: 1,
+			  svgStyle: {width: exbar+'%', height: '100%'},
+			  text: {
+				style: {
+				  // Text color.
+				  // Default: same as stroke color (options.color)
+				  color: '#999',
+				  position: 'absolute',
+				  right: '10px',
+				  top: '2px',
+				  padding: 0,
+				  margin: 0,
+				  color:"#efa8a8",
+				  transform: null
+				},
+				autoStyleContainer: false
+			  },
+			  from: {color: '#efa8a8'},
+			  to: {color: '#efa8a8'},
+			  step: function(state, bar){
+					bar.setText(Math.round(bar.value() * ex) + '/ 500');
+			  }
+			});
+			bar.animate(1.0);  // Number from 0.0 to 1.0
+		</script>
+		<!-- 활동내역 -->
+		<div class="sec sec2">
+			<h2 class="tit">활동내역</h2>
+			 <ul class="sec_wrap">
+			 	<li><i class="fas fa-map-marker-alt"></i>마지막으로 <a class="point_color">{{user.last_login}}</a>에 방문했습니다.</li>
+			 	<li><i class="far fa-sticky-note"></i><a href="{% url 'mypages:active' 'board' %}" class="point_color">{{board_len}}</a>개의 게시글이 작성했습니다.</li>
+			 	<li><i class="far fa-comment-dots"></i><a href="{% url 'mypages:active' 'comment' %}" class="point_color">{{comment_len}}</a>개의 댓글을 남겼습니다.</li>
+			 	<li><i class="fas fa-user-check"></i><a href="{% url 'mypages:active' 'scrap' %}" class="point_color">{{scrap_len}}</a>개의 스크랩을 저장하셨습니다.</li>
+				<!-- <li><i class="fas fa-user-check"></i><a href="#" class="point_color">{{scarp_len}}</a>개의 좋아요를 누르셨습니다.</li> -->
+				<!-- <li><i class="fas fa-user-check"></i><a href="#" class="point_color">{{scarp_len}}</a>개의 평점평가를 누르셨습니다.</li> -->
+			 	<li><i class="far fa-user-circle"></i><a href="#" class="point_color">{{user.date_joined}}</a>에 위고세부와 함께하기 시작했습니다.</li>
+			 </ul>
+		</div>
+		<!-- 게시글 -->
+		<div class="sec sec3">
+			<h2 class="tit">게시글</h2>
+			<a href="{% url 'mypages:active' 'board' %}" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for board in boards|slice:":8" %}
+					<dl>
+						{% if '후기' in board.show_ad__title %}
+						<a href="{% url 'afters:show' board.id %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '질답' in board.show_ad__title %}
+						<a href="{% url 'asks:show' board.id %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '정보공유' in board.show_ad__title %}
+						<a href="{% url 'infos:show' board.id %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '커뮤니티' in board.show_ad__title %}
+						<a href="{% url 'communitys:show' board.id %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '여행코스' in board.show_ad__title %}
+						<a href="{% url 'courses:show' board.id %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '실시간세부' in board.show_ad__title %}
+						<a href="{% url 'gallerys:show' board.id %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{board.tag}}</dd>
+						</a>
+						{% elif '여행사홍보' in board.show_ad__title %}
+						<a href="{% url 'promotions:show' board.id %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '공지사항' in board.board_kind %}
+						<a href="{% url 'centers:show' 'notice' board.id %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '고객센터' in board.board_kind %}
+						<a href="{% url 'centers:show' 'customerCenter' board.id %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% endif %}
+						{% if board.comments %}
+						<dd class="score"><i class="far fa-comment-dots"> {{board.comments}}</i></dd>
+						{% endif %}
+						<!-- <dd class="tdate">{{board.upload_date|date:"m/d"}}</dd> -->
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<!-- 댓글 -->
+		<div class="sec sec4">
+			<h2 class="tit">댓글</h2>
+			<a href="{% url 'mypages:active' 'comment' %}" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for comment in comments|slice:":4" %}
+					<dl>
+						{% if '후기' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'afters:show' comment.comment_table__id comment.id  %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '질답' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'asks:show' comment.comment_table__id comment.id %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '정보공유' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'infos:show' comment.comment_table__id comment.id %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '커뮤니티' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'communitys:show' comment.comment_table__id comment.id %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '여행코스' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'courses:show' comment.comment_table__id comment.id %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '실시간세부' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'gallerys:show' comment.comment_table__id comment.id %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '여행사홍보' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'promotions:show' comment.comment_table__id comment.id %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '공지사항' in comment.comment_table__board_kind %}
+						<a href="{% url 'centers:show' 'notice' comment.comment_table__id comment.id %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '고객센터' in comment.comment_table__board_kind %}
+						<a href="{% url 'centers:show' 'customerCenter' comment.comment_table__id comment.id %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% endif %}
+						{% if comment.likes %}
+						<dd class="score"><i class="fas fa-heart"> {{comment.likes}}</i></dd>
+						{% endif %}
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<!-- 스크랩 -->
+		<div class="sec sec5">
+			<h2 class="tit">스크랩</h2>
+			<a href="{% url 'mypages:active' 'scrap' %}" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for scrap in scraps|slice:":4" %}
+					<dl>
+						{% if '여행후기' in scrap.tag %}
+						<a href="{% url 'afters:show' scrap.object_id  %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '질문답변' in scrap.tag %}
+						<a href="{% url 'asks:show' scrap.object_id  %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '정보공유' in scrap.tag %}
+						<a href="{% url 'infos:show' scrap.object_id  %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '커뮤니티' in scrap.tag %}
+						<a href="{% url 'communitys:show' scrap.object_id  %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '여행코스' in scrap.tag %}
+						<a href="{% url 'courses:show' scrap.object_id  %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '실시간세부' in scrap.tag %}
+						<a href="{% url 'gallerys:show' scrap.object_id  %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{scrap.content_object.tag}}</dd>
+						</a>
+						{% elif '여행사홍보' in scrap.tag %}
+						<a href="{% url 'promotions:show' scrap.object_id  %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '공지사항' in scrap.tag %}
+						<a href="{% url 'centers:show' 'notice' scrap.object_id  %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '고객센터' in scrap.tag %}
+						<a href="{% url 'centers:show' 'customerCenter' scrap.object_id  %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% endif %}
+						{% if scrap.content_object.comments %}
+						<dd class="score"><i class="far fa-comment-dots"> {{scrap.content_object.comments}}</i></dd>
+						{% endif %}
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+		{% comment %}
+		{% if name == 'index' or name == 'event' %}
+		<!-- 이벤트 -->
+		<div class="sec sec6">
+			<h2 class="tit">이벤트</h2>
+			<div class="sec_wrap">
+				<div class="num_list">
+					<dl>
+						<dt class="group">01</dt>
+						<dd class="tit">이벤트이벤트 이벤트이벤트 내용1입니다.</dd>
+					</dl>
+					<dl>
+						<dt class="group">02</dt>
+						<dd class="tit">이벤트이벤트이벤트이벤이벤트이벤이벤트이벤이벤트이벤 이벤트이벤트 내용2입니다.</dd>
+					</dl>
+					<dl>
+						<dt class="group">03</dt>
+						<dd class="tit">이벤트이벤트 이벤트이벤트 내용3입니다.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endcomment %}
+
+		{% if name == 'board' %}
+		<div class="sec sec3">
+			<h2 class="tit">게시글</h2>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for board in boards_page %}
+					<dl>
+						{% if '후기' in board.show_ad__title %}
+						<a href="{% url 'afters:show' board.id %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '질답' in board.show_ad__title %}
+						<a href="{% url 'asks:show' board.id %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '정보공유' in board.show_ad__title %}
+						<a href="{% url 'infos:show' board.id %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '커뮤니티' in board.show_ad__title %}
+						<a href="{% url 'communitys:show' board.id %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '여행코스' in board.show_ad__title %}
+						<a href="{% url 'courses:show' board.id %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '실시간세부' in board.show_ad__title %}
+						<a href="{% url 'gallerys:show' board.id %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{board.tag}}</dd>
+						</a>
+						{% elif '여행사홍보' in board.show_ad__title %}
+						<a href="{% url 'promotions:show' board.id %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '공지사항' in board.board_kind %}
+						<a href="{% url 'centers:show' 'notice' board.id %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% elif '고객센터' in board.board_kind %}
+						<a href="{% url 'centers:show' 'customerCenter' board.id %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{board.title}}</dd>
+						</a>
+						{% endif %}
+						{% if board.comments > 0 %}
+						<dd class="score"><i class="far fa-comment-dots"> {{board.comments}}</i></dd>
+						{% endif %}
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- 페이지네이션 -->
+			<div class="pager ten">
+				{% if boards_page.has_other_pages %}
+				<span class="pager_wrap">
+					{% if boards_page.has_previous %}
+						<a href="?page={{boards_page.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in boards_page_range %}
+						{% if boards_page.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if boards_page.has_next %}
+						<a href="?page={{boards_page.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+
+		{% if name == 'comment' %}
+		<div class="sec sec3">
+			<h2 class="tit">댓글</h2>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for comment in comments_page %}
+					<dl>
+						{% if '후기' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'afters:show' comment.comment_table__id comment.id  %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '질답' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'asks:show' comment.comment_table__id comment.id %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '정보공유' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'infos:show' comment.comment_table__id comment.id %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '커뮤니티' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'communitys:show' comment.comment_table__id comment.id %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '여행코스' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'courses:show' comment.comment_table__id comment.id %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '실시간세부' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'gallerys:show' comment.comment_table__id comment.id %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '여행사홍보' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'promotions:show' comment.comment_table__id comment.id %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '공지사항' in comment.comment_table__show_ad__title %}
+						<a href="{% url 'promotions:show' comment.comment_table__id comment.id %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '공지사항' in comment.comment_table__board_kind %}
+						<a href="{% url 'centers:show' 'notice' comment.comment_table__id comment.id %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						</a>
+						{% elif '고객센터' in comment.comment_table__board_kind %}
+						<a href="{% url 'centers:show' 'customerCenter' comment.comment_table__id comment.id %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{comment.content}}</dd>
+						{% endif %}
+						{% if comment.likes %}
+						<dd class="score"><i class="fas fa-heart"> {{comment.likes}}</i></dd>
+						{% endif %}
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- 페이지네이션 -->
+			<div class="pager ten">
+				{% if comments_page.has_other_pages %}
+				<span class="pager_wrap">
+					{% if comments_page.has_previous %}
+						<a href="?page={{comments_page.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in comments_page_range %}
+						{% if comments_page.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if comments_page.has_next %}
+						<a href="?page={{comments_page.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+
+		{% if name == 'scrap' %}
+		<div class="sec sec3">
+			<h2 class="tit">스크랩</h2>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					{% for scrap in scraps_page %}
+					<dl>
+						{% if '여행후기' in scrap.tag %}
+						<a href="{% url 'afters:show' scrap.object_id  %}">
+							<dt class="group">여행후기</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '질문답변' in scrap.tag %}
+						<a href="{% url 'asks:show' scrap.object_id  %}">
+							<dt class="group">질문답변</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '정보공유' in scrap.tag %}
+						<a href="{% url 'infos:show' scrap.object_id  %}">
+							<dt class="group">정보공유</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '커뮤니티' in scrap.tag %}
+						<a href="{% url 'communitys:show' scrap.object_id  %}">
+							<dt class="group">커뮤니티</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '여행코스' in scrap.tag %}
+						<a href="{% url 'courses:show' scrap.object_id  %}">
+							<dt class="group">여행코스</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '실시간세부' in scrap.tag %}
+						<a href="{% url 'gallerys:show' scrap.object_id  %}">
+							<dt class="group">실시간세부</dt>
+							<dd class="tit">{{scrap.content_object.tag}}</dd>
+						</a>
+						{% elif '여행사홍보' in scrap.tag %}
+						<a href="{% url 'promotions:show' scrap.object_id  %}">
+							<dt class="group">여행사홍보</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '공지사항' in scrap.tag %}
+						<a href="{% url 'centers:show' 'notice' scrap.object_id  %}">
+							<dt class="group">공지사항</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% elif '고객센터' in scrap.tag %}
+						<a href="{% url 'centers:show' 'customerCenter' scrap.object_id  %}">
+							<dt class="group">고객센터</dt>
+							<dd class="tit">{{scrap.content_object.title}}</dd>
+						</a>
+						{% endif %}
+						{% if scrap.content_object.comments %}
+						<dd class="score"><i class="far fa-comment-dots"> {{scrap.content_object.comments}}</i></dd>
+						{% endif %}
+					</dl>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- 페이지네이션 -->
+			<div class="pager ten">
+				{% if scraps_page.has_other_pages %}
+				<span class="pager_wrap">
+					{% if scraps_page.has_previous %}
+						<a href="?page={{scraps_page.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in scraps_page_range %}
+						{% if scraps_page.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if scraps_page.has_next %}
+						<a href="?page={{scraps_page.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div><!-- container -->
+{% endblock %}

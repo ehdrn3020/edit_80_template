@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 갤러리 {% endblock %}
+
+{% block content %}
+<div class="container white_bg">
+	<div class="container_wrap center_970">
+		<div class="gallery_top">
+			<div class="g_board_ctg">
+				<ul>
+					<li class="selected"><a href="#">전체</a></li>
+					<li><a href="#">숙소</a></li>
+					<li><a href="#">업체</a></li>
+					<li><a href="#">일정</a></li>
+					<li><a href="#">비용</a></li>
+					<li><a href="#">교통</a></li>
+					<li><a href="#">기타</a></li>
+				</ul>
+			</div><!-- g_board_ctg -->
+			<div class="gallery_banner">
+				<h2 class="tit">여행샷</h2>
+				<span class="line"></span>
+				<p>블라블라 블라 설명문<br>블라블라 설명문</p>
+			</div><!-- gallery_banner -->
+			<div class="main_banner">
+				<h2 class="sound_only">광고 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide"><img src="{% static 'images/main/s2.jpg' %}" alt="메인 배너1"></div>
+				  <div class="swiper-slide"><img src="{% static 'images/main/s1.jpg' %}" alt="메인 배너2"></div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div>
+		<div id="pop_gallery" class="gallery_ctg sec_ctg">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<h3><a href="#">인기게시물</a></h3>
+			</div><!-- breadcrumb -->
+			<div class="article_btn">
+				<a href="{% url 'gallerys:create' %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+			</div><!-- article_btn -->
+			<ul class="gallery_sec">
+				<li>
+					<a href="{% url 'gallerys:show' %}">
+						 <img src="{% static 'images/sub/gallery_01.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-video"></i></span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">상세보시요</strong>
+							<p>여기로 확인하시오</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_02.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-clone"></i></span> <!-- 이미지 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀 제목 타이틀 제목 타이틀 제목 타이틀 제목 타이틀 제목 타이틀</strong>
+							<p>설명문 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면설명문 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_03.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon" style="display:none;"><i class="fas fa-video"></i></span> 
+						 <!-- 이미지1개일때 display:none; -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						 <img src="{% static 'images/sub/gallery_01.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-video"></i></span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_02.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-clone"></i></span> <!-- 이미지 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_03.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon" style="display:none;"><i class="fas fa-video"></i></span> 
+						 <!-- 이미지1개일때 display:none; -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div><!-- sec_ctg -->
+		<div id="rec_gallery" class="gallery_ctg sec_ctg">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<h3><a href="#">최근게시물</a></h3>
+			</div><!-- breadcrumb -->
+			<ul class="gallery_sec">
+				<li>
+					<a href="#">
+						 <img src="{% static 'images/sub/gallery_01.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-video"></i></span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라 블라블라 블라블라 블라블라</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_02.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-clone"></i></span> <!-- 이미지 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_03.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon" style="display:none;"><i class="fas fa-video"></i></span> 
+						 <!-- 이미지1개일때 display:none; -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						 <img src="{% static 'images/sub/gallery_01.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-video"></i></span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라 블라블라 블라블라 블라블라</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_02.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon"><i class="fas fa-clone"></i></span> <!-- 이미지 일때 -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="{% static 'images/sub/gallery_03.jpg' %}" alt="게시물이미지">
+						 <span class="gall_type_icon" style="display:none;"><i class="fas fa-video"></i></span> 
+						 <!-- 이미지1개일때 display:none; -->
+						 <div class="gall_sub_box">
+							<strong class="tit">제목 타이틀</strong>
+							<p>설명문 블라블라 설명문 블라블라 설명문 블라블라</p>
+						 </div>
+						  <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> 1백만</span>
+							<span><i class="fas fa-comment-dots"></i> 11.8천</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div><!-- sec_ctg -->
+	</div><!-- container_wrap -->
+	<script>
+	//갤러리 오버시 효과
+	$(document).ready(function(){
+		$(".gallery_sec li a").hover(function(){
+			$(this).find(".gallery_over").show();
+		},function(){
+			$(this).find(".gallery_over").hide();
+		});
+	});
+	</script>
+</div><!-- container -->
+{% endblock %}

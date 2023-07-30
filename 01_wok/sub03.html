@@ -1,0 +1,94 @@
+ <!DOCTYPE html>
+<html lang="ko" class="asideOpen">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>웍[WOK] 소개 - 맛집,여행지추천</title>
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/slick_row.js"></script>
+    <script src="js/jquery.YJ.datepicker.js"></script>
+    <script src="js/TweenMax.js"></script>
+	<script src="js/jquery.superscrollorama.js"></script>
+    <script src="js/common.js"></script>
+</head>
+
+<body>
+    <div class="warapper">
+      <?php include 'layout/header.html';?>
+      <?php include 'layout/quick_side.html';?>
+        <div class="container">
+			<div class="sub_visual sub_visual--info">
+                <div class="title">WOK 실내사진</div>
+            </div>
+			<div class="info">
+				<div class="c-aligner">
+					<div class="info_list">
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-1.png" alt="" />
+							</div>
+						</div>
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-2.png" alt="" />
+							</div>
+						</div>
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-3.png" alt="" />
+							</div>
+						</div>
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-4.png" alt="" />
+							</div>
+						</div>
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-5.png" alt="" />
+							</div>
+						</div>
+						<div class="info_item">
+							<div class="info_link">
+								<img src="img/pages/i-image-6.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+		<script type="text/javascript">
+			$('.info_list').slick({
+			  infinite: false,
+			  slidesPerRow: 3,
+			  rows: 2,
+			  responsive: [
+			  {
+				breakpoint: 1100,
+				settings: {
+				  slidesPerRow: 2,
+				  rows: 2,
+				}
+			  },
+			  {
+				breakpoint: 768,
+				settings: {
+				  slidesPerRow: 1,
+				  rows: 1,
+				  // dots: true,
+				  // infinite: true
+				}
+			  }
+			]
+		  });
+		</script>
+    <?php include 'layout/footer.html';?>
+    <?php include 'layout/quick_mobile.html';?>
+    </div>
+</body>
+
+</html>

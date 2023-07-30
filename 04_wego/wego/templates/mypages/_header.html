@@ -1,0 +1,69 @@
+{% load static %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<style>
+@media all and (max-width:360px){
+	.mypage_intro_add ul li dl dt i{
+    	display:none
+	}
+}
+
+</style>
+{% endblock %}
+<div class="mypage_top">
+	<div class="my_thum_img">
+		<img src="{{user.profile_image}}" alt="" width=135 height=135>
+		<span><a href="">프로필 사진<br>업데이트</a></span>
+	</div>
+	<div class="mypage_top_bg"><h2>{{user.username}}님</h2></div>
+	<!-- 모바일 마이페이지 정보 -->
+	<div class="m_mypage_top">
+		<h2>{{user.username}}님</h2>
+		<div class="btn">
+			<!-- <a href="#" class="selected">팔로우</a> -->
+			<a href="#" class="selected">쪽지</a>
+			<a href="#">캐쉬</a>
+		</div>
+		<a href="" class="cog"><i class="fas fa-cog"></i></a>
+	</div>
+	<div class="mypage_top_wrap">
+		<div class="mypage_nav">
+			<ul>
+				<li><a href="{% url 'mypages:userinfo' 'index' %}"> 회원정보</a>
+					<ul class="mypage_sub_nav">
+						<li><a href="{% url 'mypages:userinfo' 'index' %}">전체</a></li>
+						<li><a href="{% url 'mypages:userinfo' 'profile' %}">프로필</a></li>
+						<!-- <li><a href="{% url 'mypages:userinfo' 'rank' %}">등급</a></li> -->
+						<li><a href="{% url 'mypages:userinfo' 'phone' %}">연락처</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'mypages:active' 'index' %}"> 활동</a>
+					<ul class="mypage_sub_nav">
+						<li><a href="{% url 'mypages:active' 'index' %}">전체</a></li>
+						<li><a href="{% url 'mypages:active' 'board' %}">게시글</a></li>
+						<li><a href="{% url 'mypages:active' 'comment' %}">댓글</a></li>
+						<li><a href="{% url 'mypages:active' 'scrap' %}">스크랩</a></li>
+						<li><a href="{% url 'mypages:active' 'event' %}">이벤트</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="m_mypage_nav">
+				<a href="{% url 'mypages:userinfo' 'index' %}" class="selected">전체</a>
+				<a href="{% url 'mypages:userinfo' 'profile' %}">프로필</a>
+				<!-- <a href="{% url 'mypages:userinfo' 'rank' %}">등급</a> -->
+				<a href="{% url 'mypages:userinfo' 'phone' %}">연락처</a>
+			</div>
+			<div class="m_mypage_nav">
+				<a href="{% url 'mypages:active' 'index' %}" class="selected">전체</a>
+				<a href="{% url 'mypages:active' 'board' %}">게시글</a>
+				<a href="{% url 'mypages:active' 'comment' %}">댓글</a>
+				<a href="{% url 'mypages:active' 'scrap' %}">스크랩</a>
+				<a href="{% url 'mypages:active' 'event' %}">이벤트</a>
+			</div>
+		</div>
+		<!-- <a href="#" class="btn_style">팔로우</a> -->
+	</div>
+</div><!-- mypage_top -->

@@ -1,0 +1,35 @@
+.gmap {
+	height: 700px;
+	width: 100%;
+ }
+
+@media screen and (max-width: 1100px){
+	.gmap {
+		height: 650px;
+		width: 100%;
+	 }
+}
+@media screen and (max-width: 920px){
+	.gmap {
+		height: 500px;
+		width: 100%;
+	 }
+}
+@media screen and (max-width: 768px){
+	.gmap {
+		height: 550px;
+		width: 100%;
+	 }
+}
+@media screen and (max-width: 460px){
+	.gmap {
+		height: 500px;
+		width: 100%;
+	 }
+}
+@media screen and (max-width: 420px){
+	.gmap {
+		height: 480px;
+		width: 100%;
+	 }
+}

@@ -1,0 +1,411 @@
+.new_msg_alram {
+    margin-top: 5px;
+    margin-left: 10px;
+    position: absolute;			
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    background: #ff4949;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.join_nickname_frm{
+    background: #f7f7f7 url(../images/login/new_join_11.png) 5% no-repeat !important;
+    text-indent: 125px;
+}
+
+.login_btn input[type="submit"] {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 1px 5px;
+    background: #fff;
+    cursor: pointer;
+}
+
+span.comments{
+    color: #d71f1f;
+    font-size: 1.07em;
+    letter-spacing:-1px;
+}
+
+/* .main_bg > .panttegi {
+    overflow: hidden;
+    position: absolute;
+    padding-top: 322px;
+    padding-left: 71px;
+    vertical-align: middle;
+}
+.main_bg >.indicator {
+    overflow: hidden;
+    position: absolute;
+    padding-top: 301px;
+    left: 48.5%;
+}
+.btn_start {
+    border: 0 none;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 65%;
+    left: 43%;
+    width: 188px;
+    height: 67px;
+    background: url(../images/dg/roulette_04.png) no-repeat 0 0;
+    text-indent: -9999em;
+}
+.about_start {
+    margin: 10px auto;
+    text-align: center;
+}
+@media (max-width: 1120px){
+    .btn_start {
+        margin-top: 123%;
+        left: 38%;
+    }
+}
+@media (max-width: 750px){
+    .panel {
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+    }
+    .panttegi {
+        padding-top: 44%;
+        left: -5%;
+        width: 95%;
+    }
+    .indicator {
+    padding-top: 42%;
+        left: 46%;
+        width: 7%;
+    }
+    .btn_start {
+        top: 105%;
+        left: 42%;
+    }
+}
+@media (max-width: 480px){
+    .panttegi {
+        left: -10%;
+        width: 100%;
+    }
+    .indicator {
+        left: 46.5%;
+        width: 6%;
+    }
+}
+@media (max-width: 400px){
+    .panttegi {
+        left: -12%;
+        width: 105%;
+    }
+} */
+.roulette {
+    background: #fff;
+    text-align: center;
+}
+.roulette > .panel {
+    overflow: hidden;
+    position: relative;
+    width: 714px;
+    height: 1139px;
+    /* background: url(../images/dg/roulette_03.png) no-repeat 0 0; */
+    margin: 0 auto;
+}
+.roulette > .panel > .panttegi {
+    overflow: hidden;
+    position: absolute;
+    top: 322px;
+    left: 71px;
+    width: 566px;
+    height: 566px;
+}
+.roulette > .panel > .indicator {
+    position: absolute;
+    top: 301px;
+    left: 331px;
+    width: 49px;
+    height: 65px;
+}
+.roulette > .panel > .btn_start {
+    overflow: hidden;
+    position: absolute;
+    top: 916px;
+    left: 265px;
+    width: 188px;
+    height: 67px;
+    background: url(../images/dg/roulette_04.png) no-repeat 0 0;
+    text-indent: -9999em;
+    border: 0 none;
+}
+@media (max-width: 730px){
+    .roulette > .panel{
+        width: 100% !important;
+    }
+    .roulette > .panel > img{
+        width: 100%;
+    }
+    .roulette > .panel > .panttegi{
+        top:312px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .indicator {
+        top: 301px;
+        left: 331px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:90%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 890px;
+        left: 265px;
+    }
+} 
+@media (max-width: 700px){
+    .roulette > .panel > .panttegi{
+        top:280px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .indicator {
+        top: 270px;
+        left: 311px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:90%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 850px;
+        left: 240px;
+    }
+}
+@media (max-width: 650px){
+    .roulette > .panel > .panttegi{
+        top:255px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 245px;
+        left: 290px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:90%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 790px;
+        left: 225px;
+        background-size: 90% 
+    }
+}
+@media (max-width: 625px){
+    .roulette > .panel > .btn_start {
+        top: 770px;
+        left: 225px;
+        background-size: 85% 
+    }
+}
+@media (max-width: 600px){
+    .roulette > .panel > .panttegi{
+        top:235px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 225px;
+        left: 270px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:85%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 730px;
+        left: 210px;
+        background-size: 85% 
+    }
+}
+@media (max-width: 575px){
+    .roulette > .panel > .btn_start {
+        top: 710px;
+        left: 200px;
+        background-size: 80% 
+    }
+}
+@media (max-width: 550px){
+    .roulette > .panel > .panttegi{
+        top:215px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 205px;
+        left: 250px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:80%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 660px;
+        left: 190px;
+        background-size: 75% 
+    }
+}
+@media (max-width: 510px){
+    .roulette > .panel > .panttegi{
+        top:195px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 185px;
+        left: 220px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:75%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 610px;
+        left: 180px;
+        background-size: 70% 
+    }
+}
+@media (max-width: 485px){
+    .roulette > .panel > .btn_start {
+        top: 590px;
+        left: 170px;
+        background-size: 70% 
+    }
+}
+@media (max-width: 465px){
+    .roulette > .panel > .panttegi{
+        top:180px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 170px;
+        left: 190px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:70%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 560px;
+        left: 165px;
+        background-size: 65% 
+    }
+}
+@media (max-width: 445px){
+    .roulette > .panel > .btn_start {
+        top: 530px;
+        left: 160px;
+        background-size: 60% 
+    }
+}
+@media (max-width: 420px){
+    .roulette > .panel > .panttegi{
+        top:160px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 155px;
+        left: 170px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:65%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 500px;
+        left: 150px;
+        background-size: 55% 
+    }
+}
+@media (max-width: 405px){
+    .roulette > .panel > .btn_start {
+        top: 490px;
+        left: 150px;
+        background-size: 50% 
+    }
+}
+@media (max-width: 390px){
+    .roulette > .panel > .panttegi{
+        top:155px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 150px;
+        left: 160px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:60%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 470px;
+        left: 145px;
+        background-size: 50% 
+    }
+}
+@media (max-width: 375px){
+    .roulette > .panel > .btn_start {
+        top: 450px;
+        left: 140px;
+        background-size: 45% 
+    }
+}
+@media (max-width: 360px){
+    .roulette > .panel > .panttegi{
+        top:140px;
+        width: 100% !important;
+        left:0.1px;
+    }
+    .roulette > .panel > .panttegi > img{
+        width: 85%;
+    }
+    .roulette > .panel > .indicator {
+        top: 135px;
+        left: 140px;
+    }
+    .roulette > .panel > .indicator > img{
+        width:55%;
+    }
+    .roulette > .panel > .btn_start {
+        top: 425px;
+        left: 135px;
+        background-size: 40% 
+    }
+}
+@media (max-width: 340px){
+    .roulette > .panel > .btn_start {
+        top: 410px;
+        left: 130px;
+        background-size: 37% 
+    }
+}

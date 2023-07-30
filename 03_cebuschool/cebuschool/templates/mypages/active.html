@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}마이페이지 활동{% endblock %}
+{% block header %}
+	<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container center_970">
+	{% include "mypages/_header.html" %}
+	<script>
+	$(function(){ 
+		$(document).ready(function(){
+			$('.mypage_nav ul li:nth-child(2)').addClass('selected'); 
+			$('.m_mypage_nav').hide();
+			$('.m_mypage_nav').eq(1).show(); 
+		});
+	});
+	</script>
+	<div class="mypage_left">
+        <div class="sec sec1">
+            <h2 class="tit">소개</h2>
+            <ul class="sec_wrap">
+                <li class="level"><i class="far fa-address-card"></i><img src="{% static 'images/sub/level_mark.jpg' %}" alt=""><a href="" class="point_color">1레벨(씨앗)</li></a>
+                <li class="point"><i class="fas fa-coins"></i><a href="" class="point_color">568</a> point</li>
+                <li class="history"><i class="far fa-user-circle"></i><a href="" class="point_color">2019. 04. 04</a> 세부 스쿨 가입</li>
+            </ul>
+        </div><!-- sec1 -->
+        <div class="sec sec2">
+            <h2 class="tit">정보</h2>
+            <ul class="sec_wrap">
+                <li><a href="{% url 'mypages:active' 'index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+                <li><a href="{% url 'mypages:active' 'board' %}"><i class="far fa-file-alt"></i>게시글</a></li>
+                <li><a href="{% url 'mypages:active' 'comment' %}"><i class="fas fa-comments"></i>댓글</a></li>
+                <li><a href="{% url 'mypages:active' 'scrap' %}"><i class="fas fa-id-badge"></i>스크랩</a></li>
+                <li><a href="{% url 'mypages:active' 'event' %}"><i class="fas fa-clipboard-list"></i>이벤트</a></li>
+            </ul>
+        </div><!-- sec2 -->
+        <a href="message4.html" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false" class="btn_style">쪽지 보내기</a>
+        <div class="rank_box">
+            <img src="{% static 'images/sub/rank.png' %}" alt="">
+            <strong class="rank_tit">세부스쿨 랭킹</strong>
+            <p class="rank_result"><span class="rank_num">26,415</span>위<span class="rank_update">930▲</span></p>
+            <p>아이디님은 세부스쿨 상위 <span class="rank_point"> 36.7%</span> 입니다.</p>
+        </div>
+    </div>
+	<div class="mypage_right">
+		<div class="sec sec1">
+			<h2 class="tit">활동레벨 <span class="level_font">1레벨</span></h2>
+			<div class="sec_wrap">
+				<div id="progress_graph"></div>
+				<p>다음 레벨업 까지 <span class="levels">315리터</span>가 남았습니다.</p>
+			</div>
+		</div>
+		<script>
+			// progressbar.js@1.0.0 version is used
+			// Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+			var bar = new ProgressBar.Line(progress_graph, {
+			  strokeWidth: 1,
+			  easing: 'easeInOut',
+			  duration: 1400,
+			  color: '#efa8a8',
+			  trailColor: '#f9f9f9',
+			  trailWidth: 1,
+			  svgStyle: {width: '40%', height: '100%'},
+			  text: {
+				style: {
+				  // Text color.
+				  // Default: same as stroke color (options.color)
+				  color: '#999',
+				  position: 'absolute',
+				  right: '10px',
+				  top: '2px',
+				  padding: 0,
+				  margin: 0,
+				  color:"#efa8a8",
+				  transform: null
+				},
+				autoStyleContainer: false
+			  },
+			  from: {color: '#efa8a8'},
+			  to: {color: '#efa8a8'},
+			  step: (state, bar) => {
+				bar.setText(Math.round(bar.value() * 184) + ' %' + '/ 500');
+			  }
+			});
+
+			bar.animate(1.0);  // Number from 0.0 to 1.0
+		</script>
+		<div class="sec sec2">
+			<h2 class="tit">활동내역</h2>
+			 <ul class="sec_wrap">
+			 	<li><i class="fas fa-map-marker-alt"></i>마지막으로 <a href="#" class="point_color">2019.04.26</a>에 방문했습니다.</li>
+			 	<li><i class="far fa-sticky-note"></i><a href="#" class="point_color">0</a>개의 게시글이 작성했습니다.</li>
+			 	<li><i class="far fa-comment-dots"></i><a href="#" class="point_color">0</a>개의 댓글을 남겼습니다.</li>
+			 	<li><i class="fas fa-user-check"></i><a href="#" class="point_color">0</a>일동안 출석체크를 했습니다.</li>
+			 	<li><i class="far fa-user-circle"></i><a href="#" class="point_color">2019.04.04</a> 세부스쿨과 함께하기 시작했습니다.</li>
+			 </ul>
+		</div>
+		<div class="sec sec3">
+			<h2 class="tit">게시글</h2>
+			<a href="mypage_board.html" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit"> 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="sec sec4">
+			<h2 class="tit">댓글</h2>
+			<a href="mypage_board.html" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="sec sec5">
+			<h2 class="tit">스크랩</h2>
+			<a href="mypage_board.html" class="more_btn">+더보기</a>
+			<div class="sec_wrap">
+				<div class="my_board_list">
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+					<dl>
+						<dt class="group">가입인사</dt>
+						<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+						<dd class="score">[ 4 ]</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="sec sec6">
+			<h2 class="tit">이벤트</h2>
+			<div class="sec_wrap">
+				<div class="num_list">
+					<dl>
+						<dt class="group">01</dt>
+						<dd class="tit">이벤트이벤트 이벤트이벤트 내용1입니다.</dd>
+					</dl>
+					<dl>
+						<dt class="group">02</dt>
+						<dd class="tit">이벤트이벤트이벤트이벤이벤트이벤이벤트이벤이벤트이벤 이벤트이벤트 내용2입니다.</dd>
+					</dl>
+					<dl>
+						<dt class="group">03</dt>
+						<dd class="tit">이벤트이벤트 이벤트이벤트 내용3입니다.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- container -->
+{% endblock %}

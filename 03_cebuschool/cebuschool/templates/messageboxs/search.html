@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>세부스쿨 쪽지함</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300&amp;subset=korean" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<style>
+		.msg_skin #msg_title {position: relative;padding: 20px;border-bottom: 1px solid #e1e1e1;background: #009fd9;color: #fff;font-size: 1.5em;text-align: center;}
+		.add_user{position: absolute;top:0;right: 0;padding: 20px;font-size: 1em;color: #fff;}
+		#msg_zip.msg_find_mb .find-member {position: relative;border-bottom: 1px solid #E0E0E0;background: #FAFAFA;height: 44px;}
+		#msg_zip.msg_find_mb .sch_box {position: relative;padding: 0 44px;}
+		#msg_zip.msg_find_mb .sch_box .btn_back {top:0;left: 0;width: 44px;height: 44px;line-height: 44px;text-align: center;}
+		#msg_zip.msg_find_mb .sch_box input.search_val {height: 35px;border: 1px solid #E0E0E0;border-radius: 4px;font-size: 14px;width: 100%;padding: 0 62px 0 12px;-webkit-appearance: none;transition: all 0.2s ease-in-out 0s;margin: 4px 0;vertical-align: top;font-family: inherit;}
+		#msg_zip.msg_find_mb .sch_box .search_box_submit {position: absolute;right: 8px;top: 8px;text-align: center;
+		}
+		#msg_zip.msg_find_mb .sch_box i {font-size: 16px;width: 28px;height: 28px;line-height: 28px;
+		}
+		#msg_zip.msg_find_mb .sch_box a {position: absolute;right:38px;top: 8px;color: inherit;}
+		#msg_zip.msg_find_mb .sch_clear i {font-size: 12px;width: 28px;height: 28px;line-height: 28px;color: #555;}
+
+		#msg_zip.msg_find_mb .msg_empty, #msg_zip.msg_find_mb .initial-desc {text-align: center;font-size: 20px;letter-spacing: -1px;color: #999;padding:100px 0;	}
+		#msg_zip.msg_find_mb .initial-desc i {font-size: 3em;color: #aaa;margin-bottom: 20px;}
+
+		@media screen and (max-width:425px){
+			dl.thum_text_list dt{width: 80%;}
+			dl.thum_text_list dd{width: 20%;}
+		}
+	</style>
+</head>
+<body>
+<!-- 쪽지함 목록 시작 { -->
+<div id="msg" class="msg_skin">
+    <h1 id="msg_title">아이디님의 쪽지함<a href="message2.html" class="add_user"><i class="fas fa-user-plus"></i></a>
+	</h1>
+	<div>
+		<div class="msg_recv">
+			<div id="msg_zip" class="msg_find_mb">
+				<!-- 회원 검색 -->
+				<div class="find-member">
+					<form name="frm_search_main" id="frm_search_main" method="get" action="/ab-msg_new" enctype="multipart/form-data" data-ajax="false">
+					<div class="sch_box">
+						<a href="message1.html" class="btn_back"><i class="fas fa-chevron-left"></i></a>
+						<input type="text" name="search_value" value="" class="search_val" placeholder="닉네임을 입력해주세요" />
+						<a href="message3.html" class="search_box_submit" onclick="TCSYSTEM_ETC_FORM_9422_submit('text')"><i class="fas fa-search"></i></a>
+						<a href="#" class="sch_clear"><i class="far fa-times-circle"></i></a>
+					</div>
+					</form>
+				</div>
+				<!-- 본문 내용 -->
+				<div>
+					<div class="initial-desc">
+						<i class="far fa-envelope-open"></i>
+						<p>쪽지 보내려는 회원을 검색하세요.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

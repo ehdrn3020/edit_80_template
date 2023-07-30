@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 갤러리 글쓰기 {% endblock %}
+
+{% block content %}
+<div class="container white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_970">
+	<div class="gallery_top">
+			<div class="g_board_ctg">
+				<ul>
+					<li class="selected"><a href="#">전체</a></li>
+					<li><a href="#">숙소</a></li>
+					<li><a href="#">업체</a></li>
+					<li><a href="#">일정</a></li>
+					<li><a href="#">비용</a></li>
+					<li><a href="#">교통</a></li>
+					<li><a href="#">기타</a></li>
+				</ul>
+			</div><!-- g_board_ctg -->
+			<div class="gallery_banner">
+				<h2 class="tit">여행샷</h2>
+				<span class="line"></span>
+				<p>블라블라 블라 설명문<br>블라블라 설명문</p>
+			</div><!-- gallery_banner -->
+			<div class="main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide"><img src="{% static 'images/main/s2.jpg' %}" alt="메인 배너1"></div>
+				  <div class="swiper-slide"><img src="{% static 'images/main/s1.jpg' %}" alt="메인 배너2"></div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- gallery_top -->
+		<div class="sec_ctg">
+			<div class="breadcrumb">
+				<h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2>
+				<h3><a href="#">질문답변</a></h3>
+			</div><!-- breadcrumb -->
+			<div class="article_btn">
+				<a href="#"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+			</div><!-- article_btn -->
+		</div><!-- sec_ctg -->
+		<div class="board_select">
+			<select name="board_selected">
+				<option value="게시판 선택" selected>게시판 선택
+				<option value="게시판 선택">게시판 선택
+				<option value="게시판 선택">게시판 선택
+				<option value="게시판 선택">게시판 선택
+				<option value="게시판 선택">게시판 선택
+			</select>
+		</div><!-- board_select -->
+		<div class="board_content">
+				<form action="" name="imgFrm" class="imgFrm">
+					<div class="imgFrmWrap">
+						<span class="frm_tit">사진</span>
+						<input type="file" id="imgName" name="imgName" onchange="imgFile()">
+						<label for="imgName" class="imgUploadHidden"><i class="far fa-image"></i> 이미지</label>
+						<div class="imgSubmit">
+							<div>
+								<input type="text" name="imgNameCopy" class="imgNameCopy">
+								<span class="deleteBtn" name="deleteBtn"><i class="fas fa-times" onclick="del()"></i></span>
+								<span class="addBtn"><i class="fas fa-plus"></i></span>
+							</div>
+							<!-- 이미지 추가 될때마다 첨부된 파일 목록-->
+							<!-- 
+							<div>
+								<input type="text" name="imgNameCopy" class="imgNameCopy">
+								<span class="deleteBtn" name="deleteBtn"><i class="fas fa-times" onclick="del()"></i></span>
+								<span class="addBtn"><i class="fas fa-plus"></i></span>
+							</div>
+							<div>
+								<input type="text" name="imgNameCopy" class="imgNameCopy">
+								<span class="deleteBtn" name="deleteBtn"><i class="fas fa-times" onclick="del()"></i></span>
+								<span class="addBtn"><i class="fas fa-plus"></i></span>
+							</div>
+							<div>
+								<input type="text" name="imgNameCopy" class="imgNameCopy">
+								<span class="deleteBtn" name="deleteBtn"><i class="fas fa-times" onclick="del()"></i></span>
+								<span class="addBtn"><i class="fas fa-plus"></i></span>
+							</div>
+							<div>
+								<input type="text" name="imgNameCopy" class="imgNameCopy">
+								<span class="deleteBtn" name="deleteBtn"><i class="fas fa-times" onclick="del()"></i></span>
+								<span class="addBtn"><i class="fas fa-plus"></i></span>
+							</div>
+							-->
+						</div>
+						<div class="imgUpload">
+						<input type="image" name="imgUpload" src="{% static 'images/sub/gallery_01.jpg' %}" width="170px" height="170px">
+						<!-- 이미지 여러장일때 아이콘 추가 , 이미지 1장일때 주석 또는 display:none 처리 -->
+						<span class="gall_type_icon"><i class="fas fa-clone"></i></span>
+						</div>
+					</div>
+				<script>
+					//파일 첨부 했을때 TEXT칸에 파일 이름 불러오기
+						function imgFile() {
+							imgFrm.imgNameCopy.value = imgFrm.imgName.value;
+						}
+					//파일 첨부 된거 지우기
+						function del(){
+							imgFrm.imgNameCopy.value = "";
+						}
+					</script>
+				<div class="gallery_tag"><span class="frm_tit">태그</span><input type="text" name="gallery_tag" placeholder="ex) #호핑투어 #막탄팔리공원"></div>
+				<div class="gallery_con"><span class="frm_tit">문구</span><textarea name="" placeholder="문구를 입력하세요."></textarea></div>
+				</form>
+		</div><!-- board_content -->
+		<div class="map_choice">
+			<h2 class="tit">지도표시</h2>
+			<p><span><img src="{% static 'images/common/map.gif' %}" alt="지도아이콘"></span>지도를 클릭하여 여행했던 장소에 핀을 꼿아주세요</p>
+			<a href="" class="map_find_btn">지도찾기</a>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62801.56731139691!2d123.87549790100347!3d10.334045485404037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999258dcd2dfd%3A0x4c34030cdbd33507!2z7ZWE66as7ZWAIOyEuOu2gA!5e0!3m2!1sko!2skr!4v1561906855100!5m2!1sko!2skr" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div><!-- map_choice -->
+	</div>
+</div><!-- container -->
+{% endblock %}

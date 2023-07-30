@@ -1,0 +1,641 @@
+{% load static %}
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  	// tab menu
+  	$('.promotion_tab li').click(function(){
+  		$(this).parents().find('li').removeClass("selected");
+  		$(this).addClass("selected");
+  		$(".sort-box").removeClass('active');
+  		$('.sort-box').hide();
+  		$(".sort-box[data-id='"+$(this).find('a').attr('data-id')+"']").addClass("active");
+  		if($(".sort-box[data-id='"+$(this).find('a').attr('data-id')+"']").find("active")){
+  			$('.sort-box.active').slideDown();
+  		}
+    });
+  	$('.promotion_tab_sub li').click(function(){
+  		$(this).parents().find('li').removeClass("selected_sub");
+  		$(this).addClass("selected_sub");
+  		$(".sort-box_sub").removeClass('active_sub');
+  		$('.sort-box_sub').hide();
+  		$(".sort-box_sub[data-id='"+$(this).find('a').attr('data-id')+"']").addClass("active_sub");
+  		if($(".sort-box_sub[data-id='"+$(this).find('a').attr('data-id')+"']").find("active_sub")){
+  			$('.sort-box_sub.active_sub').slideDown();
+  		}
+    });
+
+  	//event tag
+  	$('.box_event span').click(function(){
+  		$(this).parents().find('span').removeClass("selected");
+  		$(this).addClass("selected");
+  		$(".clear").removeClass('active');
+  		$('.clear').hide();
+  		$(".clear[data-id='"+$(this).attr('data-id')+"']").addClass("active");
+  		if($(".clear[data-id='"+$(this).attr('data-id')+"']").find("active")){
+  			$('.clear.active').slideDown();
+  		}
+    });
+  	$('.box_event_sub span').click(function(){
+  		$(this).parents().find('span').removeClass("selected_sub");
+  		$(this).addClass("selected_sub");
+  		$(".clear_sub").removeClass('active_sub');
+  		$('.clear_sub').hide();
+  		$(".clear_sub[data-id='"+$(this).attr('data-id')+"']").addClass("active_sub");
+  		if($(".clear_sub[data-id='"+$(this).attr('data-id')+"']").find("active_sub")){
+  			$('.clear_sub.active_sub').slideDown();
+  		}
+    });
+
+  	//score btn focus
+  	$('.score_btn').click(function(){
+  		$(".comment_content").focus();
+  	});
+
+  	$(window).resize(function(){
+  		var width_size = window.outerWidth;
+  		if (width_size <= 660) {
+  			//$('.slide_mob .swiper-button-next').addClass("slide_btn_next");
+  			//$('.slide_mob .swiper-button-prev').addClass("slide_btn_prev");
+  		}
+  	});
+
+  	//slider
+  	var galleryThumbs = new Swiper('.gallery-thumbs', {
+  		slidesPerView: 3,
+  		freeMode: true,
+  		direction: 'vertical',
+  		watchSlidesProgress: true,
+  	});
+  	var galleryTop = new Swiper('.gallery-top', {
+  		autoplay: true,
+  		thumbs: {
+  			swiper: galleryThumbs
+  		},
+
+  		breakpointsInverse: true,
+  		breakpoints: {
+  			320:{
+  				navigation: {
+  					nextEl: '.swiper-button-next',
+  					prevEl: '.swiper-button-prev',
+  				},
+  			},
+  			640:{
+  				navigation: {
+  					nextEl: '.slide_btn_prev',
+  					prevEl: '.slide_btn_next',
+  				},
+  			}
+  		}
+  	});
+
+  	//show 썸네일
+  	var galleryThumbs_ = new Swiper('.gallery-thumbs_', {
+  		direction: 'vertical',
+  		slidesPerView: 5,
+  		slidesPerColumn: 2,
+  		spaceBetween: 10,
+  		freeMode: true,
+  		watchSlidesVisibility: true,
+  		watchSlidesProgress: true,
+  		scrollbar : {
+  			el : '.swiper-scrollbar',
+  			draggable: true,
+  		},
+
+  	});
+    //show 우측 이미지
+  	var galleryTop_ = new Swiper('.gallery-top_', {
+  		effect: 'fade',
+  		loop: true,
+  		autoHeight : true,
+  		speed : 10,
+  		pagination: {
+  			el: '.swiper-pagination',
+  			type: 'fraction',
+  		 },
+  		navigation: {
+  			nextEl: '.swiper-button-next',
+  			prevEl: '.swiper-button-prev',
+  		},
+  		thumbs: {
+  			swiper: galleryThumbs_
+  		},
+  	});
+
+    //show 상단 이미지 클릭 이벤트
+  	$('.gallery_wrap').click(function(){
+  		$('.swipe_warp').css({"opacity": 0, "visibility": "visible"}).animate({opacity: '1'}, 'slow');
+  	});
+  	$('.lg-close').click(function(){
+  		$('.swipe_warp').css("visibility","hidden");
+  	});
+
+  	//show 대표서비스 슬라이드
+  	var swiper = new Swiper('.slide_reserv', {
+        slidesPerView: 3,
+  	  slidesPerGroup : 3,
+  	  spaceBetween: 10,
+  	  freeMode: true,
+  	  breakpointsInverse: true,
+  	  breakpoints: {
+  		  320: {
+  			  slidesPerView: 1,
+  			  slidesPerGroup : 1,
+  			},
+  		  490: {
+  			  slidesPerView: 1,
+  			  slidesPerGroup : 1,
+  			},
+  		  501: {
+  			  slidesPerView: 3,
+  			  slidesPerGroup : 3,
+  			},
+  		  640: {
+  			  slidesPerView: 3,
+  			  slidesPerGroup : 3,
+  		  }
+  	  },
+
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+
+      //show 대표서비스 썸네일
+    	var slide_reserv_thumbs = new Swiper('.slide_reserv-thumbs_', {
+    		direction: 'vertical',
+    		slidesPerView: 5,
+    		slidesPerColumn: 2,
+    		spaceBetween: 10,
+    		freeMode: true,
+    		watchSlidesVisibility: true,
+    		watchSlidesProgress: true,
+    		scrollbar : {
+    			el : '.swiper-scrollbar',
+    			draggable: true,
+    		},
+    	});
+
+      //show 대표서비스 우측 이미지
+    	var slide_reserv_top = new Swiper('.slide_reserv-top_', {
+    		effect: 'fade',
+    		loop: true,
+    		autoHeight : true,
+    		speed : 10,
+    		pagination: {
+    			el: '.swiper-pagination',
+    			type: 'fraction',
+    		 },
+    		navigation: {
+    			nextEl: '.swiper-button-next',
+    			prevEl: '.swiper-button-prev',
+    		},
+    		thumbs: {
+    			swiper: slide_reserv_thumbs
+    		},
+    	});
+
+      var windowWidth = $( window ).width();
+    	if(windowWidth > 500) {
+    		//show 대표서비스 클릭 이벤트
+    		$('.slide_reserv_').click(function(){
+    			$('.represent_swipe_warp').css({"opacity": 0, "visibility": "visible"}).animate({opacity: '1'}, 'slow');
+    		});
+    		$('.lg-close_').click(function(){
+    			$('.represent_swipe_warp').css("visibility","hidden");
+    		});
+    	}
+
+      //images zoom
+    	(() => {
+    		console.log($(this));
+    		const IMAGES = document.querySelectorAll(".slide_a img");
+    		var imageActive = false;
+    		var normalImage;
+    		var bigImage;
+    		IMAGES.forEach(image => image.addEventListener("click", () => {
+    			handleImage(image);
+    		}));
+    		const handleImage = image => {
+    			//alert("imageActive : " + imageActive);
+    			if (!imageActive){
+    				openImage(image);
+    			}else if (imageActive){
+    				closeImage(image);
+    			}
+    		};
+    		const openImage = image => {
+    			//console.log("true");
+    			imageActive = true;
+    			setImageSrc(image);
+    			image.parentNode.classList.add("is-active");
+    		};
+    		const closeImage = image => {
+    			//console.log("false");
+    			imageActive = false;
+    			setImageSrc(image);
+    			image.parentNode.classList.remove("is-active");
+    		};
+    		const setImageSrc = image => image.setAttribute("src", getImageSrc(image));
+    		const getImageSrc = image => {
+    			var normalImage = image.getAttribute("data-thumb");
+    			var bigImage = image.getAttribute("data-big");
+    			if (imageActive) return bigImage;
+    			else if (!imageActive) return normalImage;
+    		};
+    	})();
+
+  	//bar
+  	var barProgress = $(".progressbar");
+  	barProgress.eq(0).progressbar({ value:parseFloat($('.progress .point').eq(0).text())*20 });
+  	barProgress.eq(1).progressbar({ value:parseFloat($('.progress .point').eq(1).text())*20 });
+  	barProgress.eq(2).progressbar({ value:parseFloat($('.progress .point').eq(2).text())*20 });
+  	barProgress.eq(3).progressbar({ value:parseFloat($('.progress .point').eq(3).text())*20 });
+  	barProgress.eq(4).progressbar({ value:parseFloat($('.progress .point').eq(4).text())*20 });
+  	barProgress.eq(5).progressbar({ value:parseFloat($('.progress .point').eq(5).text())*20 });
+  	barProgress.eq(6).progressbar({ value:parseFloat($('.progress .point').eq(6).text())*20 });
+
+  	//star
+  	$('.starRev span').click(function(){
+  	  $(this).parent().children('span').removeClass('on');
+  	  $(this).addClass('on').prevAll('span').addClass('on');
+  		var star_num = $(this).text();
+  		$(this).parent().children('input[type=hidden]').val(star_num);
+  	  return false;
+  	});
+
+  	// 영업시간 Old Value
+  	if($("#day_mon").prop('checked') == true){
+  		$("#day_mon").parent().addClass('on');
+  	}
+  	if($("#day_tue").prop('checked') == true){
+  		$("#day_tue").parent().addClass('on');
+  	}
+  	if($("#day_wed").prop('checked') == true){
+  		$("#day_wed").parent().addClass('on');
+  	}
+  	if($("#day_thu").prop('checked') == true){
+  		$("#day_thu").parent().addClass('on');
+  	}
+  	if($("#day_fri").prop('checked') == true){
+  		$("#day_fri").parent().addClass('on');
+  	}
+  	if($("#day_sat").prop('checked') == true){
+  		$("#day_sat").parent().addClass('on');
+  	}
+  	if($("#day_sun").prop('checked') == true){
+  		$("#day_sun").parent().addClass('on');
+  	}
+  	if($("#day_all").prop('checked') == true){
+  		$("#day_all").parent().addClass('on');
+  	}
+  	// 영업시간 클릭시
+  	$("#day_mon").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_tue").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_wed").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_thu").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_fri").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_sat").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_sun").click(function(){
+  		if($(this).prop('checked') == true){ $(this).parent().addClass('on'); }
+  		else{ $(this).parent().removeClass('on'); }
+  	});
+  	$("#day_all").click(function(){
+  		if($(this).prop('checked') == true){
+  			$('.pd_top > label').addClass('on');
+  			$('.pd_top > label > input:checkbox').prop('checked', true);
+  		}
+  		else{
+  			$('.pd_top > label').removeClass('on');
+  			$('.pd_top > label > input:checkbox').prop('checked', false);
+  		}
+  	});
+
+  	$('input.timepicker01').timepicker({});
+  	$('input.timepicker02').timepicker({});
+
+  	//편의시설 Old Value
+  	if($("#opt1").prop('checked') == true){ $("#opt1").parent().addClass('on'); }
+  	if($("#opt2").prop('checked') == true){ $("#opt2").parent().addClass('on'); }
+  	if($("#opt3").prop('checked') == true){ $("#opt3").parent().addClass('on'); }
+  	if($("#opt4").prop('checked') == true){ $("#opt4").parent().addClass('on'); }
+  	if($("#opt5").prop('checked') == true){ $("#opt5").parent().addClass('on'); }
+  	if($("#opt6").prop('checked') == true){ $("#opt6").parent().addClass('on'); }
+  	if($("#opt7").prop('checked') == true){ $("#opt7").parent().addClass('on'); }
+  	if($("#opt8").prop('checked') == true){ $("#opt8").parent().addClass('on'); }
+  	if($("#opt9").prop('checked') == true){ $("#opt9").parent().addClass('on'); }
+  	if($("#opt10").prop('checked') == true){ $("#opt10").parent().addClass('on'); }
+
+  	if($("#opt11").prop('checked') == true){ $("#opt11").parent().addClass('on'); }
+  	if($("#opt12").prop('checked') == true){ $("#opt12").parent().addClass('on'); }
+  	if($("#opt13").prop('checked') == true){ $("#opt13").parent().addClass('on'); }
+  	if($("#opt14").prop('checked') == true){ $("#opt14").parent().addClass('on'); }
+  	if($("#opt15").prop('checked') == true){ $("#opt15").parent().addClass('on'); }
+  	if($("#opt16").prop('checked') == true){ $("#opt16").parent().addClass('on'); }
+  	if($("#opt17").prop('checked') == true){ $("#opt17").parent().addClass('on'); }
+  	if($("#opt18").prop('checked') == true){ $("#opt18").parent().addClass('on'); }
+  	if($("#opt19").prop('checked') == true){ $("#opt19").parent().addClass('on'); }
+  	if($("#opt20").prop('checked') == true){ $("#opt20").parent().addClass('on'); }
+
+  	//편의시설 클릭시
+  	$('.reserve_btn').click(function(){
+  		if($(this).hasClass('on')){
+  			$(this).removeClass('on');
+  			// $(this).children('input[type=checkbox]').attr('value', 'N')
+  			$(this).children('input[type=checkbox]').prop('checked', false);
+  		}else{
+  			$(this).addClass('on');
+  			$(this).children('input[type=checkbox]').prop('checked', true);
+  		}
+  	});
+
+  	//reserve page right box
+  	$(window).scroll(function(){
+  		var height = $(document).scrollTop();
+  		if(height > 700){
+  		  $('.move_menu').addClass('fixinner');
+  		}else if(height < 700){
+  		  $('.move_menu').removeClass('fixinner');
+  		}
+  	 });
+
+    // 파일추가 상품사진
+    $("input[name=imgName]").change(function(){
+      //이미지 오브젝트 얻기
+      var files = document.getElementById('imgName').files;
+      // 시작점찾기
+      index=1;
+      for(k=0;k<20;k++){
+        if($('.fimg'+(k+1)).css('display')!='none') index++;
+      }
+      for(i=0; i<files.length; i++){
+        if($('.fimg'+(index)).css('display')=='none'){
+          var data = new FormData();
+          data.append('file', files[i]);
+          data.append('tag', 'item_img');
+          $.ajax({
+            data: data,
+            type: "POST",
+            url: "{% url 'promotions:summernote_tmp' %}",
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+              if(data.status == 'success'){
+                $('.fimg'+(index)).css('display','');
+                $('.img'+(index)).attr('src', data.img_path);
+                $('.pimg'+(index)).val(data.img_path);
+                index++;
+              }
+              else if(data.status == 'ext error'){
+                alert('파일확장자를 확인해주세요.(.png, .jpg)');
+              }
+              else if(data.status == 'size error'){
+                alert('파일사이즈 비율은 3:2 권장입니다. 세로나 가로가 긴 이미지는 상세설명에 추가해주세요.');
+              }
+            },
+            error: function(request, status, error){
+              alert("잘못된 접근입니다.");
+            },
+          });
+        }else{
+          index++;
+        }
+      }
+    });
+    $("input[name=imgName2]").change(function() {
+			//이미지 오브젝트 얻기
+			var files = document.getElementById('imgName2').files;
+			// 시작점찾기
+			index=1;
+			for(k=0;k<5;k++){
+				if($('.fimg'+(k+1)+'_second').css('display')!='none') index++;
+			}
+			for(i=0; i<files.length; i++){
+				if($('.fimg'+(index)+'_second').css('display')=='none'){
+					var data = new FormData();
+					data.append('file', files[i]);
+          data.append('tag', 'item_img');
+					$.ajax({
+						data: data,
+						type: "POST",
+						url: "{% url 'promotions:summernote_tmp' %}",
+						processData: false,
+						contentType: false,
+						cache: false,
+						success: function(data) {
+							if(data.status == 'success'){
+								$('.fimg'+(index)+'_second').css('display','');
+								$('.rep_img'+(index)+'_txt').css('display','');
+								$('.img'+(index)+'_second').attr('src', data.img_path);
+								$('.pimg'+(index)+'_second').val(data.img_path);
+								index++;
+							}
+							else if(data.status == 'ext error'){
+								alert('파일확장자를 확인해주세요.(.png, .jpg)');
+							}
+              else if(data.status == 'size error'){
+                alert('파일사이즈 비율은 3:2 권장입니다. 세로나 가로가 긴 이미지는 상세설명에 추가해주세요.');
+              }
+						},
+						error: function(request, status, error){
+							alert("잘못된 접근입니다.");
+						},
+					});
+				}else{
+					index++;
+				}
+			}
+		});
+
+  	//이미지 선택
+  	$('.imgUpload_promotion, .imgUpload_promotion_rep').click(function(){
+  		var img = $(this).children('img');
+  		if(img.hasClass('on')){
+  			img.removeClass('on');
+  			img.css('border', '');
+  		}
+  		else{
+  			img.css('border', 'solid 3px #ff5a60');
+  			img.addClass('on');
+  		}
+  	});
+
+    // 선택된이미지 삭제
+    $('.del_img').click(function(){
+      var arrimg = new Array();
+      var arrpimg = new Array();
+      var idx = 0;
+      var img = $('.imgUpload_promotion');
+      // 클릭된것 지우기
+      for(i=0; i<img.length; i++){
+        if(img.eq(i).children('img').hasClass('on')){
+          $('.img'+(i+1)).attr('src','');
+          $('.pimg'+(i+1)).attr('value','');
+          img.eq(i).children('img').removeClass('on');
+          img.eq(i).children('img').css('border', '');
+        }
+        // 클릭되지않은것 따로 배열저장
+        else if($('.img'+(i+1)).attr('src')!=''){
+          arrimg[idx] = $('.img'+(i+1)).attr('src');
+          arrpimg[idx] = $('.pimg'+(i+1)).attr('value');
+          idx++;
+        }
+      }
+      // 앞으로땡기기
+      for(i=0; i<img.length; i++){
+        if(arrimg[i]){
+          $('.img'+(i+1)).attr('src',arrimg[i]);
+          $('.pimg'+(i+1)).attr('value',arrpimg[i]);
+        }else{
+          $('.img'+(i+1)).attr('src','');
+          $('.pimg'+(i+1)).attr('value','');
+          img.eq(i).css('display','none');
+        }
+      }
+    });
+
+    // 선택된 대표이미지 삭제
+    $('.del_img_rep').click(function(){
+      var arrimg = new Array();
+      var arrpimg = new Array();
+      var arrtxt = new Array();
+      var idx = 0;
+      var img = $('.imgUpload_promotion_rep');
+      // 클릭된것 지우기
+      for(i=0; i<img.length; i++){
+        if(img.eq(i).children('img').hasClass('on')){
+          $('.img'+(i+1)+'_second').attr('src','');
+          $('.pimg'+(i+1)+'_second').attr('value','');
+          img.eq(i).children('img').removeClass('on');
+          img.eq(i).children('img').css('border', '');
+        }
+        // 클릭되지않은것 따로 배열저장
+        else if($('.img'+(i+1)+'_second').attr('src')!=''){
+          arrimg[idx] = $('.img'+(i+1)+'_second').attr('src');
+          arrpimg[idx] = $('.pimg'+(i+1)+'_second').attr('value');
+          arrtxt[idx] = $('.rep_img'+(i+1)+'_txt').attr('value');
+          idx++;
+        }
+      }
+      // 앞으로땡기기
+      for(i=0; i<img.length; i++){
+        if(arrimg[i]){
+          $('.img'+(i+1)+'_second').attr('src',arrimg[i]);
+          $('.pimg'+(i+1)+'_second').attr('value',arrpimg[i]);
+          $('.rep_img'+(i+1)+'_txt').attr('value',arrtxt[i]);
+        }else{
+          $('.img'+(i+1)+'_second').attr('src','');
+          $('.pimg'+(i+1)+'_second').attr('value','');
+          img.eq(i).css('display','none');
+          // 상품설명지우기
+          $('.rep_img'+(i+1)+'_txt').attr('value','');
+          $('.rep_img'+(i+1)+'_txt').css('display','none');
+        }
+      }
+    });
+
+    // 사진회전
+    $('.rotate_img').click(function(){
+      var img = $('.imgUpload_promotion');
+      var arrimg = new Array();
+      for(i=0; i<img.length; i++){
+        if(img.eq(i).children('img').hasClass('on')){
+          var imgurl = $('.img'+(i+1)).attr('src').replace('/media', '');
+          arrimg[i] = imgurl;
+        }else{
+          arrimg[i] = '';
+        }
+      }
+      $.ajax({
+        type: "POST",
+        url: "{% url 'promotions:img_rotate' %}",
+        data: {'arrimg': arrimg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        dataType: "json",
+        // async: false,
+        cache: false,
+        success: function(data) {
+          if(data.status == 'success'){
+            for(i=0; i<img.length; i++){
+              if(arrimg[i]){
+                var degree = $('.degree'+(i+1)).val();
+                $('.img'+(i+1)).css('transform','rotate('+degree+'deg)');
+                $('.degree'+(i+1)).val(Number(degree)+90);
+              }
+            }
+          }
+        },
+        error: function(){
+          alert("잘못된 접근입니다.");
+        },
+      });
+    });
+
+    // 대표이미지 사진회전
+    $('.rotate_img_rep').click(function(){
+      var img = $('.imgUpload_promotion_rep');
+      var arrimg = new Array();
+      for(i=0; i<img.length; i++){
+        if(img.eq(i).children('img').hasClass('on')){
+          var imgurl = $('.img'+(i+1)+'_second').attr('src').replace('/media', '');
+          arrimg[i] = imgurl;
+        }else{
+          arrimg[i] = '';
+        }
+      }
+      $.ajax({
+        type: "POST",
+        url: "{% url 'promotions:img_rotate' %}",
+        data: {'arrimg': arrimg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        dataType: "json",
+        // async: false,
+        cache: false,
+        success: function(data) {
+          if(data.status == 'success'){
+            for(i=0; i<img.length; i++){
+              if(arrimg[i]){
+                var degree = $('.degree'+(i+1)+'_second').val();
+                $('.img'+(i+1)+'_second').css('transform','rotate('+degree+'deg)');
+                $('.degree'+(i+1)+'_second').val(Number(degree)+90);
+              }
+            }
+          }
+        },
+        error: function(){
+          alert("잘못된 접근입니다.");
+        },
+      });
+    });
+
+  });
+
+  function openZipSearch() {
+  	new daum.Postcode({
+  		oncomplete: function(data) {
+  			//$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+  			$("#cstAddre").val(data.address);
+  			//$('[name=addr2]').val(data.buildingName);
+  		}
+  	}).open();
+  }
+</script>

@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == 'all'%}
+	필리핀 세부여행 질문답변 - 위고세부
+	{% elif board_kind == 'hotel'%}
+	세부 여행 베스트 - 위고세부
+	{% elif board_kind == 'tour'%}
+	세부 호핑투어 여행 - 위고세부
+	{% elif board_kind == 'schedule'%}
+	세부 자유여행 일정 - 위고세부
+	{% elif board_kind == 'cost'%}
+	세부여행비용 - 위고세부
+	{% elif board_kind == 'traffic'%}
+	세부 픽업드랍 택시 렌트카 - 위고세부
+	{% elif board_kind == 'etc'%}
+	세부 쇼핑리스트 기타 - 위고세부
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2><a href="{% url 'asks:index' %}">질문답변</a><i class="fas fa-chevron-right"></i></h2>
+					{% if board_kind == 'all'%}
+					<h3><a href="{% url 'asks:index' %}">전체</a></h3>
+					{% elif board_kind == 'hotel'%}
+					<h3><a href="{% url 'asks:index' 'hotel' %}">숙소</a></h3>
+					{% elif board_kind == 'tour'%}
+					<h3><a href="{% url 'asks:index' 'tour' %}">여행</a></h3>
+					{% elif board_kind == 'schedule'%}
+					<h3><a href="{% url 'asks:index' 'schedule' %}">일정</a></h3>
+					{% elif board_kind == 'cost'%}
+					<h3><a href="{% url 'asks:index' 'cost' %}">비용</a></h3>
+					{% elif board_kind == 'traffic'%}
+					<h3><a href="{% url 'asks:index' 'traffic' %}">교통</a></h3>
+					{% elif board_kind == 'etc'%}
+					<h3><a href="{% url 'asks:index' 'etc' %}">기타</a></h3>
+					{% endif %}
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<a href="{% url 'asks:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="sec board_ctg">
+				<div class="board_ctg_top">
+					<ul>
+						<li {%if board_kind == 'all'%}class="selected"{%endif%}><a href="{% url 'asks:index' %}">전체보기</a></li>
+						<li {%if board_kind == 'hotel'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'hotel' %}">숙소</a></li>
+						<li {%if board_kind == 'tour'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'tour' %}">여행</a></li>
+						<li {%if board_kind == 'schedule'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'schedule' %}">일정</a></li>
+						<li {%if board_kind == 'cost'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'cost' %}">비용</a></li>
+						<li {%if board_kind == 'traffic'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'traffic' %}">교통</a></li>
+						<li {%if board_kind == 'etc'%}class="selected"{%endif%}><a href="{% url 'asks:index' 'etc' %}">기타</a></li>
+					</ul>
+				</div><!-- board_ctg_top -->
+				<div class="board_ctg_btm">
+					<div class="board_sch">
+						<fieldset id="bd_sch">
+						 <i class="fas fa-search"></i>
+						 <legend>사이트 내 전체검색</legend>
+						 <form action="{% url 'asks:index' board_kind %}" method="GET">
+							 <label for="bd_sch_stx" class="sound_only">검색어 필수</label>
+							 <select name="sch_slt" class="bd_sch_select">
+								 <option value="제목" {%if request.GET.sch_slt == "제목"%}selected{%endif%}>제목</option>
+								 <option value="글쓴이" {%if request.GET.sch_slt == "글쓴이"%}selected{%endif%}>글쓴이</option>
+							 </select>
+							 <input type="text" name="sch_tx" id="bd_sch_stx" maxlength="20" {%if request.GET.sch_tx != None%}value="{{s_text}}"{%endif%}>
+							 <button type="text" id="bd_sch_submit" value="검색">검색</button>
+						 </form>
+					 </fieldset>
+					</div><!-- board_sch -->
+					<!-- 핫키워드 -->
+					{% include "partials/hot_keyword.html" %}
+				</div>
+			<script type="text/javascript">
+				$(function()
+				{
+					var ticker = function()
+					{
+						setTimeout(function(){
+							$('#bd_ticker li:first').animate( {marginTop: '-25px'}, 400, function()
+							{
+								$(this).detach().appendTo('ul#bd_ticker').removeAttr('style');
+							});
+							ticker();
+						}, 3000);
+					};
+					ticker();
+				});
+			</script>
+			</div><!-- sec -->
+			<div class="textboard">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col class="col1">
+						<col class="col2">
+						<col class="col3">
+						<col class="col4">
+						<col class="col4">
+						<col class="col5">
+					</colgroup>
+					{% for ask in asks %}
+					<tr>
+						<td>
+							{% if ask.attribute != 'NONE' %}
+								{% if ask.attribute == '공지' %}
+								<span class="subject subject_notice">공지</span>
+								{% elif ask.attribute == '광고' %}
+								<span class="subject subject_ad">AD</span>
+								{% endif %}
+							{% else %}
+								{% if ask.likes > 0 %}
+								<span class="subject like_num"><i class="fas fa-heart"></i>{{ask.likes|intcomma}}</span>
+								{% else %}
+								<span class="subject like_num zero"><i class="far fa-heart"></i>{{ask.likes|intcomma}}</span>
+								{% endif %}
+							{% endif %}
+						</td>
+						<td class="board_tit"><a href="{% url 'asks:show' ask.id %}">{{ask.title}}</a>
+							{% if ask.upload_date|date:"Y-m-d" == new_date %}
+							<span class="new_icon"><img src="{% static 'images/common/icon_new.jpg' %}" alt="새로운 글"></span>
+							{% endif %}
+							{% if ask.is_imaged %}
+							<span class="photo_cion"><img src="{% static 'images/common/img.gif' %}" alt="이미지 첨부표시"></span>
+							{% endif %}
+							{% if ask.comments > 0 %}
+							<span class="score">
+								<i class="far fa-comment-dots"> {{ask.comments}}</i>
+							</span>
+							{% endif %}
+							<div class="mobile_board_info">
+								<span class="write_user">
+									<span class="level_icon"><img src="{{ask.user.level_icon}}" alt="세부브이로그"></span>
+									{{ask.user.username}}
+								</span>
+								{% if ask.upload_date|date:"Y-m-d" == new_date %}
+									{% if ask.upload_date|date:"Y-m-d:H" != time %}
+									<span class="write_user">{{ask.upload_date|date:"f"}}</span>
+									{% else %}
+									<span class="write_user">{{ask.upload_date|timesince}} 전</span>
+									{% endif %}
+								{% else %}
+								<span class="write_user">{{ask.upload_date|date:"m.d "}}</span>
+								{% endif %}
+								<span class="view_count">{{ask.views|intcomma}}</span>
+							</div>
+						</td>
+						<td class="user_id">
+							<span class="level_icon">
+								<img src="{{ask.user.level_icon}}" alt="세부자유여행"></span>
+								<span class="write_user">{{ask.user.username}}
+							</span>
+						</td>
+						{% if ask.upload_date|date:"Y-m-d" == new_date %}
+							{% if ask.upload_date|date:"Y-m-d:H" != time %}
+							<td class="data_time"><span>{{ask.upload_date|date:"f"}}</span></td>
+							{% else %}
+							<td class="data_time"><span>{{ask.upload_date|timesince}} 전</span></td>
+							{% endif %}
+						{% else %}
+						<td class="data_time"><span>{{ask.upload_date|date:"m.d "}}</span></td>
+						{% endif %}
+						<td class="view_count">{{ask.views|intcomma}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<br/>
+			<div class="sec_ctg">
+				<div class="article_btn">
+					<a href="{% url 'asks:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="pager ten">
+				{% if asks.has_other_pages %}
+				<span class="pager_wrap">
+					{% if asks.has_previous %}
+						<a href="?page={{asks.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in page_range %}
+						{% if asks.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if asks.has_next %}
+						<a href="?page={{asks.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+			<br><br>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					{% for banner in banners.banners_review_left|slice:":2" %}
+				  <div class="swiper-slide">
+						<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "asks/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+		{% include 'pages/_quickmenu.html' %}
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+
+{% endblock %}

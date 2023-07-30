@@ -1,0 +1,105 @@
+ <!DOCTYPE html>
+<html lang="ko" class="asideOpen">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>웍[WOK] 예약문의</title>
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.YJ.datepicker.js"></script>
+    <script src="js/TweenMax.js"></script>
+	<script src="js/jquery.superscrollorama.js"></script>
+    <script src="js/common.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+	<div class="warapper sub06">
+    <?php include 'layout/header.html';?>
+    <?php include 'layout/quick_side.html';?>
+        <div class="container">
+            <div class="sub_visual">
+                <div class="title">
+                    예약하기
+                </div>
+            </div>
+            <div class="con_1">
+                <div class="inner">
+                    <div class="title">
+                        WOK 예약문의
+                    </div>
+                    <div class="desc">
+                        저의 WOK RESTAURANT는 고객 예약 및 문의에 대한
+                        답변 전달을 위해 친절과 성심을 다하겠습니다.
+                    </div>
+                </div>
+            </div>
+            <form action="php/store.php" method="POST">
+              <div class="con_4 con">
+                  <div class="inner">
+                      <div style="font-family: 'BMDOHYEON';">
+                        <i class="material-icons" style="font-size:19px">face</i>
+                        <span style="color:#ac162c;">빠른 예약</span>은 <span style="color:#ffcc00;">카톡상담</span>을 이용해주세요!
+                      </div>
+                      <div class="tbl_input">
+                          <table>
+                              <colgroup>
+                                  <col>
+                                  <col>
+                              </colgroup>
+                              <tbody>
+                                  <tr>
+                                      <th>이름</th>
+                                      <td>
+                                          <div class="boxed">
+                                              <input type="text" id="name" name="name" placeholder="입력" style="width: 40%;" required
+                                                  maxlength="5" class="m_w100p">
+                                          </div>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <th>비밀번호</th>
+                                      <td>
+                                          <div class="boxed">
+                                              <input type="password" id="password" name="password" placeholder="4-6글자" style="width: 40%;"
+                                                  maxlength="6" class="m_w100p" required>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <th>제목</th>
+                                      <td>
+                                          <div class="boxed">
+                                              <input type="text" id="title" name="title" placeholder="입력" style="width: 80%;"
+                                                  maxlength="40" class="m_w100p" required>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <th>내용</th>
+                                      <td>
+                                          <div class="boxed">
+                                              <textarea id="content" name="content" placeholder="입력" required></textarea>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <div class="btn_wrap">
+                  <button type="submit" class="btn">예약문의</button>
+                  <a href="sub05.html" class="btn">취소하기</a>
+              </div>
+            </form>
+        </div>
+        <?php include 'layout/footer.html';?>
+        <?php include 'layout/quick_mobile.html';?>
+    </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} 여행사홍보 {% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="sub5_top_wrap center_975">
+		<!-- <div class="sub5_banner"><img src="{% static 'images/sub/sub5_banner.jpg' %}" alt="위고세부 홍보업체"></div> -->
+		<h2 class="point_color tit">위고세부 홍보업체</h2>
+		<p>현지세부매니저가 확인한 검증된 업체들입니다. <br>위험걱정과 거품가격없이 오직 여행에만 집중하세요!</p>
+		<span class="space"></span>
+		<ul class="promotion">
+			<li {%if board_kind == 'all' or board_kind == 'partner' %}class="selected"{%endif%}><a href="{% url 'promotions:index' %}">전체</a></li>
+			<li {%if board_kind == 'tour'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'tour' %}">여행사</a></li>
+			<li {%if board_kind == 'hopping'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'hopping' %}">호핑</a></li>
+			<li {%if board_kind == 'diving'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'diving' %}">다이빙</a></li>
+			<li {%if board_kind == 'hotel'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'hotel' %}">숙소</a></li>
+			<li {%if board_kind == 'food'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'food' %}">맛집</a></li>
+			<li {%if board_kind == 'massageBeauty'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'massageBeauty' %}">마사지/뷰티</a></li>
+			<li {%if board_kind == 'etc'%}class="selected"{%endif%}><a href="{% url 'promotions:index' 'etc' %}">기타</a></li>
+		</ul>
+	</div><!-- sub5_top_wrap -->
+	<div class="sub5_content_wrap">
+		<div class="center_975">
+			<ul class="gallery_board">
+				{% for best in bests %}
+				<li>
+					<dl>
+						<!-- 213,198 -->
+						<dd><img src="{{best.present_image.url}}" alt="썸네일"><a href="{% url 'promotions:show' best.id %}" class="go_btn">바로가기</a></dd>
+						<dd>
+							<strong style="min-height:36px;">[Best]{{best.title}}</strong>
+							{% if best.avgstar >= 4.95 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar >= 4.05 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar < 4.05 and best.avgstar >= 3.95 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar >= 3.05 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar < 3.05 and best.avgstar >= 2.95 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar >= 2.05 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar < 2.05 and best.avgstar >= 1.95 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar >= 1.05 %}
+							<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% elif best.avgstar < 1.05 and best.avgstar >= 0.95 %}
+							<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% else %}
+							<span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span> <span class="star_num">{{best.avgstar|floatformat:1}} [{{best.numstar}}]</span>
+							{% endif %}
+							<span class="app_btn"><a href="{% url 'promotions:show' best.id %}">별점</a></span>
+						</dd>
+					</dl>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="textboard">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col class="col1">
+						<col class="col2">
+						<col class="col3">
+						<col class="col4">
+						<col class="col5">
+					</colgroup>
+					{% for promotion in promotions %}
+					<tr>
+						{% if promotion.avgstar < 1 %}
+						<td><span class="subject star_num"><i class="far fa-star"></i> 0</span></td> <!-- 평점 없을때 -->
+						{% else %}
+						<td><span class="subject star_num"><i class="fas fa-star"></i>{{promotion.avgstar|floatformat:1}} <span style="font-size:0.7em;">({{promotion.numstar|intcomma}})</span></span></td>
+						{% endif %}
+						<td class="board_tit long"><a href="{% url 'promotions:show' promotion.id %}">{{promotion.title}}</a>
+							{% if promotion.upload_date|date:"Y-m-d" == new_date %}
+							<span class="new_icon"><img src="{% static 'images/common/icon_new.jpg' %}" alt="새로운 글"></span>
+							{% endif %}
+							{% if promotion.is_imaged %}
+							<span class="photo_cion"><img src="{% static 'images/common/img.gif' %}" alt="이미지 첨부표시"></span>
+							{% endif %}
+							{% if promotion.comments > 0 %}
+								<span class="score"><i class="far fa-comment-dots"> {{promotion.comments}}</i></span>
+							{% endif %}
+						<div class="mobile_board_info">
+							<span class="write_user"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt="레벨5아이콘"></span>{{promotion.user.username}}</span>
+							{% if promotion.upload_date|date:"Y-m-d" == new_date %}
+								{% if promotion.upload_date|date:"Y-m-d:H" != time %}
+								<span class="data_time">{{promotion.upload_date|date:"f"}}</span>
+								{% else %}
+								<span class="data_time">{{promotion.upload_date|timesince}} 전</span>
+								{% endif %}
+							{% else %}
+							<span class="data_time">{{promotion.upload_date|date:"m.d "}}</span>
+							{% endif %}
+							<span class="view_count">조회수 {{promotion.comments|intcomma}}</span>
+						</div>
+						</td>
+						<td class="pc_promotion_info"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt="레벨5아이콘"></span><span class="write_user">{{promotion.user.username}}</span></td>
+						<td class="data_time">
+							{% if promotion.upload_date|date:"Y-m-d" == new_date %}
+								{% if promotion.upload_date|date:"Y-m-d:H" != time %}
+								<span class="data_time">{{promotion.upload_date|date:"f"}}</span>
+								{% else %}
+								<span class="data_time">{{promotion.upload_date|timesince}} 전</span>
+								{% endif %}
+							{% else %}
+							<span class="data_time">{{promotion.upload_date|date:"m.d "}}</span>
+							{% endif %}
+						</td>
+						<td class="view_count">{{promotion.views|intcomma}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+        <!-- 글쓰기 버튼 -->
+				<div class="article_btn promotion_btn">
+					<a href="{% url 'promotions:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div>
+
+				<div class="pager ten">
+					{% if promotions.has_other_pages %}
+					<span class="pager_wrap">
+						{% if promotions.has_previous %}
+							<a href="?page={{promotions.previous_page_number}}" class="pager_prev"></a>
+						{% endif %}
+						{% for i in page_range %}
+							{% if promotions.number == i %}
+								<a href="" class="selected">{{i}}</a>
+							{% else %}
+								<a href="?page={{ i }}">{{i}}</a>
+							{% endif %}
+						{% endfor %}
+						{% if promotions.has_next %}
+							<a href="?page={{promotions.next_page_number}}" class="pager_next"></a>
+						{% endif %}
+					</span>
+					{% endif %}
+				</div>
+		</div><!-- center -->
+	</div><!-- sub5_content_wrap -->
+</div><!-- container -->
+
+<!-- Quick menu -->
+{% include 'pages/_quickmenu.html' %}
+
+<div class="content_us center_975">
+	<h2 class="tit blue_font">위고세부 파트너 요청</h2>
+	<div class="content_form" id="partner_form">
+		<h3>파트너문의</h3>
+		<span class="line"></span>
+		<p>배너 / 광고 / 파트너쉽 언제든 <b class="blue_font">문의</b>주세요.</p>
+		<form action="{% url 'promotions:partnership' %}" method="POST">
+			{% csrf_token %}
+			<fieldset class="cont_form_set">
+				<span>연락처</span>
+				<input type="text" name="contact_info" placeholder="연락처를 입력해주세요">
+			</fieldset>
+			<fieldset class="cont_form_set">
+				<span>내&nbsp;&nbsp;&nbsp;용</span>
+				<textarea name="content" placeholder="내용을 입력해주세요" maxlength="499"></textarea>
+			</fieldset>
+			<fieldset class="cont_form_set_submit">
+				<button type="submit">전송</button>
+			</fieldset>
+		</form>
+	</div>
+</div>
+{% if board_kind == 'partner' %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('html, body').animate({ scrollTop: $('#partner_form').offset().top }, 'slow');
+	});
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "accounts/base_account.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}이메일 로그인{% endblock %}
+{% block content %}
+	<!-- 로그인 화면 { -->
+	<div id="login_bg">
+		<div class="box_warp">
+			<h3>위고세부 로그인</h3>
+			<!-- <p>사용하시는 소셜 계정으로 간편하게 로그인 하세요!</p> -->
+			{% if messages %}
+				{% for message in messages %}
+					<p><span style="color:red;">*</span>{{ message }}</p>
+				{% endfor %}
+			{% else %}
+			<p>위고세부에 가입하신 이메일로 로그인하세요!</p>
+			{% endif %}
+			<div class="email_login">
+				<form action="{% url 'accounts:login_email' %}?next={{ request.GET.next }}"" method="POST">
+          {% csrf_token %}
+					<div class="login_id"><input type="text" name="login_email" value="{{ email }}"  placeholder="이메일 또는 아이디 입력" maxlength="100" required></div>
+					<div class="login_pw"><input type="password" name="login_pw" value="" placeholder="비밀번호 입력" maxlength="100" required></div>
+					<input type="submit" class="submit_login" name="submit_ok" value="로그인">
+				</form>
+			</div>
+      <p class="find_id_pw"><a href="{% url 'accounts:find' %}">아이디/비밀번호 찾기</a></p>
+      <p class="back_link"><a href="{% url 'accounts:login' %}">< 뒤로가기</a></p>
+      <p class="line"></p>
+			<h5>고객 센터</h5>
+			<span class="sub_p">
+			<!-- 고객센터: <a href="#">바로가기</a> <br> -->
+			운영시간: 10:30 ~ 17:00(토,일, 공휴일 후무) <br>
+			이메일 문의 : cebu@cebuschool.co.kr</span>
+		</div>
+	</div>
+	<!--} 로그인 화면 -->
+{% endblock %}

@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 갤러리 글보기 {% endblock %}
+
+{% block content %}
+<div class="container white_bg">
+	<div class="container_wrap center_970">
+		<div class="gallery_top">
+			<div class="g_board_ctg">
+				<ul>
+					<li class="selected"><a href="#">전체</a></li>
+					<li><a href="#">숙소</a></li>
+					<li><a href="#">업체</a></li>
+					<li><a href="#">일정</a></li>
+					<li><a href="#">비용</a></li>
+					<li><a href="#">교통</a></li>
+					<li><a href="#">기타</a></li>
+				</ul>
+			</div><!-- g_board_ctg -->
+			<div class="gallery_banner">
+				<h2 class="tit">여행샷</h2>
+				<span class="line"></span>
+				<p>블라블라 블라 설명문<br>블라블라 설명문</p>
+			</div><!-- gallery_banner -->
+			<div class="main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide"><img src="{% static 'images/main/s2.jpg' %}" alt="메인 배너1"></div>
+				  <div class="swiper-slide"><img src="{% static 'images/main/s1.jpg' %}" alt="메인 배너2"></div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- gallery_top -->
+		<div class="gallery_detail">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<h3><a href="#">제목 타이틀</a></h3>
+				<a href="gallery.html" class="btn_style2"><i class="fas fa-chevron-left"></i> 뒤로가기</a>
+			</div><!-- breadcrumb -->
+			<div class="gallery_detail_wrap">
+				<div class="gall_detail_left">
+					<h6>
+						<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+						<div class="info">
+							<span class="info_id">bn_sj2013</span>
+							<a href="" class="followme">• <span class="point_color">팔로우</span></a>
+							<span class="info_local">Pacific Cebu Resort</span>
+						</div>
+						<div class="more_menu">
+							<a href="#"><img src="{% static 'images/common/triple.gif' %}" alt="더보기 버튼"></a>
+							<ul class="option_comm_box">
+								<li><a href="#">신고하기</a></li>
+								<li><a href="#">쪽지보내기</a></li>
+							</ul>
+						</div>
+					</h6>
+					<script>
+					// 메뉴 사이드 버튼 터치시 드롭메뉴
+					var more_show = false;
+					$(".more_menu .option_comm_box").hide();
+					$(".more_menu > a").addClass("off");
+					$(".more_menu >a ").click(function(){
+						more_show = !more_show
+						if(more_show == true){
+							$(this).find("+.option_comm_box").stop().slideDown('fast');		
+						}else{
+							$(".more_menu .option_comm_box").not($(this)).stop().slideUp('fast');
+						}
+						return false;
+					});
+					// 메뉴 아닌 다른곳 터치 시 메뉴 사라짐
+					$("body").click(function(){
+						$(".more_menu .option_comm_box").stop().slideUp('fast');
+						return false;
+					});
+					</script>
+					</h6>
+					<div class="detail_thum">
+						<h2 class="sound_only">갤러리 큰 썸네일</h2>
+						<!-- Swiper -->
+					  <div class="swiper-container gallery_detail_thum">
+						<div class="swiper-wrapper">
+						  <div class="swiper-slide"><img src="{% static 'images/sub/gallery_01.jpg' %}" alt="썸네일1"></div>
+						  <div class="swiper-slide"><img src="{% static 'images/sub/gallery_02.jpg' %}" alt="썸네일2"></div>
+						  <div class="swiper-slide"><img src="{% static 'images/sub/gallery_03.jpg' %}" alt="썸네일3"></div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination gallery_detail_thum_pagination"></div>
+						 <!-- Add Arrows -->
+						<div class="swiper-button-next swiper-button-white gallery_detail_next"></div>
+						<div class="swiper-button-prev swiper-button-white gallery_detail_prev"></div>
+					  </div>
+						<script>
+							   var detailThum = new Swiper('.gallery_detail_thum', {
+								  loop:true,
+								  autoplay: {
+								   delay: 4000,
+								   disableOnInteraction: false,
+								  },
+								  pagination: {
+									el: '.gallery_detail_thum_pagination',
+									clickable: true,
+								  },
+								 navigation: {
+									nextEl: '.gallery_detail_next',
+									prevEl: '.gallery_detail_prev',
+								  },
+							});
+						</script>
+					</div><!-- detail_thum -->
+				</div>
+				<div class="gall_detail_right">
+					<div class="gall_coll m_gall_coll">
+						<div class="gall_icon">
+							<a href="#"><i class="far fa-heart"></i></a>
+							<a href="#"><i class="far fa-comment-dots"></i></a>
+							<a href="#"><i class="fas fa-external-link-alt"></i></a>
+							<a href="#" class="mark"><i class="far fa-bookmark"></i></a>
+						</div>
+						<span class="likeYou">좋아요 <b>195</b>개</span>
+					</div>
+					<ul>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"> 5</i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"> 1</i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text"> 안녕하세요 안녕하세요 ㄴㅇㅁㄴㅇㅁㄴㅇ ㅁㄴㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ안녕하세요안녕하세요안녕하세요</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥여기서 답글 확인 ♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+									<!-- 답글 달렸을 때  -->
+									<div class="reply_wrap">
+										<a href="#" class="reply_show"><span></span>답글보기( <b> 4 </b>개 )</a>
+										<div>
+											<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+											<div class="info">
+												<div class="comment_list">
+													<span class="info_id">glaizaredux</span>
+													<span class="text">@glaizaredux THIS IS REPLY REPLY REPLY</span>
+												</div>
+												<div class="for_you">
+													<span class="data">1분</span>
+													<span class="reply_you">답글 달기</span>
+												</div>
+												<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>	
+											</div><!-- info -->
+										</div>
+										<div class="more_reply">
+												<div class="thum"><img src="images/sub/thum2.jpg" alt="썸네일"></div>
+												<div class="info">
+													<div class="comment_list">
+														<span class="info_id">glaizaredux</span>
+														<span class="text">@glaizaredux THIS IS REPLY REPLY REPLY</span>
+													</div>
+													<div class="for_you">
+														<span class="data">1분</span>
+														<span class="reply_you">답글 달기</span>
+													</div>
+													<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>	
+												</div><!-- info -->
+											</div>
+										</div>
+										<a href="#" class="more_reply_btn">답글 더보기 <b class="blue_font">+2</b><i class="fas fa-caret-down"></i></a>
+										<script>
+										$(document).ready(function(){
+										var reply_show = false;
+										$(".more_reply_list").hide();
+										$(".more_reply_list + a").click(function(){
+											reply_show = !reply_show;
+											if(reply_show == true){
+											$(this).addClass("active");
+											$(this).html("답글 닫기 <i class='fas fa-caret-up'></i>");
+											$(".more_reply_list").slideDown();
+											return false;
+											}else{
+												$(this).removeClass("active");
+												$(".more_reply_list ").slideUp();
+												$(this).html("답글 더보기 <b class='blue_font'>+2</b><i class='fas fa-caret-down'></i>");
+												return false;
+											}
+											return false;
+										});
+										});
+										</script>
+									</div><!-- reply_wrap -->
+								<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						<li>
+							<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">glaizaredux</span>
+									<span class="text">♥♥♥</span>
+								</div>
+								<div class="for_you">
+									<span class="data">1분</span>
+									<span class="like_you">좋아요 <b>195</b>개</span>
+									<span class="reply_you">답글 달기</span>
+								</div>
+								<a href="" class="like_you_icon"><i class="far fa-heart"></i></a>
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+					</ul>
+					<div class="gall_coll pc_gall_coll">
+						<div class="gall_icon">
+							<a href="#"><i class="far fa-heart"></i></a>
+							<a href="#"><i class="far fa-comment-dots"></i></a>
+							<a href="#"><i class="fas fa-external-link-alt"></i></a>
+							<a href="#" class="mark"><i class="far fa-bookmark"></i></a>
+						</div>
+						<span class="likeYou">좋아요 <b>195</b>개</span>
+						<span class="write_data">2일 전</span>
+					</div>
+					<div class="gall_comm">
+						<form action="">
+							<textarea name="" id="" placeholder="댓글 달기..."  ></textarea>
+							<button >게시</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- gallery_detail -->
+		<script>
+		//답글달기 클릭시 답글창 보이기
+		$(document).ready(function(){
+			var replyShow = false;
+			$(".reply_you").click(function(){
+				replyShow = !replyShow
+				if(replyShow == true){
+					$(this).find("+.reply_wrap").slideDown();
+				}else{
+					$(this).find("+.reply_wrap").slideUp();
+				}
+			});
+		});
+		</script>
+		<div class="map_choice">
+			<h2 class="tit">지도표시</h2>
+			<p><span><img src="{% static 'images/common/map.gif' %}" alt="지도아이콘"></span>지도를 클릭하여 여행했던 장소에 핀을 꼿아주세요</p>
+			<a href="" class="map_find_btn">지도찾기</a>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62801.56731139691!2d123.87549790100347!3d10.334045485404037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999258dcd2dfd%3A0x4c34030cdbd33507!2z7ZWE66as7ZWAIOyEuOu2gA!5e0!3m2!1sko!2skr!4v1561906855100!5m2!1sko!2skr" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div><!-- map_choice -->
+	</div><!-- container_wrap -->
+</div><!-- container -->
+{% endblock %}

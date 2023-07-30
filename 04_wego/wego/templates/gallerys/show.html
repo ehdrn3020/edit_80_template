@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{content.title}}{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container white_bg">
+	<div class="container_wrap center_970">
+		<div class="gallery_top">
+			<div class="g_board_ctg">
+				<ul>
+					<li {%if board_kind == 'all'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' %}">전체</a></li>
+					<li {%if board_kind == '여행샷'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'tour' %}">여행샷</a></li>
+					<li {%if board_kind == '음식샷'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'food' %}">음식샷</a></li>
+					<li {%if board_kind == '숙소샷'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'hotel' %}">숙소샷</a></li>
+					<li {%if board_kind == '쇼핑샷'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'shopping' %}">쇼핑샷</a></li>
+					<li {%if board_kind == '공항샷'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'airport' %}">공항샷</a></li>
+				</ul>
+			</div><!-- g_board_ctg -->
+			<div class="gallery_banner">
+				<h2 class="tit">여행샷</h2>
+				<span class="line"></span>
+				<p>블라블라 블라 설명문<br>블라블라 설명문</p>
+			</div><!-- gallery_banner -->
+			<div class="main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+						{% for banner in banners.banners_gallery_top|slice:":2" %}
+					  <div class="swiper-slide">
+							<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+								<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- gallery_top -->
+		<div class="gallery_detail">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<!-- <h3><a href="#">실시간세부</a></h3> -->
+			</div><!-- breadcrumb -->
+			<div class="gallery_detail_wrap">
+				<div class="gall_detail_left">
+					<h6>
+						<div class="thum"><img class="board_img_profile" src="{{content.user.profile_image}}" alt="썸네일"></div>
+						<div class="info">
+							<span class="info_id">{{content.user}}</span>
+							<!-- <a href="" class="followme">• <span class="point_color">팔로우</span></a> -->
+							<a href="" class="followme">• <span class="point_color">{{board_kind}}</span></a>
+							<span class="info_local">조회수 {{content.views|intcomma}}</span>
+						</div>
+						<div class="more_menu">
+							<a href="#"><img src="{% static 'images/common/triple.gif' %}" alt="더보기 버튼"></a>
+							<ul class="option_comm_box">
+								<li><a href="#">신고하기</a></li>
+								<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+									쪽지보내기</a></li>
+							</ul>
+						</div>
+					</h6>
+					<script>
+						// 메뉴 사이드 버튼 터치시 드롭메뉴
+						var more_show = false;
+						$(".more_menu .option_comm_box").hide();
+						$(".more_menu > a").addClass("off");
+						$(".more_menu >a ").click(function(){
+							more_show = !more_show
+							if(more_show == true){
+								$(this).find("+.option_comm_box").stop().slideDown('fast');
+							}else{
+								$(".more_menu .option_comm_box").not($(this)).stop().slideUp('fast');
+							}
+							return false;
+						});
+						// 메뉴 아닌 다른곳 터치 시 메뉴 사라짐
+						$(".gall_detail_left").click(function(){
+							$(".more_menu .option_comm_box").stop().slideUp('fast');
+							return false;
+						});
+					</script>
+
+					<div class="detail_thum">
+						<h2 class="sound_only">갤러리 큰 썸네일</h2>
+						<!-- Swiper -->
+					  <div class="swiper-container gallery_detail_thum">
+						<div class="swiper-wrapper">
+							{% if content.pimg1 != '' %}
+						  <div class="swiper-slide"><img src="{{content.pimg1}}" alt="썸네일1"></div>
+							{% endif %}
+							{% if content.pimg2 != '' %}
+						  <div class="swiper-slide"><img src="{{content.pimg2}}" alt="썸네일2"></div>
+							{% endif %}
+							{% if content.pimg3 != '' %}
+						  <div class="swiper-slide"><img src="{{content.pimg3}}" alt="썸네일3"></div>
+							{% endif %}
+							{% if content.pimg4 != '' %}
+						  <div class="swiper-slide"><img src="{{content.pimg4}}" alt="썸네일4"></div>
+							{% endif %}
+							{% if content.pimg5 != '' %}
+						  <div class="swiper-slide"><img src="{{content.pimg5}}" alt="썸네일5"></div>
+							{% endif %}
+						</div>
+						{% if content.attribute == '다중' %}
+						<!-- Add Pagination -->
+						<div class="swiper-pagination gallery_detail_thum_pagination"></div>
+						 <!-- Add Arrows -->
+						<div class="swiper-button-next swiper-button-white gallery_detail_next"></div>
+						<div class="swiper-button-prev swiper-button-white gallery_detail_prev"></div>
+						{% endif %}
+					  </div>
+						{% if content.attribute == '다중' %}
+						<script>
+							   var detailThum = new Swiper('.gallery_detail_thum', {
+								  loop:true,
+								  autoplay: {
+								   delay: 4000,
+								   disableOnInteraction: false,
+								  },
+								  pagination: {
+									el: '.gallery_detail_thum_pagination',
+									clickable: true,
+								  },
+								 navigation: {
+									nextEl: '.gallery_detail_next',
+									prevEl: '.gallery_detail_prev',
+								  },
+							});
+						</script>
+						{% endif %}
+					</div><!-- detail_thum -->
+				</div>
+				<!-- 모바일 -->
+				<div class="gall_detail_right">
+					<div class="gall_coll m_gall_coll">
+						<div class="gall_icon">
+							<!-- 글 좋아요 -->
+							{% if addlike %}
+							<a class="like g_unlike"><i class="fa fa-heart"></i></a>
+							{% else %}
+							<a class="like g_like"><i class="fa fa-heart"></i></a>
+							{% endif %}
+							<input type="hidden" id='like_id' value='{{addlike.id}}'>
+							<!-- 댓글 -->
+							<a href="#comment_content"><i class="far fa-comment-dots"></i></a>
+							<!-- 스크랩 -->
+							<a href="#scrap" id="scrap_btn_m"><i class="fas fa-external-link-alt"></i></a>
+							<!-- <a href="#" class="mark"><i class="far fa-bookmark"></i></a> -->
+						</div>
+						<span class="likeYou">좋아요 <b>{{content.likes|intcomma}}</b> 댓글 <b>{{content.comments|intcomma}}</b></span>
+					</div>
+					<ul>
+						<li>
+							<div class="thum"><img class="board_img_profile" src="{{content.user.profile_image}}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list">
+									<span class="info_id">{{content.user.username}}</span>
+									<span class="text">{{content.content|linebreaksbr}}</span>
+									<span class="point_color">{{content.tag}}</span>
+								</div>
+								<div class="for_you">
+									{% if content.upload_date|date:"Y-m-d:H" != time %}
+										<span class="data">{{content.upload_date|date:"M j일 D P "}}</span>
+									{% else %}
+										<span class="data">{{content.upload_date|timesince}} 전</span>
+									{% endif %}
+									<!-- <span class="like_you">좋아요 <b>195</b>개</span> -->
+									<!-- <span class="reply_you">답글 달기</span> -->
+								</div>
+								<!-- <a href="" class="like_you_icon"><i class="far fa-heart"> {{comment.likes}}</i></a> -->
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						{% for comment in comments %}
+						<li>
+							<div class="thum"><img class="board_img_profile" src="{{comment.user.profile_image}}" alt="썸네일"></div>
+							<div class="info">
+								<div class="comment_list" id="c_id{{comment.id}}">
+									<span class="info_id">{{comment.user.username}}</span>
+									<span class="text">{{comment.content|linebreaksbr}}</span>
+								</div>
+								<div class="for_you">
+									{% if comment.upload_date|date:"Y-m-d:H" != time %}
+										<span class="data">{{comment.upload_date|date:"M j일 D P "}}</span>
+									{% else %}
+										<span class="data">{{comment.upload_date|timesince}} 전</span>
+									{% endif %}
+									<!-- <span class="like_you">좋아요 <b>195</b>개</span> -->
+									{% if user.username == comment.user.username %}
+									<form action="{% url 'comments:delete_gallery' %}" method="POST" style="display:inline;" onSubmit="return confirm_del()">
+										{% csrf_token %}
+										<input type="hidden" name="content_id" value="{{content.id}}">
+										<input type="hidden" name="comment_id" value="{{comment.id}}">
+										<button class="gcomment_del" value="댓글삭제">댓글삭제</button>
+									</form>
+									{% endif %}
+								</div>
+								{% if c_addlikes %}
+									{% if comment.id in c_addlikes %}
+									<a class="like_you_icon g_unlike" id="c_like{{comment.id}}"><i class="fa fa-heart"> {{comment.likes}}</i></a>
+									{% else %}
+									<a class="like_you_icon g_like" id="c_like{{comment.id}}"><i class="fa fa-heart"> {{comment.likes}}</i></a>
+									{% endif %}
+								{% else %}
+									<a class="like_you_icon g_like" id="c_like{{comment.id}}"><i class="fa fa-heart"> {{comment.likes}}</i></a>
+								{% endif %}
+							</div>
+							<!--<a href="" class="like_you_icon"><i class="fas fa-heart"></i></a>--><!-- 눌렸을때-->
+						</li>
+						{% endfor %}
+					</ul>
+					<div class="gall_coll pc_gall_coll">
+						<div class="gall_icon">
+							<!-- 좋아요 -->
+							{% if addlike %}
+							<a class="like g_unlike"><i class="fa fa-heart"></i></a>
+							{% else %}
+							<a class="like g_like"><i class="fa fa-heart"></i></a>
+							{% endif %}
+							<input type="hidden" id='like_id' value='{{addlike.id}}'>
+							<!-- 댓글 -->
+							<a href="#comment_content"><i class="far fa-comment-dots"></i></a>
+							<!-- 스크랩 -->
+							<a href="#scrap" id="scrap_btn"><i class="fas fa-external-link-alt"></i></a>
+							{% include "partials/scrap.html" %}
+							<!-- <a href="#" class="mark"><i class="far fa-bookmark"></i></a> -->
+						</div>
+						<span class="likeYou">좋아요 <b>{{content.likes|intcomma}}</b> 댓글 <b>{{content.comments|intcomma}}</b></span>
+						{% if content.upload_date|date:"Y-m-d:H" != time %}
+							<span class="write_data">{{content.upload_date|date:"M j일 D P "}}</span>
+						{% else %}
+							<span class="write_data">{{content.upload_date|timesince}} 전</span>
+						{% endif %}
+					</div>
+					<div class="gall_comm">
+						<form action="{% url 'comments:create_gallery' %}" method="POST">
+							{% csrf_token %}
+							{% if user.id != None %}
+							<textarea name="comment_content" id="comment_content" placeholder="댓글을 쓰면 {{point.point}}포인트가 적립됩니다." maxlength="1000"></textarea>
+							<input type="hidden" name="content_id" value="{{content.id}}">
+							<button type="submit">게시</button>
+							{% else %}
+							<textarea name="" id="" placeholder=" 로그인 후 이용해주세요" disabled></textarea>
+							{% endif %}
+						</form>
+					</div>
+				</div>
+			</div>
+			<a href="{% url 'gallerys:index' %}" class="btn_style2"><i class="fas fa-chevron-left"></i> 목록으로</a>
+			{% if user.id == content.user.id or user.is_staff == True %}
+			<a href="{% url 'gallerys:edit' content.id %}" class="btn_style2" style="background-color:#00b6d9;">글 수정</a>
+			<a href="javascript:delete_content();" class="btn_style2" style="background-color:#00b6d9;">글 삭제</a>
+			<script>
+				function delete_content() {
+					if (confirm("삭제하시겠습니까?") == true){
+						var url = "{% url 'gallerys:delete' 123 %}";
+						var id = {{content.id}};
+						document.location.href = url.replace('123', id);
+					}else{
+						return false;
+					}
+				}
+			</script>
+			{% endif %}
+		</div><!-- gallery_detail -->
+		<script>
+		$(document).ready(function(){
+			//댓글쓴후 포커스
+			var comment_id = "{{comment_id}}";
+			if(comment_id != 'None'){
+				window.location.hash = '#c_id'+comment_id;
+			}
+		});
+		//댓글삭제알람
+		function confirm_del(){
+			if(!confirm("댓글을 삭제하시겠습니까?")) {
+				return false;
+			}
+		}
+		/* 좋아요 클릭 */
+		$(".like").click(function(){
+			var toggle = $('.like').attr('class');
+			/* 좋아요 증가*/
+			if ( toggle == 'like g_like'){
+				var content_id = {{content.id}};
+				var content_content = "{{content.content}}";
+				$.ajax({
+					type: "POST",
+					url: "{% url 'gallerys:add_like' %}",
+					data: {'content_id': content_id, 'content_name':'실시간세부', 'content_content': content_content, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					dataType: "json",
+					success: function(response){
+						// $('.clk_like').css('border', '1px solid #f06969');
+						$('.like').removeClass("g_like");
+						$('.like').addClass("g_unlike");
+						$('#like_id').val(response.addlike_id);
+						var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+						$('.likeYou b:first-child').text(l_num);
+					},
+					error: function(request, status, error){
+							alert("로그인 후 이용해주세요.");
+					},
+				});
+			}
+			/* 좋아요 감소 */
+			else{
+				var like_id = $('#like_id').val();
+				var content_id = {{content.id}};
+				$.ajax({
+					type: "POST",
+					url: "{% url 'gallerys:add_unlike' %}",
+					data: {'content_id': content_id, 'like_id': like_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					dataType: "json",
+					success: function(response){
+						$('.like').removeClass("g_unlike");
+						$('.like').addClass("g_like");
+						var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+						$('.likeYou b:first-child').text(l_num);
+					},
+					error: function(request, status, error){
+							alert("로그인 후 이용해주세요.");
+					},
+				});
+			}
+		});
+		/* 댓글 좋아요 클릭 */
+		$(".like_you_icon").click(function(){
+			var toggle = $(this).attr('class');
+			/* 댓글 좋아요 증가*/
+			if ( toggle == 'like_you_icon g_like'){
+				var content_id = {{content.id}};
+				var comment_id = $(this).attr('id').replace('c_like','');
+				var content_content = $('#c_id'+comment_id+' .text').text();
+				$.ajax({
+					type: "POST",
+					url: "{% url 'gallerys:c_add_like' %}",
+					data: {'content_id': content_id, 'comment_id':comment_id, 'content_name':'실시간세부댓글', 'content_content': content_content, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					dataType: "json",
+					success: function(response){
+						$('#c_like'+response.comment_id).removeClass("g_like");
+						$('#c_like'+response.comment_id).addClass("g_unlike");
+						var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+						$('#c_like'+response.comment_id+' i').text(' '+l_num);
+					},
+					error: function(request, status, error){
+							alert("로그인 후 이용해주세요.");
+					},
+				});
+			}
+			/* 댓글 좋아요 감소 */
+			else{
+				var content_id = {{content.id}};
+				var comment_id = $(this).attr('id').replace('c_like','');
+				$.ajax({
+					type: "POST",
+					url: "{% url 'gallerys:c_add_unlike' %}",
+					data: {'content_id': content_id, 'comment_id':comment_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					dataType: "json",
+					success: function(response){
+						$('#c_like'+response.comment_id).removeClass("g_unlike");
+						$('#c_like'+response.comment_id).addClass("g_like");
+						var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+						$('#c_like'+response.comment_id+' i').text(' '+l_num);
+					},
+					error: function(request, status, error){
+							alert("로그인 후 이용해주세요.");
+					},
+				});
+			}
+		});
+		</script>
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+{% endblock %}

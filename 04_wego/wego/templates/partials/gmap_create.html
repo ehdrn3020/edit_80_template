@@ -1,0 +1,192 @@
+{% load static %}
+<style>
+  .g_map{
+    width:100%;height:400px;
+  }
+  .marker_del {
+    display: inline-block;
+    color: #fff;
+    background: #aaa;
+    padding: 2px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 1px;
+  }
+  #pac-input {
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    text-overflow: ellipsis;
+    width: 75%;
+  }
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+  #title {
+    color: #fff;
+    background-color: #ff5b5e;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 6px 2px;
+  }
+  @media (max-width: 800px){
+    .g_map{
+      width:100%;height:400px;
+    }
+  }
+  @media (max-width: 400px){
+    .g_map{
+      width:100%;height:350px;
+    }
+  }
+</style>
+<div class="map_choice">
+  <h2 class="tit">지도표시</h2>
+  <p><span><img src="{% static 'images/common/map.gif' %}" alt="지도아이콘"></span>지도를 클릭하여 여행했던 장소에 핀을 꼿아주세요.(최대5핀)</p>
+  <a href="" class="map_find_btn">지도찾기</a>
+  <div class="map_rayout">
+    <div id="title">
+      <input id="pac-input" type="text"placeholder=" 검색할 위치를 입력해주세요.">
+      <input class="marker_del" onclick="deleteMarkers();" type=button value="핀 삭제">
+    </div>
+    <div class="g_map" id="g_map"></div>
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>
+  </div>
+  <input type="hidden" name="g_map1" id="g_map1" value={% if old_data.g_map1 %}"{{old_data.g_map1}}"{% else %}"NONE"{% endif %}>
+  <input type="hidden" name="g_map2" id="g_map2" value={% if old_data.g_map2 %}"{{old_data.g_map2}}"{% else %}"NONE"{% endif %}>
+  <input type="hidden" name="g_map3" id="g_map3" value={% if old_data.g_map3 %}"{{old_data.g_map3}}"{% else %}"NONE"{% endif %}>
+  <input type="hidden" name="g_map4" id="g_map4" value={% if old_data.g_map4 %}"{{old_data.g_map4}}"{% else %}"NONE"{% endif %}>
+  <input type="hidden" name="g_map5" id="g_map5" value={% if old_data.g_map5 %}"{{old_data.g_map5}}"{% else %}"NONE"{% endif %}>
+</div>
+<script>
+  // 구글맵
+  var map;
+  var markers = [];
+  function initMap(){
+    var uluru = {lat: 10.307984, lng: 123.964784};
+    map = new google.maps.Map(
+      document.getElementById('g_map'), {zoom: 12, center: uluru}
+    );
+    // 마커추가
+    google.maps.event.addListener(map, 'click', function(event) {
+       console.log(event.latLng);
+       addMarker(event.latLng);
+    });
+
+    // 검색 자동완성기능
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var infowindowContent = document.getElementById('infowindow-content');
+    infowindow.setContent(infowindowContent);
+    var marker = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+      infowindow.close();
+      marker.setVisible(false);
+      var place = autocomplete.getPlace();
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);  // Why 17? Because it looks good.
+      }
+      // marker.setPosition(place.geometry.location);
+      addMarker(place.geometry.location)
+      marker.setVisible(true);
+
+      var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindowContent.children['place-icon'].src = place.icon;
+          infowindowContent.children['place-name'].textContent = place.name;
+          infowindowContent.children['place-address'].textContent = address;
+          infowindow.open(map, marker);
+    });
+  }
+
+  // 핀 추가
+  function addMarker(location) {
+    // 5개제한
+    if(markers.length >= 5){
+      alert('핀은 최대 5개까지만 꼿을 수 있어요.');
+    }
+    else{
+      var marker = new google.maps.Marker({
+          position: location,
+          map: map
+      });
+      markers.push(marker);
+      //핀 위치값 저장
+      $("input[name=g_map"+markers.length+"]").val(marker.position);
+    }
+  }
+
+  //핀 모두지우기
+  function deleteMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+      $("input[name=g_map"+(i+1)+"]").val('NONE');
+    }
+    markers = [];
+  }
+
+$(document).ready(function(){
+  // 지도버튼 토글, 이전데이터가 있다면 열기
+  if('{{old_data.g_map1}}'=='NONE'){
+    $(".map_rayout").hide();
+    $(".map_rayout").addClass("off");
+  }
+  // 이전데이터가 있다면 핀찍기
+  for(var i = 1; i <= 5; i++){
+    var location_string = $('#g_map'+i).val();
+    if(location_string!='NONE'){
+      location_string = location_string.substr(1, location_string.length-2);
+      var location_array = location_string.split(", ");
+      var location = {lat: parseFloat(location_array[0]), lng: parseFloat(location_array[1])};
+      addMarker(location);
+    }
+  }
+  $(".map_find_btn").click(function(){
+    if($('.map_rayout').attr('class')=="map_rayout off"){
+      $(".map_rayout").removeClass("off");
+      $(".map_rayout").addClass("on");
+      $(".map_rayout").stop().slideDown('fast');
+      return false;
+    }
+    else{
+      $(".map_rayout").removeClass("on");
+      $(".map_rayout").addClass("off");
+      $(".map_rayout").stop().slideUp('fast');
+      return false;
+    }
+  });
+});
+</script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClseUrzew_Bl8Jf4sfNSOSWTHms3ey4Bg&callback=initMap" async defer></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAI_1QrwA2q_FhWWe7IPzioNOQZqmzvWE0&libraries=places&callback=initMap"
+         async defer></script>
+{% if old_data.g_map1 %}
+<script>
+  $(".map_find_btn").trigger('click');
+</script>
+{% endif %}

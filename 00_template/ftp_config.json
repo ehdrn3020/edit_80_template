@@ -1,0 +1,13 @@
+[
+	{
+		"name": "dgk_template",
+		"host": "yourName.cafe24.com",
+		"port": 21,
+		"type": "ftp",
+		"username": "yourName",
+		"password": "yourPassword",
+		"path": "/",
+		"autosave": true,
+		"confirm": true
+	}
+]

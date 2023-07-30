@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>세부스쿨 쪽지함</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dg.css' %}">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300&amp;subset=korean" rel="stylesheet">
+	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script>
+		$(function(){ 
+			$('ul.msg_tab > li').eq(0).addClass('selected'); 
+			$('.msg_tab_con').hide();
+			$('.msg_tab_con').eq(0).show(); 
+			$('ul.msg_tab > li').click(function(){
+				$('ul.msg_tab > li').removeClass('selected'); 
+				$(this).addClass('selected'); 
+				$('.msg_tab_con').hide();
+				$('.msg_tab_con').eq($(this).index()).show(); 	
+					return false; 
+			});
+		});
+	</script>
+	<style>
+		.msg_skin #msg_title {position: relative;padding: 20px;border-bottom: 1px solid #e1e1e1;background: #009fd9;color: #fff;font-size: 1.5em;text-align: center;}
+		.add_user{position: absolute;top:0;right: 0;padding: 20px;font-size: 1em;color: #fff;}
+		.msg_tab{overflow: hidden;}
+		.msg_tab li{width: 33.3%;float: left;border-bottom: 1px solid #e1e1e1;border-right: 1px solid #e1e1e1;background: #f0f0f0;}
+		.msg_tab li.selected{background: #fff;border-bottom: none;}
+		.msg_tab li:last-child{border-right: none;}
+		.msg_tab li a{display: block;text-align: center;font-size: 1.5em;padding: 10px 0;}
+		.thum{position: relative;width: 50px;height: 50px;float: left;margin-right: 10px;}
+		.thum > img{width: 100%;height: auto;border-radius: 100%;}
+
+		/* 프로필 + 글 리스트 형태 */
+		dl.thum_text_list {overflow: hidden;padding: 10px 10px 10px 20px;border-bottom: 1px solid #e1e1e1;}
+		dl.thum_text_list:last-child{border-right: none;}
+		dl.thum_text_list dt{float: left;width: 85%;overflow: hidden;}
+		dl.thum_text_list dt .user_name{font-size: 1.2em;font-weight: bold;position: relative;float: left;display: inline-block;vertical-align: middle;}
+		dl.thum_text_list dt p{position: relative;display: inline-block;font-size: 1.2em;width: 100%;padding-right: 10%;margin-top: 5px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;box-sizing: border-box;}
+		dl.thum_text_list dt span.date{float: right;color: #555;}
+		dl.thum_text_list dt:before{content:"•"; position: absolute;top:0;left: -10px;color: #d31f22;}
+		dl.thum_text_list dd{float: left;width:15%;font-size: 1em;overflow: hidden;display: inline-block;}
+		dl.thum_text_list dt:hover p{text-decoration: underline;}
+		dl.thum_text_list p .new_msg{position: absolute;top:0;right: 0;width: 20px;height: 20px;-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;background: #ff4949;color: #fff;text-align: center;font-weight: bold;line-height: 20px;}
+
+		@media screen and (max-width:425px){
+			dl.thum_text_list dt{width: 80%;}
+			dl.thum_text_list dd{width: 20%;}
+		}
+	</style>
+</head>
+<body>
+<!-- 쪽지함 목록 시작 { -->
+<div id="msg" class="msg_skin">
+    <h1 id="msg_title">아이디님의 알림함<a href="{% url 'pages:messageboxs_search' %}" class="add_user"><i class="fas fa-user-plus"></i></a></h1>
+    <ul class="msg_tab">
+    	<li><a href="#alarm">알림<span class="new_msg_alram">!</span></a></li>
+    	<li><a href="#">쪽지</a></li>
+    	<li><a href="#">보관함</a></li>
+    </ul>
+	<div class="msg_tab_con">
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="#">
+				<span class="user_name">교육매니저</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면<span class="new_msg">1</span></p>
+				</a>
+			</dt>
+		</dl>
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="#">
+				<span class="user_name">교육매니저</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면 길어지면</p>
+				</a>
+			</dt>
+		</dl>
+	</div>
+	<div class="msg_tab_con">
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="{% url 'pages:messageboxs_show' %}">
+				<span class="user_name">교육매니저2</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+				</a>
+			</dt>
+		</dl>
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="{% url 'pages:messageboxs_show' %}">
+				<span class="user_name">교육매니저2</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+				</a>
+			</dt>
+		</dl>
+	</div>
+	<div class="msg_tab_con">
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="#">
+				<span class="user_name">교육매니저3</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+				</a>
+			</dt>
+		</dl>
+		<dl class="thum_text_list">
+			<dd><div class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+			<dt>
+				<a href="#">
+				<span class="user_name">교육매니저3</span>
+				<span class="date">03. 14</span>
+				<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+				</a>
+			</dt>
+		</dl>
+	</div>
+</div>
+</body>
+</html>

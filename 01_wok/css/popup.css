@@ -1,0 +1,102 @@
+.c-popup {
+	overflow-x: hidden;
+	overflow-y: auto;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+	-webkit-transition: .2s all;
+	-ms-transition: .2s all;
+	transition: .2s all;
+}
+.c-popup.c-popup--active {
+	opacity: 1;
+	visibility: visible;
+}
+.c-popup_aligner {
+	position: relative;
+	top: 50%;
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+	-webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+	background-color: #fff;
+}
+.c-popup_cont {
+	padding: 50px 30px;
+	border: 1px solid #ccc;
+	border-top: 0;
+}
+.c-popup_text {
+  color: #fff;
+  padding: 10px 2px;
+}
+.c-popup_heading {
+	position: relative;
+	min-height: 50px;
+	padding: 10px 60px 10px 10px;
+	background-color: #9c0a1f;
+}
+.c-popup_close {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+    width: 50px;
+    height: 100%;
+    background: url('../img/aside_close.png') center center no-repeat;
+	background-size: 20px auto;
+	font-size: 0;
+	text-indent: -9999px;
+	-webkit-transition: .2s all;
+	-ms-transition: .2s all;
+	transition: .2s all;
+}
+.c-popup_close:hover {
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+.c-popup_buttons {
+	margin-top: 20px;
+	font-size: 0;
+	text-align: center;
+}
+.c-popup_button {
+	display: inline-block;
+	min-width: 100px;
+	border: 1px solid #9c0a1f;
+	-webkit-border-radius: 10px;
+	border-radius: 5px;
+	padding: 10px 5px;
+	font-size: 15px;
+	text-align: center;
+	vertical-align: middle;
+}
+.c-popup_button.c-popup_button-1 {
+	background-color: #fff;
+	border: 1px solid #9c0a1f;
+	color: #0489b1;
+}
+.c-popup_button.c-popup_button-2 {
+	background-color: #9c0a1f;
+	color: #fff;
+}
+.c-popup_button +.c-popup_button {
+	margin-left: 20px;
+}
+.tx2_r {
+    display: inline-block;
+    padding: 5px 9px;
+    background-color: #9c0a1f;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 마이페이지 유저정보 프로필{% endblock %}
+
+{% block content %}
+<div class="container center_970">
+    {% include "mypages/_header.html" %}
+	<script>
+		$(function(){ 
+			$(document).ready(function(){
+				$('.mypage_nav ul li:nth-child(1)').addClass('selected'); 
+				$('.m_mypage_nav').hide();
+				$('.m_mypage_nav').eq(0).show(); 
+			});
+		});
+	</script>
+	<div class="mypage_left">
+		<div class="sec sec1">
+			<h2 class="tit">소개</h2>
+			<ul class="sec_wrap">
+				<li class="level"><i class="far fa-address-card"></i><img src="{% static 'images/sub/level_mark.jpg' %}" alt=""><a href="" class="point_color">1레벨(씨앗)</li></a>
+				<li class="point"><i class="fas fa-coins"></i><a href="" class="point_color">568</a> point</li>
+				<li class="history"><i class="far fa-user-circle"></i><a href="" class="point_color">2019. 04. 04</a> 세부 스쿨 가입</li>
+			</ul>
+		</div><!-- sec1 -->
+		<div class="sec sec2">
+			<h2 class="tit">정보</h2>
+			<ul class="sec_wrap">
+				<li><a href="{% url 'mypages:userinfo' 'index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'profile' %}"><i class="fas fa-user"></i>프로필</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'rank' %}"><i class="fas fa-tachometer-alt"></i>등급</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'phone' %}"><i class="fas fa-id-badge"></i>연락처</a></li>
+			</ul>
+		</div><!-- sec2 -->
+		<a href="message4.html" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false" class="btn_style">쪽지 보내기</a>
+		<div class="rank_box">
+			<img src="{% static 'images/sub/rank.png' %}" alt="">
+			<strong class="rank_tit">세부스쿨 랭킹</strong>
+			<p class="rank_result"><span class="rank_num">26,415</span>위<span class="rank_update">930▲</span></p>
+			<p><span class="user_name">아이디</span>님은 세부스쿨 상위 <span class="rank_point"> 36.7%</span> 입니다.</p>
+		</div>
+	</div>
+	<div class="mypage_right">
+		<div class="sec sec1" id="menu_profile">
+			<h2 class="tit">프로필 이미지</h2>
+			<div class="sec_wrap">
+				<div class="change_img">
+					<h4 class="tit"><span class="user_name">아이디</span>님의 프로필 이미지</h3>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr>
+								<td class="profile_img"><span><img src="{% static 'images/sub/profile.png' %}"></span></td>
+								<td class="profile_upload">
+									<input type="text" class="file_upload_name" id="file_upload_name" disabled />
+									<input type="button" id="file_upload" name="file_upload" >
+									<label for="file_upload" class="upload_hidden">파일선택</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+        <!-- 팝업 -->
+        {% include "mypages/_userpop.html" %}
+	</div>
+</div><!-- container -->
+{% endblock %}

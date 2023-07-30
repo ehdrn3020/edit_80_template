@@ -1,0 +1,2763 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% load socialaccount %}
+
+{% block title %} 세부스쿨 - 메인홈 {% endblock %}
+{% block header %}
+	<meta property="og:image" content="{% static 'images/cover.jpg' %}">
+	<meta name="twitter:image" content="{% static 'images/cover.jpg' %}">
+	<style>
+		.swiper-container {
+		  width: 100%;
+		}
+		.swiper-slide {
+		  text-align: center;
+
+		  /* Center slide text vertically */
+		  display: -webkit-box;
+		  display: -ms-flexbox;
+		  display: -webkit-flex;
+		  display: flex;
+		  -webkit-box-pack: center;
+		  -ms-flex-pack: center;
+		  -webkit-justify-content: center;
+		  justify-content: center;
+		  -webkit-box-align: center;
+		  -ms-flex-align: center;
+		  -webkit-align-items: center;
+		  align-items: center;
+		}
+		.swiper-container-finger>.swiper-scrollbar{height: 0;}
+		.swiper-pagination-bullet{background: #fff;}
+		.swiper-pagination-bullet-active{background: #fff;}
+	</style>
+	{% if messages %}
+		{% for message in messages %}	
+			<script>
+				$(document).ready(function(){
+						alert('{{ message }}'); 
+				});
+			</script>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+{% block content %}
+	<div id="container">
+		<h2 class="sound_only">본문 영역</h2>
+		<div class="container_wrap center">
+			<!-- 섹션 왼쪽 { -->
+			<div class="sec_left">
+				<div class="main_banner">
+					<h2 class="sound_only">메인 슬라이드 배너</h2>
+					<!-- Swiper -->
+				<div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+					{% for slide in banner_slide %}
+					<div class="swiper-slide"><img src="{{ slide.photo.url}}" alt="{{ slide.description }}"></div>
+					{% endfor %}
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination swiper-pagination1"></div>
+				</div>
+					<script>
+						var swiper1 = new Swiper('.swiper1', {
+							loop:true,
+							autoplay: {
+							delay: 4000,
+							disableOnInteraction: false,
+							},
+							pagination: {
+								el: '.swiper-pagination1',
+								clickable: true,
+							},
+						});
+					</script>
+				</div><!-- Main Banner -->
+				<div class="main sec sec1">
+					<h2 class="sound_only">여행 관련 정보 메뉴</h2>
+					<div class="sec_btn">
+						<span class="spuare_list"><i class="fas fa-th-large"></i></span>
+						<span class="list"><i class="fas fa-list"></i></span>
+						<span class="setup"><i class="fas fa-cog"></i></span>
+					</div>
+					<!-- Swiper { -->
+					<div class="swiper-container swiper2">
+						<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<table>
+								<tr>
+									{% for banner in banner_1|slice:":5" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_1|slice:"5:10" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_1|slice:"10:15" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+							</table>
+						</div>
+						<div class="swiper-slide">
+							<table>
+								<tr>
+									{% for banner in banner_2|slice:":5" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_2|slice:"5:10" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_2|slice:"10:15" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+							</table>
+						</div>
+						<div class="swiper-slide">
+							<table>
+								<tr>
+									{% for banner in banner_3|slice:":5" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_3|slice:"5:10" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_3|slice:"10:15" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+							</table>
+						</div>
+						<div class="swiper-slide">
+							<table>
+								<tr>
+									{% for banner in banner_4|slice:":5" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_4|slice:"5:10" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_4|slice:"10:15" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+							</table>
+						</div>
+						<div class="swiper-slide">
+							<table>
+								<tr>
+									{% for banner in banner_5|slice:":5" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_5|slice:"5:10" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									{% for banner in banner_5|slice:"10:15" %}
+										<td>
+											<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+												<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+											</a>
+										</td>
+									{% endfor %}
+								</tr>
+							</table>
+						</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pager swiper-pager1"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next"><span></span></div>
+						<div class="swiper_prev"><span></span></div>
+					</div>
+					<!-- } Swiper  -->
+				</div>
+				<script>
+					var swiper2 = new Swiper('.swiper2', {
+					spaceBetween: 0,
+					loop:true,
+					navigation: {
+					nextEl: '.swiper_next',
+					prevEl: '.swiper_prev',
+					},
+					pagination: {
+						el: '.swiper-pager',
+						clickable: true,
+						renderBullet: function (index, className) {
+						if(index==0){
+						return '<span class="' + className + '">' +"리조트" + '</span>';
+						};
+						if(index==1){
+						return '<span class="' + className + '">' +"호텔" + '</span>';
+						};
+						if(index==2){
+						return '<span class="' + className + '">' +"교민맛집" + '</span>';
+						};
+						if(index==3){
+						return '<span class="' + className + '">' +"로컬맛집" + '</span>';
+						};
+						if(index==4){
+						return '<span class="' + className + '">' +"여행사" + '</span>';
+						};
+						},
+					},
+					});
+				</script>
+				<div class="main sec sec2">
+					<h2 class="tit">실시간 세부 <span class="arr_ico"></span></h2>
+					<div class="live_next swiper_next"><span></span></div>	
+					<div class="live_prev swiper_prev"><span></span></div>	
+					<div class="sec_btn">
+						<span class="setup"><i class="fas fa-cog"></i></span>
+					</div>
+					<div class="swiper-container live_vertical">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"><a href="#">실시간 세부 내용 상세페이지 타이틀 1</a></div>
+							<div class="swiper-slide"><a href="#">실시간 세부 내용 상세페이지 타이틀 2</a></div>
+							<div class="swiper-slide"><a href="#">실시간 세부 내용 상세페이지 타이틀 3</a></div>
+						</div>
+					</div>
+					<script>
+						var swiper0 = new Swiper('.live_vertical', {
+						direction: 'vertical',
+						loop:true,
+						autoplay: {
+							delay: 1500,
+							disableOnInteraction: false,
+						},
+						navigation: {
+							nextEl: '.live_next',
+							prevEl: '.live_prev',
+						},
+						});
+					</script>
+				</div>			  
+				<div class="main sec sec3 tab_style">
+					<h2 class="sound_only">세부 여행후기</h2>
+					<h2><img src="{% static 'images/main/main_59.png' %}" alt="세부 여행 후기"></h2>
+					<!-- Swiper -->
+					<div class="swiper-container m_touch_nav2">
+						<div class="swiper-wrapper tab">
+							<div class="swiper-slide"><a href="#">전체보기</a></div>
+							<div class="swiper-slide"><a href="#">여행후기</a></div>
+							<div class="swiper-slide"><a href="#">투어</a></div>
+							<div class="swiper-slide"><a href="#">숙소</a></div>
+							<div class="swiper-slide"><a href="#">맛집</a></div>
+							<div class="swiper-slide"><a href="#" >마사지</a></div>
+							<div class="swiper-slide"><a href="#" >뷰티</a></div>
+							<div class="swiper-slide"><a href="#" >액티비티</a></div>
+							<div class="swiper-slide"><a href="#" >기타</a></div>
+						</div>
+						<span class="gradi"></span>
+					</div>
+					<!-- Initialize Swiper -->
+					<script>
+						var m_touch_nav2 = new Swiper('.m_touch_nav2', {
+						slidesPerView: 5,
+						spaceBetween: 5,
+						freeMode: true,
+						});
+					</script>
+					<ul class="tab">
+						<li class="selected swiper-slide"><a href="#">전체보기</a></li>
+						<li class="swiper-slide"><a href="#">여행후기</a></li>
+						<li class="swiper-slide"><a href="#">투어</a></li>
+						<li class="swiper-slide"><a href="#">숙소</a></li>
+						<li class="swiper-slide"><a href="#">맛집</a></li>
+						<li class="swiper-slide"><a href="#">마사지</a></li>
+						<li class="swiper-slide"><a href="#">뷰티</a></li>
+						<li class="swiper-slide"><a href="#">액티비티</a></li>
+						<li class="swiper-slide"><a href="#">기타</a></li>
+					</ul>
+					<div class="tab_content tab_content1">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span><i class="far fa-comment-dots"> 6 </i></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+								<dd class="day">10.28</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content2">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content3">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content4">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content5">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png'%}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content6">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content7">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content8">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="tab_content tab_content9">
+						<ul>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_68.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_70.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_72.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{% static 'images/main/main_74.png' %}" alt="">
+									<span class="sub_txt">[여행샷클래스] 오늘의 여행</span>
+								</a>
+							</li>
+						</ul>
+						<div class="group_list">
+							<dl class="selected">
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">투어</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">숙소</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">맛집</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">마사지</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+						<div class="group_list group_list_hidden">
+							<dl class="selected">
+								<dt class="group">뷰티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">기타</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">액티비티</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+							<dl>
+								<dt class="group">여행후기</dt>
+								<dd class="tit">숨은 그림 찾기에 숨어있는 이야기</dd>
+								<dd class="score">4</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<div class="main sec sec4">
+					<h2 class="sound_only">여행 관련 글 게시판</h2>
+					<!-- Swiper { -->
+					<div class="swiper-container swiper5">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide swiper-slide1">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+									<div class="group_list group_list_hidden">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide swiper-slide2">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+									<div class="group_list group_list_hidden">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide swiper-slide3">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+									<div class="group_list group_list_hidden">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide swiper-slide4">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+									<div class="group_list group_list group_list_hidden">
+										<dl class="selected">
+											<dt class="group">뷰티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 </span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span><i class="far fa-comment-dots"> 6 </i></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">기타</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">액티비티</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기 숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+										<dl>
+											<dt class="group">여행후기</dt>
+											<dd class="tit"><span>숨은 그림 찾기에 숨어있는 이야기</span></dd>
+											<dd class="day">10.28</dd>
+										</dl>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+						</div><!-- swiper-wrapper -->
+					</div><!-- swiper5 -->
+					<!-- Add Pagination -->
+					<div class="swiper-pager swiper-pager2"></div>
+					<!-- Add Arrows -->
+					<div class="swiper_next swiper_next2"><span></span></div>
+					<div class="swiper_prev swiper_prev2"><span></span></div>
+					<script>
+						var swiper5 = new Swiper('.swiper5', {
+							spaceBetween: 0,
+							loop:true,
+							navigation: {
+							nextEl: '.swiper_next2',
+							prevEl: '.swiper_prev2',
+							},
+							pagination: {
+								el: '.swiper-pager2',
+								clickable: true,
+								renderBullet: function (index, className) {
+									if(index==0){
+										return '<span class="' + className + '">' +"질문답변" + '</span>';
+									};
+									if(index==1){
+										return '<span class="' + className + '">' +"정보공유" + '</span>';
+									};
+									if(index==2){
+										return '<span class="' + className + '">' +"커뮤니티" + '</span>';
+									};
+									if(index==3){
+										return '<span class="' + className + '">' +"여행코스" + '</span>';
+									};
+								},
+							},
+						});
+					</script>
+					<div class="sec_btn sec_btn_left sec_btn_left1">
+						<span class="all_view_btn"><a href="#"><i class="fas fa-bars"></i></a></span>
+					</div>
+					<div class="sec_menu sec4_menu">
+					<!-- } Swiper  -->
+						<ul>
+							<li><a href="#"><span></span>세부투어</a></li>
+							<li><a href="#"><span></span>숙소</a></li>
+							<li><a href="#"><span></span>맛집</a></li>
+							<li><a href="#"><span></span>액티비티</a></li>
+							<li><a href="#"><span></span>마사지</a></li>
+							<li><a href="#"><span></span>뷰티샵</a></li>
+							<li><a href="#"><span></span>나홀로여행</a></li>
+							<li><a href="#"><span></span>가족여행</a></li>
+							<li><a href="#"><span></span>커플여행</a></li>
+							<li><a href="#"><span></span>여행루트</a></li>
+							<li><a href="#"><span></span>질문답변</a></li>
+							<li><a href="#"><span></span>동행</a></li>
+							<li><a href="#"><span></span>사고팔기</a></li>
+							<li><a href="#"><span></span>세부팁</a></li>
+							<li><a href="#"><span></span>여행준비</a></li>
+							<li><a href="#"><span></span>렌트카/항공</a></li>
+						</ul>
+					</div>
+				</div><!-- sec4 -->
+				<div class="main sec sec5">
+					<h2 class="tit">오늘의 인기글 <span>HOT</span></h2>
+					<div class="hot_topic_list">
+						<ul>
+							<li><a href="#"><span>1</span>블로그 상태 좀 봐주세요</a></li>
+							<li><a href="#"><span>2</span>블로그 상태 좀 봐주세요 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. 길어진 문장입니다. </a></li>
+							<li><a href="#"><span>3</span>블로그 상태 좀 봐주세요 블로그 상태 좀 봐주세요</a></li>
+							<li><a href="#"><span>4</span>블로그 상태 좀 봐주세요 블로그 상태 좀 봐주세요</a></li>
+							<li><a href="#"><span>5</span>블로그 상태 좀 봐주세요</a></li>
+						</ul>
+					</div>
+					<div class="hot_topic_btm_banner">
+						{% for banner in banner_left|slice:"0:1" %}
+						<a href="{{ banner.link_url }}"><img src="{{ banner.photo.url }}" alt="{{ banner.description }}"></a>
+						{% endfor %}
+					</div>
+				</div><!-- sec5 -->
+				<script type="text/javascript">
+					$(function()
+					{
+						var hot_topic = function()
+						{
+							setTimeout(function(){
+								$('.hot_topic_list li:first').animate( {marginTop: '-27px'}, 600, function()
+								{
+									$(this).detach().appendTo('.hot_topic_list ul').removeAttr('style');
+								});
+								hot_topic();
+							}, 3000);
+						};
+						hot_topic();
+					});
+				</script>
+				<div class="main sec m_banner">
+					<h2 class="sound_only">모바일 광고 배너</h2>
+					{% for banner in banner_right|slice:":2" %}
+					<a href="{{ banner.link_url }}"><img src="{{ banner.photo.url }}" alt="{{ banner.description }}"></a>
+					{% endfor %}
+				</div>
+				<div class="main sec sec6">
+					<h2 class="sound_only">생생한 여행 게시판</h2>
+					<!-- Swiper { -->
+					<div class="swiper-container swiper6">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject1.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">여행샷</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject2.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">먹방샷</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject3.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">커플샷</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject4.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">공항출발</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject5.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">실시간세부</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											<li>
+												<img src="{% static 'images/main/subject6.png' %}" alt="">
+												<div class="subject_box">
+													<h2 class="tit">여행루트</h2>
+													<span class="line"></span>
+														<ul>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">음식백과</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">산지직속</a></li>
+															<li><a href="#">전통주</a></li>
+															<li><a href="#">전통주</a></li>
+														</ul>
+												</div><!-- subject_box -->
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_108.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_110.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_120.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_121.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<img src="{% static 'images/main/main_122.png' %}" alt="">
+													<span class="sub_txt">[여행샷클래스] 오늘의 여행 여행 여행<br><b>이렇게도 이뻐요 인생샷 즐 기기 기기도 쉽지 않다.</b></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div><!-- swiper-slide -->
+						</div><!-- swiper-wrapper -->
+					</div><!-- swiper6 -->
+					<!-- Add Pagination -->
+					<div class="swiper-pager swiper-pager3"></div>
+					<!-- Add Arrows -->
+					<div class="swiper_next swiper_next3"><span></span></div>
+					<div class="swiper_prev swiper_prev3"><span></span></div>
+					<script>
+						var swiper6 = new Swiper('.swiper6', {
+						spaceBetween: 0,
+						loop:true,
+						navigation: {
+						nextEl: '.swiper_next3',
+						prevEl: '.swiper_prev3',
+						},
+						autoplay: {
+						delay: 4000,
+						disableOnInteraction: false,
+						},
+						pagination: {
+							el: '.swiper-pager3',
+							clickable: true,
+							renderBullet: function (index, className) {
+							if(index==0){
+							return '<span class="' + className + '">' +"여행샷" + '</span>';
+							};
+							if(index==1){
+							return '<span class="' + className + '">' +"먹방샷" + '</span>';
+							};
+							if(index==2){
+							return '<span class="' + className + '">' +"커플샷" + '</span>';
+							};
+							if(index==3){
+							return '<span class="' + className + '">' +"공항출발" + '</span>';
+							};
+							if(index==4){
+							return '<span class="' + className + '">' +"실시간세부" + '</span>';
+							};
+							if(index==5){
+							return '<span class="' + className + '">' +"여행루트" + '</span>';
+							};
+							},
+						},
+						});
+					</script>
+					<!-- } Swiper  -->
+					<div class="sec_btn sec_btn_left sec_btn_left2">
+						<span class="all_view_btn"><a href="#"><i class="fas fa-bars"></i></a></span>
+					</div>
+					<div class="sec_menu sec6_menu">
+						<ul>
+							<li><a href="#"><span></span>여행</a></li>
+							<li><a href="#"><span></span>음식</a></li>
+							<li><a href="#"><span></span>공항</a></li>
+							<li><a href="#"><span></span>리조트</a></li>
+							<li><a href="#"><span></span>쇼핑</a></li>
+						</ul>
+					</div>
+				</div><!-- sec6 -->
+			</div><!-- sec_left -->
+			<!-- } 섹션 왼쪽  -->
+			<!-- 섹션 오른쪽 { -->
+			<div class="sec_right">
+				<!-- 로그인후 화면 -->
+				{% if user.is_authenticated %}
+				<div class="main_login">
+					<h2 class="sound_only">로그인 중</h2>
+					<div class="sec main_login_top">
+						<div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"><span class="setup"><img src="{% static 'images/common/main_31.png' %}" alt="아이콘"></span></div>
+						<div class="id_box">{{ user.username }}<span><img src="{% static 'images/common/main_27.png' %}" alt="아이콘"></span></div>
+						<ul class="my_info">
+							<li clas="mypage boder_right"><a href="{% url 'mypages:index' %}">마이페이지</a></li>
+							<li class="point"><a href="#">{{ user.point | intcomma}}</a>point</li>
+						</ul>
+						<div class="login_btn">
+							<form action="{% url 'accounts:logout' %}" method="POST">
+                    			{% csrf_token %}
+								<input type="submit" value="로그아웃">
+                			</form>	
+						</div>
+					</div>
+					<div class="main_login_btm">
+						<ul>
+							<li>
+								<a href="#"><span>1</span>알림</a>
+							</li>
+							<li><a href="#">내글</a></li>
+							<li><a href="#">내댓글</a></li>
+							<li><a href="#">쪽지</a></li>
+							<li><a href="#">스크랩</a></li>
+						</ul>
+					</div>
+					<div class="main_login_box">
+						<div class="main_login_head">
+						<h2 class="tit">전체 알림</h2>
+							<span>
+								<a href="#" class="point_color">모두 읽음 표시</a>
+								<a href="{% url 'pages:messageboxs_index' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+									알림함
+								</a>
+							</span> 
+						</div>
+						<div class="main_login_wrap">
+							<ul class="no_notice">
+								<li class="tit">새로운 알림이 없습니다.</li>
+								<li class="txt">나의 게시글, 댓글에 대한 추천과 댓글 알림을<br>확인해보세요.</li>
+								<li class="btn">
+									<a href="{% url 'pages:messageboxs_index' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+										알림함
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="main_login_box">
+						<div class="main_login_head">
+						<h2 class="tit">내 게시글</h2>
+							<span class="one">
+								<a href="#">전체보기</a>
+							</span> 
+						</div>
+						<div class="main_login_wrap">
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+						</div>
+					</div>
+					<div class="main_login_box">
+						<div class="main_login_head">
+						<h2 class="tit">내 댓글</h2>
+							<span class="one">
+								<a href="#">전체보기</a>
+							</span> 
+						</div>
+						<div class="main_login_wrap">
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+						</div>
+					</div>
+					<div class="main_login_box">
+						<div class="main_login_head">
+						<h2 class="tit">받은 쪽지함</h2>
+							<span>
+								<a href="#" class="point_color">모두 읽음 표시</a>
+								<a href="message1.html" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false">알림함</a>
+							</span> 
+						</div>
+						<div class="main_login_wrap">
+							<dl class="thum_text_list">
+								<dd><div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+								<dt>
+									<a href="#">교육매니저</a>
+									<span>19. 03. 14</span>
+									<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+								</dt>
+							</dl>
+							<dl class="thum_text_list">
+								<dd><div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+								<dt>
+									<a href="#">교육매니저</a>
+									<span>19. 03. 14</span>
+									<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+								</dt>
+							</dl>
+						</div>
+					</div>
+					<div class="main_login_box">
+						<div class="main_login_head">
+						<h2 class="tit">스크랩함</h2>
+							<span class="one">
+								<a href="#">전체보기</a>
+							</span> 
+						</div>
+						<div class="main_login_wrap">
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+							<dl class="text_list">
+								<dt><a href="#">가입인사 드려요.</a></dt>
+								<dd><a href="#">가입인사</a></dd>
+								<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+								<dd><a href="#">조회<span>4</span></a></dd>
+								<dd><a href="#">15/25</a></dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				{% else %}
+				<!-- 로그인전 화면 -->
+				<div class="main_logout">
+					<h2 class="sound_only">로그아웃 상태, 로그인하세요</h2>
+					<p>로그인 후 더욱 많은 기능을 이용하세요!</p>
+					<div class="do_login">
+						<ul>
+							<li><a href="{% provider_login_url 'naver' %}"><img src="{% static 'images/main/login_naver.png' %}" alt=""><img src="{% static 'images/main/login_naver_on.png' %}" alt=""><span>네이버계정으로 로그인</span></a></li>
+							<li><a href="{% provider_login_url 'facebook' %}"><img src="{% static 'images/main/login_facebook.png' %}" alt=""><img src="{% static 'images/main/login_facebook_on.png' %}" alt=""><span>페이스북계정으로 로그인</span></a></li>
+							<li><a href="{% provider_login_url 'google' %}"><img src="{% static 'images/main/login_google.png' %}" alt=""><img src="{% static 'images/main/login_google_on.png' %}" alt=""><span>구글계정으로 로그인</span></a></li>
+							<li><a href="{% provider_login_url 'kakao' %}"><img src="{% static 'images/main/login_kakao.png' %}" alt=""><img src="{% static 'images/main/login_kakao_on.png' %}" alt=""><span>카카오계정으로 로그인</span></a></li>
+							<li><a href="{% url 'accounts:login' %}"><img src="{% static 'images/main/login_mail.png' %}" alt=""><img src="{% static 'images/main/login_mail_on.png' %}" alt=""><span>이메일 또는 아이디로 로그인</span></a></li>
+						</ul>
+					</div>
+					<span class="join"><a href="{% url 'accounts:register_index' %}">회원가입</a></span>
+					<span class="find_id"><a href="{% url 'accounts:find' %}">ID/PW찾기</a></span>
+				</div>
+				{% endif %}
+				<div class="main sec sec7">
+					<h2 class="sound_only">오늘의 날씨/환율/영어회화 소개</h2>
+					<div class="swiper-container swiper7">
+						<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="info_head">
+							<h2 class="tit boder_right">{{rigth_date}}</h2>
+								<a href="#">세부날씨 <i class="fas fa-chevron-right"></i></a>
+							</div>
+						<div class="type_weather">
+								<a href="#" class="info_layer">
+								<!-- .thumb_lg 영역 : 날씨 아이콘 (디자인 필요할듯, 현재 네이버꺼 가져옴 images/sp_timesquare.png 파일 참고)  -->
+								<div class="thumb_lg ico_w02"><span class="sound_only">날씨 맑음</span></div>
+								<div class="info_temp">
+									<div class="temp_current" ><span class="tc_text">{{ weather.temp }}</span>°C</div>
+									<span class="temp_lowest" ><span class="tl_text">{{ weather.temp_min }}</span>°</span>
+									<span>/</span>
+									<span class="temp_highest"><span class="th_text">{{ weather.temp_max }}</span>°</span>
+								</div>
+								<div class="info_weather">
+								<div class="info_tit" >{{ weather.description }}</div>
+								<div class="info_txt" >습도 <span class="normal">{{ weather.humidity }}</span>% 바람 <span class="normal">{{ weather.wind }}</span>m/s</div><!--  클래스명 : 나쁨 .bad, 보통 .normal , 좋음 .good  -->
+								<div class="info_txt" ></div>
+								</div>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="info_head">
+							<h2 class="tit boder_right">{{rigth_date}}</h2>
+								<a href="#">환율 <i class="fas fa-chevron-right"></i></a>
+							</div>
+							<div class="exchange">
+								<a href="#" class="info_layer">
+								<ul>
+									<li>
+										<dl>
+											<dt><strong>달러</strong><span>USD</span> - <strong>원</strong><span>KRW</span></dt>
+											<dd><strong>{{ dollar_rate.krw}}</strong> 
+												{% if dollar_rate.status_krw > 0 %}
+												<span class="up">{{dollar_rate.status_krw}}</span>
+												{% else %}
+												<span class="down">{{dollar_rate.status_krw | cut:"-" }}</span>
+												{% endif %}
+											</dd>
+										</dl>
+									</li>
+									<li>
+										<dl>
+											<dt><strong>달러</strong><span>USD</span> - <strong>페소</strong><span>PHP</span></dt>
+											<dd><strong>{{ dollar_rate.php }}</strong>
+												{% if dollar_rate.status_php >= 0 %}
+												<span class="up">{{dollar_rate.status_php }}</span>
+												{% else %}
+												<span class="down">{{dollar_rate.status_php | cut:"-" }}</span>
+												{% endif %}
+											</dd>
+										</dl>
+									</li>
+								</ul>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="info_head">
+								<h2 class="tit boder_right">{{rigth_date}}</h2>
+								<a href="#">세부회화 <i class="fas fa-chevron-right"></i></a>
+							</div>
+							<div class="eng_speaking">
+								<a href="#self" class="info_layer">
+								<!--
+								<p class="kor_sen"><b class="point">반대</b> 의견 있어요?</p>
+								<p class="eng_sen">Is anyone <b class="point">against</b> the motion?</p>
+								<p class="pronun">이즈 애니원 <b class="point">어겐스트</b> 더 모션?</p>-->
+								<p class="kor_sen">{{p_language.data1}}</p>
+								<p class="eng_sen">{{p_language.data2}}</p>
+								<p class="pronun"><b class="point">{{p_language.data3}}</b></p>
+								</a>
+							</div>
+						</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next swiper_next4"><span></span></div>
+						<div class="swiper_prev swiper_prev4"><span></span></div>
+					</div>
+				<!-- } Swiper  -->
+				</div>
+				<script>
+					$(document).ready(function(){
+						var swiper7 = new Swiper('.swiper7', {
+						spaceBetween: 0,
+						loop:true,
+						navigation: {
+						nextEl: '.swiper_next4',
+						prevEl: '.swiper_prev4',
+						},
+						pagination: {
+							el: '.swiper-pagination',
+							type: 'fraction',
+						},
+						});
+					});
+				</script>
+				<div class="main sec ad_banner">
+					<h2 class="sound_only">광고 배너</h2>
+					<a href="#">
+						<img src="{% static 'images/main/main_47.png' %}" alt="">
+					</a>
+				</div>
+				<div class="main sec sec9">
+					<h2 class="sound_only">퀴즈 영역</h2>
+					<input type="hidden" name="po_id" value="">
+					<input type="hidden" name="skin_dir" value="">
+					<section id="poll">
+						<header>
+							<h2><img src="{% static 'images/common/main_56.png' %}" alt="스쿨 아이콘"> 스쿨퀴즈</h2>
+							<a href="#" target="_blank" onclick="" class="btn_result">정답제출</a>
+						</header>
+						<div class="poll_con">
+							<p>{{quiz.data1}}</p>
+							<ul>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data3}}" id="gb_poll_1" checked>
+									<label for="gb_poll_1"><span></span>{{quiz.data3}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data4}}" id="gb_poll_2">
+									<label for="gb_poll_2"><span></span>{{quiz.data4}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data5}}" id="gb_poll_3">
+									<label for="gb_poll_3"><span></span>{{quiz.data5}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data6}}" id="gb_poll_4">
+									<label for="gb_poll_4"><span></span>{{quiz.data6}}</label>
+								</li>
+							</ul>
+							<input type="hidden" id ="quiz_result" value="{{quiz.data2}}">
+						</div>
+					</section>
+				</div>
+				<!-- 정답팝업 -->
+				<div class="quiz_layer" id='quiz_correct'>
+					<div class="quiz_h">
+						<h4>세부 스쿨 퀴즈풀이</h4><span class="close"><i class="fas fa-times"></i></span>
+					</div>
+					<div class="quiz_c">
+						<span style="display:block;"><img src="{% static 'images/main/quiz_win.jpg' %}" alt="정답입니다!"></span>
+						<ul>
+							<li>정답풀이</li>
+							<li class="answer">정답 : {{quiz.data2}}</li>
+							<li class="answer_d">정답 풀이 : {{quiz.data7}}</li>
+						</ul>
+						<a href="{% url 'stores:school_quiz' %}" class="check">포인트받기</a>
+					</div>
+				</div>
+				<!-- 오답팝업 -->
+				<div class="quiz_layer" id='quiz_wrong'>
+					<div class="quiz_h">
+						<h4>세부 스쿨 퀴즈풀이</h4><span class="close"><i class="fas fa-times"></i></span>
+					</div>
+					<div class="quiz_c">
+						<span style="display:block;"><img src="{% static 'images/main/quiz_lose.jpg' %}" alt="오답입니다!"></span>
+						<ul>
+							<li>오답이에요</li>
+							<li class="answer_d">다시한번 생각해주세요!</li>
+						</ul>
+						<a href="#" class="check" id="quiz_close">확인</a>
+					</div>
+				</div>
+				<script>
+					$("#quiz_close").click(function(){
+						$(".quiz_layer").hide();
+						return false;
+					});
+					$(".sec9 .btn_result").click(function(){
+						var quiz_selected = $("input[name=gb_poll]:checked").val();
+						var quiz_result = $("#quiz_result").val();
+						if(quiz_selected == quiz_result)
+							$("#quiz_correct").show();
+						else
+							$("#quiz_wrong").show();
+						return false;
+					});
+				</script>
+				<div class="main sec sec10">
+					<h2 class="tit">쇼핑</h2>
+					<ul class="tab2">
+						<li><a href="#">상품</a></li>
+						<li><a href="#">쇼핑몰</a></li>
+						<li><a href="#">MEN</a></li>
+					</ul>
+					<div class="swiper-container swiper10 tab2_content">
+						<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+					</div><!-- swiper-wrapper -->
+					<!-- Add Pagination -->
+						<div class="swiper-pagination swiper-pagination2"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next swiper_next5"><span></span></div>
+						<div class="swiper_prev swiper_prev5"><span></span></div>
+					</div><!-- tab2_content -->
+					<script>
+						$(document).ready(function(){
+							var swiper10= new Swiper('.swiper10', {
+							spaceBetween: 0,
+							loop:true,
+							navigation: {
+							nextEl: '.swiper_next5',
+							prevEl: '.swiper_prev5',
+							},
+							autoplay: {
+							delay: 5000,
+							disableOnInteraction: false,
+							},
+							pagination: {
+								el: '.swiper-pagination2',
+								type: 'fraction',
+							},
+							});
+						});
+					</script>
+					<div class="swiper-container swiper11 tab2_content">
+						<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+					</div><!-- swiper-wrapper -->
+					<!-- Add Pagination -->
+						<div class="swiper-pagination swiper-pagination3"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next swiper_next6"><span></span></div>
+						<div class="swiper_prev swiper_prev6"><span></span></div>
+					</div><!-- tab2_content -->
+					<script>
+						$(document).ready(function(){
+							var swiper11= new Swiper('.swiper11', {
+							spaceBetween: 0,
+							loop:true,
+							navigation: {
+							nextEl: '.swiper_next6',
+							prevEl: '.swiper_prev6',
+							},
+							pagination: {
+								el: '.swiper-pagination3',
+								type: 'fraction',
+							},
+							});
+						});
+					</script>
+					<div class="swiper-container swiper12 tab2_content">
+						<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+						<div class="swiper-slide">
+							<ul>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+											<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+										</a>
+									</li>
+							</ul>
+						</div>
+					</div><!-- swiper-wrapper -->
+					<!-- Add Pagination -->
+						<div class="swiper-pagination swiper-pagination4"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next swiper_next7"><span></span></div>
+						<div class="swiper_prev swiper_prev7"><span></span></div>
+					</div><!-- tab2_content -->
+					<script>
+						$(document).ready(function(){
+							var swiper12= new Swiper('.swiper12', {
+							spaceBetween: 0,
+							loop:true,
+							navigation: {
+							nextEl: '.swiper_next7',
+							prevEl: '.swiper_prev7',
+							},
+							pagination: {
+								el: '.swiper-pagination4',
+								type: 'fraction',
+							},
+							});
+						});
+					</script>
+				</div><!-- sec10 -->
+				<div class="main sec m_banner">
+					<h2 class="sound_only">광고 배너</h2>
+					<a href="#"><img src="{% static 'images/main/main_98.png' %}" alt=""></a>
+					<a href="#"><img src="{% static 'images/main/main_116.png' %}" alt=""></a>
+					<a href="#" class="txt_banner">
+						<span class="img"><img src="{% static 'images/main/main_103.png' %}" alt=""></span>
+						<ul>
+							<li class="sub_tit">경찰청</li>
+							<li class="tit">“4.2수칙” 클릭!</li>
+						</ul>
+					</a>
+					<a href="#" class="txt_banner">
+						<span class="img"><img src="{% static 'images/main/main_113.png' %}" alt=""></span>
+						<ul>
+							<li class="sub_tit">경찰청</li>
+							<li class="tit">“4.2수칙” 클릭!</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec ad_banner sec11">
+					<h2 class="sound_only">광고 배너</h2>
+					<a href="#"><img src="{% static 'images/main/main_96.png' %}" alt="">
+					</a>
+				</div>
+				<div class="main sec sec12 aside_box_style">
+					<h2 class="sound_only">광고 배너 및 정보</h2>
+					<a href="#">
+						<span class="img"><img src="{% static 'images/main/main_103.png' %}" alt=""></span>
+						<ul>
+							<li class="sub_tit">경찰청</li>
+							<li class="tit">“4.2수칙” 클릭!</li>
+							<li class="txt">
+								사이버범죄 예방의 날기념 <br>
+								온라인 이벤트 진행진중! <br>
+								광고 배너 경찰청 클릭 
+							</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec sec13 aside_box_style">
+					<h2 class="sound_only">광고 배너 및 정보</h2>
+					<a href="#">
+						<span class="img"><img src="{% static 'images/main/main_113.png' %}" alt=""></span>
+						<ul>
+							<li class="sub_tit">경찰청</li>
+							<li class="tit">“4.2수칙” 클릭!</li>
+							<li class="txt">
+								사이버범죄 예방의 날기념 <br>
+								온라인 이벤트 진행진중! <br>
+								광고 배너 경찰청 클릭
+							</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec sec14">
+					<h2 class="sound_only">광고 배너</h2>
+					<a href="#"><img src="{% static 'images/main/main_116.png' %}" alt="">
+					</a>
+				</div>
+				<div class="main sec sec15">
+					<h2 class="sound_only">하단 소메뉴</h2>
+					<ul>
+						<li><a href="#"><span><img src="{% static 'images/main/main_125.png' %}" alt="실시간 단톡 채팅"></span><span>실시간<br>단톡 채팅</span></a></li>
+						<li><a href="#"><span><img src="{% static 'images/main/main_127.png' %}" alt="숙소예약"></span><span>숙소<br>예약</span></a></li>
+						<li><a href="#"><span><img src="{% static 'images/main/main_129.png' %}" alt="홍보업체바로가기"></span><span>홍보업체<br>바로가기</span></a></li>
+					</ul>
+				</div>
+			</div><!-- sec_right -->
+			<!-- } 섹션 오른쪽 -->
+			<!-- Quick Menu -->
+			{% include "partials/_quickmenu.html" %}
+			<!-- quick_menu -->
+		</div><!-- container_wrap -->
+	</div><!-- container -->
+	<script>
+		/* 새창 한가운데 띄우기 */
+		function openWinCenter(url, wname, wopt) {
+			var newopt = "", wHeight = 0, wWidth = 0;
+			if (wopt != undefined) {
+				var woptlist = wopt.replace(/ /g, "").split(",");
+				for (var i in woptlist) {
+					if (woptlist[i].match(/^height=/i)) {
+						wHeight = parseInt(woptlist[i].substr(7),10);
+						if (!isNaN(wHeight)) newopt += "top=" + Math.floor((screen.availHeight - wHeight) / 2) + ",";
+					}
+					if (woptlist[i].match(/^width=/i)) {
+						wWidth = parseInt(woptlist[i].substr(6),10);
+						if (!isNaN(wWidth)) newopt += "left=" + Math.floor((screen.availWidth - wWidth) / 2) + ",";
+					}
+				}
+			}
+			return window.open(url, wname, newopt + wopt);
+		} 
+	</script>
+	<script type="text/javascript">
+		/* 배너 클릭수 */
+        $(".banner").click(function(){
+            var banner_id = $(this).attr('name')
+
+            $.ajax({ 
+            type: "POST", 
+            url: "{% url 'banners:index' %}", 
+            data: {'banner_id': banner_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            dataType: "json", 
+            
+            success: function(response){
+                window.open(response.url);
+            },
+            error: function(request, status, error){ 
+                alert("잘못된 접근입니다.")
+		    },
+            });
+        })
+    </script>
+{% endblock %}

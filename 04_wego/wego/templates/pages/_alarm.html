@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  function alarm_url(id, pop){
+    var u = '{{HTTP_HOST}}';
+    $.ajax({
+      type: "POST",
+      url: "{% url 'pages:alarm_url' %}",
+      data: {'alarm_id': id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+      dataType: "json",
+      success: function(response){
+        // 전체읽음표시 클릭시
+        if(response.url == 'redirect'){
+            window.location.reload();
+        }
+        else if(response.url == 'deleted'){
+            var check = confirm('해당글은 삭제되었습니다.');
+            if(check){
+              window.location.reload();
+            }
+        }
+        else{
+          // 알림팝업에서 알림클릭시
+          if(pop == 'pop'){
+            opener.location.href = window.location.origin+'/'+response.url;
+            window.location.reload();
+          }
+          // 로그인 알림클릭시
+          else{
+            location.href = window.location.origin+'/'+response.url;
+          }
+        }
+      },
+      error: function(request, status, error){
+          alert("잘못된 접근입니다.")
+      },
+    });
+  };
+  </script>

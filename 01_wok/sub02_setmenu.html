@@ -1,0 +1,177 @@
+ <!DOCTYPE html>
+<html lang="ko" class="asideOpen">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>웍[WOK] 세트메뉴 소개 - 액티비티,맛집</title>
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.YJ.datepicker.js"></script>
+    <script src="js/TweenMax.js"></script>
+	<script src="js/jquery.superscrollorama.js"></script>
+    <script src="js/common.js"></script>
+</head>
+
+<body>
+    <div class="warapper">
+      <?php include 'layout/header.html';?>
+      <?php include 'layout/quick_side.html';?>
+        <div class="container">
+			<div class="setmenu">
+				<div class="s-menu">
+					<div class="s-menu_list">
+						<div class="s-menu_item s-menu_item-1">
+							<div class="u-visual_best">BEST</div>
+							<div class="s-menu_headings">
+								<div class="s-menu_heading">여럿이 함께하는 바베큐세트!</div>
+								<div class="s-menu_heading s-menu_heading--large">KING SET</div>
+							</div>
+							<div class="s-menu_txt">돼지갈비찜 + 돼지뱃살 + 타파스 + 샐러드
+							<br />+ 치즈빵 + 열대과일 + 쿠키아이스크림<br />세트메뉴를 주문하시면 모든인원 쿠키아이스크림 제공</div>
+							<div class="s-menu_image">
+								<img src="img/pages/s-menu_image-1.png" alt="" />
+							</div>
+              <div class="display-none">
+               <a href="http://dvg.nonga.kr/">다이빙</a>
+               <p>다이빙포인트, 오픈워터, 펀다이빙, 맛집 웍레스토랑, 대만퓨전요리입니다.</p>
+              </div>
+						</div>
+						<div class="s-menu_item s-menu_item-2 s-menu_item--red">
+							<div class="u-visual_best">BEST</div>
+							<div class="s-menu_headings">
+								<div class="s-menu_heading">두명이서 알콩달콩 씨푸드세트!</div>
+								<div class="s-menu_heading s-menu_heading--large">BABY SET</div>
+							</div>
+							<div class="s-menu_txt">게 2마리 + 새우 8마리 + 옥수수 + 브로콜리 + 치즈빵<br />+ 샐러드 + 열대과일 + 쿠키아이스크림<br />세트메뉴를 주문하시면 모든인원 쿠키아이스크림 제공</div>
+							<div class="s-menu_image">
+								<img src="img/pages/s-menu_image-2.png" alt="" />
+							</div>
+						</div>
+						<div class="s-menu_item s-menu_item-3">
+							<div class="u-visual_best">BEST</div>
+							<div class="s-menu_headings">
+								<div class="s-menu_heading">여럿이 함께 즐시는 씨푸드세트!</div>
+								<div class="s-menu_heading s-menu_heading--large">QUEEN SET</div>
+							</div>
+							<div class="s-menu_txt">게 4마리 + 새우 12마리 + 조개 + 옥수수 + 브로콜리 + 치즈빵<br />+ 샐러드 + 열대과일 + 쿠키아이스크림<br />세트메뉴를 주문하시면 모든인원 쿠키아이스크림 제공</div>
+							<div class="s-menu_image">
+								<img src="img/pages/s-menu_image-3.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+		<script type="text/javascript">
+			// slider
+			var $slider = $('.s-menu_list');
+			var iScrollPos = 0;
+			var _scrollTimeout = null;
+			var speed = 600;
+			var flag = false;
+
+			$slider.slick({
+				arrows : false,
+				speed : speed,
+				dots : false,
+				infinite : false,
+				autoplay : false,
+				vertical : true,
+				verticalSwiping : true,
+				slidesToShow : 1,
+				slidesToScroll : 1,
+				responsive: [{
+				  breakpoint: 1100,
+				  settings: "unslick"
+				}]
+			});
+			// scroll
+			$(window).load(function(){
+				if ( $(window).width() >= 1100 ){
+					$slider.slick('refresh');
+				}else {
+					$slider.slick('unslick');
+				}
+				mouseWheel();
+			});
+
+			$(window).resize(function(){
+				if ( $(window).width() >= 1100 ){
+					$slider.slick('refresh');
+				}else {
+					$slider.slick('unslick');
+				}
+				mouseWheel();
+			});
+
+			function mouseWheel() {
+				$(window).on('mousewheel', function(e){
+					if ( $(window).width() >= 1100 ){
+						if(e.originalEvent.wheelDelta /120 > 0){
+							if($(window).scrollTop() === 0){
+								if(flag){
+									return;
+								}else{
+									flag = true;
+									$slider.slick('slickPrev');
+									clearTimeout(_scrollTimeout);
+									_scrollTimeout = setTimeout(function(){
+										flag = false;
+									}, speed);
+								}
+							}
+						}else{
+							if($slider.slick('slickCurrentSlide') < 2 || flag){
+								e.preventDefault();
+							}
+							if(flag){
+								return;
+							}else{
+								flag = true;
+								$slider.slick('slickNext');
+								clearTimeout(_scrollTimeout);
+								_scrollTimeout = setTimeout(function(){
+									flag = false;
+								}, speed);
+							}
+						}
+					}else {
+						if(e.originalEvent.wheelDelta /120 > 0){
+							if($(window).scrollTop() === 0){
+								if(flag){
+									return;
+								}else{
+									flag = true;
+									$slider.slick('unslick');
+									clearTimeout(_scrollTimeout);
+									_scrollTimeout = setTimeout(function(){
+										flag = false;
+									},0);
+								}
+							}
+						}else{
+							if(flag){
+								return;
+							}else{
+								flag = true;
+								$slider.slick('unslick');
+								clearTimeout(_scrollTimeout);
+								_scrollTimeout = setTimeout(function(){
+									flag = false;
+								},0);
+							}
+						}
+					}
+				});
+			}
+		</script>
+    <?php include 'layout/footer.html';?>
+    <?php include 'layout/quick_mobile.html';?>
+    </div>
+</body>
+
+</html>

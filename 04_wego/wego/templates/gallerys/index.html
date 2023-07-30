@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == 'all'%}
+	세부 여행 브이로그 - 위고세부
+	{% elif board_kind == 'tour'%}
+	세부 자유여행 일정 비용 경비 - 위고세부
+	{% elif board_kind == 'food'%}
+	필리핀 세부 막탄 맛집 - 위고세부
+	{% elif board_kind == 'hotel'%}
+	세부 리조트 순위 - 위고세부
+	{% elif board_kind == 'shopping'%}
+	세부 쇼핑리스트 - 위고세부
+	{% elif board_kind == 'airport'%}
+	세부막탄국제공항 - 위고세부
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container white_bg">
+	<div class="container_wrap center_970">
+		<div class="gallery_top">
+			<div class="g_board_ctg">
+				<ul>
+					<li {%if board_kind == 'all'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' %}">전체</a></li>
+					<li {%if board_kind == 'tour'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'tour' %}">여행샷</a></li>
+					<li {%if board_kind == 'food'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'food' %}">음식샷</a></li>
+					<li {%if board_kind == 'hotel'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'hotel' %}">숙소샷</a></li>
+					<li {%if board_kind == 'shopping'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'shopping' %}">쇼핑샷</a></li>
+					<li {%if board_kind == 'airport'%}class="selected"{%endif%}><a href="{% url 'gallerys:index' 'airport' %}">공항샷</a></li>
+				</ul>
+			</div>
+
+			<!-- <div class="gallery_banner">
+				<h2 class="tit">여행샷</h2>
+				<span class="line"></span>
+				<p>블라블라 블라 설명문<br>블라블라 설명문</p>
+			</div>
+			<div class="main_banner">
+				<h2 class="sound_only">광고 슬라이드 배너</h2>
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide"><img src="{% static 'images/main/s2.jpg' %}" alt="메인 배너1"></div>
+				  <div class="swiper-slide"><img src="{% static 'images/main/s1.jpg' %}" alt="메인 배너2"></div>
+				</div>
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div> -->
+
+		</div>
+		<div id="pop_gallery" class="gallery_ctg sec_ctg">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<h3><a>인기게시물</a></h3>
+			</div><!-- breadcrumb -->
+			<div class="article_btn">
+				<a href="{% url 'gallerys:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+			</div><!-- article_btn -->
+			<ul class="gallery_sec">
+				{% for gbest in gbests|slice:":6" %}
+				<li>
+					<a href="{% url 'gallerys:show' gbest.id %}" onmouseover="img_over(this)" onmouseout="img_out(this)">
+						 <img src="{{ gbest.pimg1 }}" alt="게시물이미지">
+						 <span class="gall_type_icon">
+							{% if gbest.attribute == '다중' %}
+								<i class="fas fa-clone"></i>
+							{% elif gbest.attribute == '동영상' %}
+								<i class="fas fa-video"></i>
+							{% endif %}
+						 </span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<!-- <strong class="tit">{{ gbest.content }}</strong> -->
+							<p>{{ gbest.content }}</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> {{gbest.likes|intcomma}}</span>
+							<span><i class="fas fa-comment-dots"></i> {{gbest.comments|intcomma}}</span>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div><!-- sec_ctg -->
+		<div id="rec_gallery" class="gallery_ctg sec_ctg">
+			<div class="breadcrumb">
+				<!-- <h2><a href="#">갤러리</a><i class="fas fa-chevron-right"></i></h2> -->
+				<h3><a href="#">최근게시물</a></h3>
+			</div><!-- breadcrumb -->
+			<ul class="gallery_sec recently">
+				{% for gallery in gallerys|slice:":18" %}
+				<li>
+					<a href="{% url 'gallerys:show' gallery.id %}" onmouseover="img_over(this)" onmouseout="img_out(this)">
+						 <img src="{{ gallery.pimg1 }}" alt="게시물이미지">
+						 <span class="gall_type_icon">
+							 {% if gallery.attribute == '다중' %}
+							 	<i class="fas fa-clone"></i>
+							 {% elif gallery.attribute == '동영상' %}
+							 	<i class="fas fa-video"></i>
+							 {% endif %}
+						 </span> <!-- 영상 일때 -->
+						 <div class="gall_sub_box">
+							<p>{{ gallery.content }}</p>
+						 </div>
+						 <div class="gallery_over">
+							<span><i class="fas fa-heart"></i> {{gallery.likes|intcomma}}</span>
+							<span><i class="fas fa-comment-dots"></i> {{gallery.comments|intcomma}}</span>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div><!-- sec_ctg -->
+	</div><!-- container_wrap -->
+	<script>
+		//스크롤 내릴시 이미지를//스크롤 발생 이벤트 처리
+		var page = 2;
+		var timer;
+		var data_end = 1;
+		$(window).scroll(function() {
+			if(timer) {
+				window.clearTimeout(timer);
+			}
+			timer = window.setTimeout(function() {
+				// actual callback
+				if($(window).scrollTop() >= ($(document).height() - $(window).height())/2){
+					// 더불러올 이미지가 있을경우
+					if(data_end!=0){
+						$.ajax({
+						type: "POST",
+						url: "{% url 'gallerys:scroll_page' %}",
+						data: {'page':page, 'board_kind':'{{board_kind}}', 'csrfmiddlewaretoken':'{{ csrf_token }}'},
+						dataType: "json",
+						success: function(data) {
+							var gallerys = JSON.parse(data.a_gallerys);
+							var pageofimg = 18;
+							var length = gallerys.length;
+							var end = pageofimg;
+							var attr = '';
+							page++;
+							// 불러온이미지가 한페이지를 채우지 못하면
+							if(length<pageofimg){ end = length; }
+							data_end = end;
+							for(i=0;i<end;i++){
+								// 이미지속성
+								if(gallerys[i].fields.attribute == '다중'){ attr = '<i class=\"fas fa-clone\"></i>'; }
+								if(gallerys[i].fields.attribute == '동영상'){ attr = '<i class=\"fas fa-video\"></i>'; }
+								$('.recently').append(
+									'<li>'+
+										'<a href=\"'+'show/'+gallerys[i].pk+'\" onmouseover=\"img_over(this)\" onmouseout=\"img_out(this)\">'+
+											'<img src=\"'+gallerys[i].fields.pimg1+'\" alt="게시물이미지">'+
+											'<span class=\"gall_type_icon\">'+ attr + '</span>'+
+											'<div class=\"gall_sub_box\">'+
+												'<p>'+gallerys[i].fields.content+'</p>'+
+											 '</div>'+
+											 '<div class=\"gallery_over\">'+
+											 '<span><i class=\"fas fa-heart\"></i> '+gallerys[i].fields.likes+'</span>'+
+											 '<span><i class=\"fas fa-comment-dots\"></i> '+gallerys[i].fields.comments+'</span>'+
+											'</div>'+
+										'</a>'+
+									'</li>'
+									)
+							}
+						},
+						error: function(request, status, error){
+							alert("잘못된 접근입니다.");
+						}
+					});
+					}
+				};
+			}, 100);
+		});
+
+	//갤러리 오버시 효과
+	function img_over(x){
+		$(x).find(".gallery_over").show();
+	}
+	function img_out(x){
+		$(x).find(".gallery_over").hide();
+	}
+	</script>
+</div><!-- container -->
+{% endblock %}

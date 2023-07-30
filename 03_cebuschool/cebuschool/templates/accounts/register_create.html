@@ -1,0 +1,33 @@
+{% extends "accounts/base_account.html" %}
+
+{% block title %}회원가입 작성{% endblock %}
+{% block content %}
+<!-- 이메일 신규가입 화면 STEP1 { -->
+	<div id="new_join_bg">
+		<div class="box_warp">
+			<h3>이메일로 신규가입</h3>
+			{% if messages %}
+				{% for message in messages %}
+					<p><span style="color:red;">*</span>{{ message }}</p>
+				{% endfor %}
+			{% else %}
+			<p>자주 사용하는 이메일을 아이디로 사용하세요.</p>
+			{% endif %}
+			<div class="email_login">
+				<form action="{% url 'accounts:register_create' %}" method="POST">
+                {% csrf_token %}
+				
+					<div class="login_id"><input type="email" name="register_id" class="join_login_frm" value="{{ email }}" maxlength="100" required></div>
+					<div class="login_id"><input type="text" name="username" class="join_nickname_frm" value="{{ username }}" maxlength="100" required></div>
+					<div class="login_pw"><input type="password" name="register_pw" class="join_pw_frm" maxlength="100" required></div>
+					<div class="login_pw"><input type="password" name="register_pw_frm" class="join_pw_frm2" maxlength="100" required></div>
+					<input type="submit" class="submit_login" name="submit_ok" value="확인">
+				</form>
+			</div>
+			<p class="back_link"><a href="{% url 'accounts:register_index' %}">< 뒤로가기</a></p>
+			<p class="line"></p>
+			<span class="sub_p">추후 이메일인증을 위해 정확한 이메일 주소를 입력해주세요.</span>
+		</div>
+	</div>
+<!--} 이메일 신규가입 화면 STEP1 -->
+{% endblock %}

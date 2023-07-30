@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}세부 여행정보 채팅방{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<style>
+    .container{margin-top: 0;margin-bottom: 0;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="sub_bg sub4_bg">
+		<h2 class="tit">위고세부 단톡</h2>
+		<span class="line"></span>
+		<p>위고티처 단톡은 <b class="blue_font">여행정보 교류 목적</b>으로 만들어집니다. <br>
+		실시간으로 궁금하신 질문과 원하는 여행팁을 공유하세요!</p>
+	</div>
+	<div class="sub4_wrap">
+		<div class="main_bg">
+			<span class="pc_img"><img src="{% static 'images/sub/school_main_bg.png' %}" alt="알려줘요! 위고티처 세부에 관한 모든 것을 공유한다! ‘위고티처’ 여행을 준비하는 분, 여행 중인 분, 여행을 갔다온 분! 그리고 잊지못해 세부를 다시 가고 싶은 분모두 자신만의 추억과 경험을 공유해주세요!"></span>
+			<span class="m_img">
+				<img src="{% static 'images/sub/m_school_main_bg.png' %}" alt="가고싶은 일정의 여행상품을 찾을 때,현지에만 알 수 있는 알뜰한 정보를 찾을 때!,세부 일정/루트 등 공유하여 남다른 여행을 느끼고 싶을 때!,숙박/음식/여행상품 등 누가 딱 찝어줬으면 할 때!">
+			</span>
+		</div><!-- about_school_teader -->
+		<div class="about_school_teader">
+			<h3 class="tit">
+			<img src="{% static 'images/sub/school_tit.png' %}" alt="wego teacher"><br>
+			세부에 대해 꼼.꼼.히<em>!</em>
+			</h3>
+			<p>가족, 커플, 홀로자유여행을 가시는 모든분들에게 <br>
+			도움이 되는 ‘위고세부 티처 단톡방’</p>
+			<span class="pc_img">
+				<img src="{% static 'images/sub/school_list.png' %}" alt="가고싶은 일정의 여행상품을 찾을 때,현지에만 알 수 있는 알뜰한 정보를 찾을 때!,세부 일정/루트 등 공유하여 남다른 여행을 느끼고 싶을 때!,숙박/음식/여행상품 등 누가 딱 찝어줬으면 할 때!">
+			</span>
+			<span class="m_img">
+				<img src="{% static 'images/sub/m_school_list.png' %}" alt="가고싶은 일정의 여행상품을 찾을 때,현지에만 알 수 있는 알뜰한 정보를 찾을 때!,세부 일정/루트 등 공유하여 남다른 여행을 느끼고 싶을 때!,숙박/음식/여행상품 등 누가 딱 찝어줬으면 할 때!">
+			</span>
+		</div><!-- about_school_teader -->
+		<div class="use_list">
+			<div class="center_975">
+				<h2 class="tit">위고티처는 이렇게 이용해주세요!</h2>
+				<ul>
+					<li>정보공유 및 후기를 목적으로 한 단톡방이에요.</li>
+					<li>업체홍보 관련 대화는삼가해주세요.</li>
+					<li>위고세부 단톡방 매니저의 가이드를 준수해주세요.</li>
+					<li>욕설, 비방적인 언어는 말안해도 아시죠?</li>
+					<li>새로운 분들에게 관심과 배려를 부탁드려요.</li>
+					<li>사적은 얘기는 짧게 부탁드려요.</li>
+					<li>적극적인 참여로 포인트더미를 받아가세요!</li>
+				</ul>
+			</div>
+		</div><!-- use_list -->
+		<div class="takepart_box">
+			<img src="{% static 'images/sub/school_img.png' %}" alt="단톡방 참여박스 배경">
+			<div class="takepart_box_wrap">
+				<h4>위고티처 단톡방</h4>
+				<span class="line"></span>
+				<p>여유가 있어 여행을 가는게 아니라 <br>
+				여행을 가니까 여유가 생기는 것이.<br>
+				가자, 세부로! 느끼자, 행복을!</p>
+				<a href="https://open.kakao.com/o/gBOQOpMb" target="_blank" class="take_btn">참여하기</a>
+			</div><!-- takepart_box_wrap -->
+		</div><!-- takepart_box -->
+    <!-- 댓글
+		<div class="school_comment">
+			<div class="sec center_975">
+				<p>댓글 1,345</p>
+				<span>※ 단톡 이용에 대한 문의는 고객센터를 이용해주세요.</span>
+				<form action="" method="" target="_blank">
+					<fieldset class="school_form_set">
+						<textarea name="" placeholder=""></textarea>
+						<button type="submit">전송</button>
+					</fieldset>
+				</form>
+				<div class="cmt_content">
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다. <br>
+									아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+									확인 부탁드리겠습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cmt_list">
+						<div class="comment_writer">
+							<div class="info">
+								<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+								<p class="data">2019.08.25</p>
+							</div>
+							<div>
+								<p class="comment_wrap">
+									비즈회원 신청했습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="pager ten">
+					<span class="pager_wrap">
+						<a href="#" class="pager_prev"></a>
+						<a href="#" class="selected">1</a>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#">4</a>
+						<a href="#">5</a>
+						<a href="#">6</a>
+						<a href="#">7</a>
+						<a href="#">8</a>
+						<a href="#">9</a>
+						<a href="#">10</a>
+						<a href="#" class="pager_next"></a>
+					</span>
+				</div>
+				</div>
+			</div>
+		</div> -->
+	</div><!-- sub4_wrap -->
+</div><!-- container -->
+{% endblock %}

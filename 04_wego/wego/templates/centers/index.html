@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == 'notice'%}
+	필리핀 세부여행 공지사항
+	{% elif board_kind == 'customerCenter'%}
+	필리핀 세부여행 고객
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<style>
+	@media (max-width: 1119px){
+		.board_ctg { height: 150px; }
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2><a>위고센터</a><i class="fas fa-chevron-right"></i></h2>
+					{% if board_kind == 'notice' %}
+					<h3><a href="{% url 'centers:index' 'notice' %}">공지사항</a></h3>
+					{% elif board_kind == 'customerCenter' %}
+					<h3><a href="{% url 'centers:index' 'customerCenter' %}">고객센터</a></h3>
+					{% endif %}
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+				{% if board_kind == 'notice' and user.is_staff == True %}
+					<a href="{% url 'centers:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				{% elif board_kind == 'customerCenter' %}
+					<a href="{% url 'centers:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				{% endif %}
+				</div><!-- article_btn -->
+			</div>
+			<div class="sec board_ctg">
+				<div class="board_ctg_top">
+					<ul>
+						<li {%if board_kind == 'notice'%}class="selected"{%endif%}><a href="{% url 'centers:index' 'notice' %}">공지사항</a></li>
+            <li {%if board_kind == 'customerCenter'%}class="selected"{%endif%}><a href="{% url 'centers:index' 'customerCenter' %}">고객센터</a></li>
+            <li><a href="{% url 'centers:partnership' %}">제휴신청</a></li>
+						<li><a href="{% url 'centers:wego_roulette'%}">돌려돌림판</a></li>
+					</ul>
+				</div><!-- board_ctg_top -->
+				<div class="board_ctg_btm">
+					<div class="board_sch">
+						<fieldset id="bd_sch">
+						 <i class="fas fa-search"></i>
+						 <legend>사이트 내 전체검색</legend>
+						 <form action="{% url 'centers:index' board_kind %}" method="GET">
+							 <label for="bd_sch_stx" class="sound_only">검색어 필수</label>
+							 <select name="sch_slt" class="bd_sch_select">
+								 <option value="제목" {%if request.GET.sch_slt == "제목"%}selected{%endif%}>제목</option>
+								 <option value="글쓴이" {%if request.GET.sch_slt == "글쓴이"%}selected{%endif%}>글쓴이</option>
+							 </select>
+							 <input type="text" name="sch_tx" id="bd_sch_stx" maxlength="20" {%if request.GET.sch_tx != None%}value="{{s_text}}"{%endif%}>
+							 <button type="text" id="bd_sch_submit" value="검색">검색</button>
+						 </form>
+					 </fieldset>
+					</div><!-- board_sch -->
+					<!-- 핫키워드 -->
+					{% include "partials/hot_keyword.html" %}
+				</div>
+			<script type="text/javascript">
+				$(function()
+				{
+					var ticker = function()
+					{
+						setTimeout(function(){
+							$('#bd_ticker li:first').animate( {marginTop: '-25px'}, 400, function()
+							{
+								$(this).detach().appendTo('ul#bd_ticker').removeAttr('style');
+							});
+							ticker();
+						}, 3000);
+					};
+					ticker();
+				});
+			</script>
+			</div><!-- sec -->
+			<div class="textboard">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col class="col1">
+						<col class="col2">
+						<col class="col3">
+						<col class="col4">
+						<col class="col4">
+						<col class="col5">
+					</colgroup>
+					{% for center in centers %}
+					<tr>
+						<td>
+							{% if center.attribute == '공지' %}
+								<span class="subject subject_notice">공지</span>
+							{% else %}
+								{% if center.secret %}
+								<span class="subject like_num zero"><i class="fas fa-key"></i></span>
+								{% elif center.likes > 0 %}
+								<span class="subject like_num"><i class="fas fa-heart"></i>{{center.likes|intcomma}}</span>
+								{% else %}
+								<span class="subject like_num zero"><i class="far fa-heart"></i>{{center.likes|intcomma}}</span>
+								{% endif %}
+							{% endif %}
+						</td>
+						<td class="board_tit">
+							{% if board_kind == 'notice' %}
+							<a href="{% url 'centers:show' board_kind center.id %}">{{center.title}}</a>
+							{% elif board_kind == 'customerCenter' and center.secret %}
+								{% if user.id == center.user.id or user.is_staff == True %}
+								<a href="{% url 'centers:show' board_kind center.id %}">{{center.title}}</a>
+								{% else %}
+								<a href="javascript:secret_content();">{{center.title}}</a>
+								{% endif %}
+							{% elif board_kind == 'customerCenter' and center.secret == False %}
+							<a href="{% url 'centers:show' board_kind center.id %}">{{center.title}}</a>
+							{% endif %}
+							<script>
+								function secret_content() {
+									alert('비밀글입니다.');
+								}
+							</script>
+
+							{% if center.upload_date|date:"Y-m-d" == new_date %}
+							<span class="new_icon"><img src="{% static 'images/common/icon_new.jpg' %}" alt="새로운 글"></span>
+							{% endif %}
+							{% if center.is_imaged %}
+							<span class="photo_cion"><img src="{% static 'images/common/img.gif' %}" alt="이미지 첨부표시"></span>
+							{% endif %}
+							{% if center.comments > 0 %}
+							<span class="score">
+								<i class="far fa-comment-dots"> {{center.comments}}</i>
+							</span>
+							{% endif %}
+							<div class="mobile_board_info">
+								<span class="write_user">
+									<span class="level_icon"><img src="{{center.user.level_icon}}" alt="CEBU Travel"></span>
+									{{center.user.username}}
+								</span>
+								{% if center.upload_date|date:"Y-m-d" == new_date %}
+									{% if center.upload_date|date:"Y-m-d:H" != time %}
+									<span class="write_user">{{center.upload_date|date:"f"}}</span>
+									{% else %}
+									<span class="write_user">{{center.upload_date|timesince}} 전</span>
+									{% endif %}
+								{% else %}
+								<span class="write_user">{{center.upload_date|date:"m.d "}}</span>
+								{% endif %}
+								<span class="view_count">{{center.views|intcomma}}</span>
+							</div>
+						</td>
+						<td class="user_id">
+							<span class="level_icon">
+								<img src="{{center.user.level_icon}}" alt="세부자유여행"></span>
+								<span class="write_user">{{center.user.username}}
+							</span>
+						</td>
+						{% if center.upload_date|date:"Y-m-d" == new_date %}
+							{% if center.upload_date|date:"Y-m-d:H" != time %}
+							<td class="data_time"><span>{{center.upload_date|date:"f"}}</span></td>
+							{% else %}
+							<td class="data_time"><span>{{center.upload_date|timesince}} 전</span></td>
+							{% endif %}
+						{% else %}
+						<td class="data_time"><span>{{center.upload_date|date:"m.d "}}</span></td>
+						{% endif %}
+						<td class="view_count">{{center.views|intcomma}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<br/>
+			<div class="sec_ctg">
+				<div class="article_btn">
+					{% if board_kind == 'notice' and user.is_staff == True %}
+					<a href="{% url 'centers:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+					{% elif board_kind == 'customerCenter' %}
+					<a href="{% url 'centers:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+					{% endif %}
+				</div><!-- article_btn -->
+			</div>
+			<div class="pager ten">
+				{% if centers.has_other_pages %}
+				<span class="pager_wrap">
+					{% if centers.has_previous %}
+						<a href="?page={{centers.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in page_range %}
+						{% if centers.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if centers.has_next %}
+						<a href="?page={{centers.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+			<br><br>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					{% for banner in banners.banners_review_left|slice:":2" %}
+				  <div class="swiper-slide">
+						<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "centers/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+		{% include 'pages/_quickmenu.html' %}
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+
+{% endblock %}

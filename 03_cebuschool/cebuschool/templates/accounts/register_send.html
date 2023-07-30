@@ -1,0 +1,23 @@
+{% extends "accounts/base_account.html" %}
+
+{% block title %}회원가입 메일전송{% endblock %}
+{% block content %}
+<!-- 이메일 신규가입 화면 STEP2 { -->
+    <div id="new_join_bg">
+        <div class="box_warp">
+            <h3>이메일로 신규가입</h3>
+            <h5>인증메일이 발송되었습니다.</h5>
+            <p>가입하신 메일로 인증메일이 발송되며, 메일을 확인하신 후 <br>
+                세부스쿨을 이용해주세요.</p>
+            <a href="{% url 'accounts:register_index' %}" class="btn_style">확인</a>
+            <p class="line"></p>
+            <h5>고객 센터</h5>
+            <strong>메일을 받지 못한 경우는 고객센터로 문의해 주세요.</strong>
+            <span class="sub_p">
+            고객센터: <a href="#">바로가기</a> <br>
+            운영시간: 10:30 ~ 17:00(토,일, 공휴일 후무) <br>
+            이메일 문의 : cebuschool.dg@gmail.com</span>
+        </div>
+    </div>
+<!--} 이메일 신규가입 화면 STEP2 -->
+{% endblock %}

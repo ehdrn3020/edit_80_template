@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+	안녕하세요. 
+    {{ name }}님의 세부스쿨 회원가입을 감사드리며,
+    아래 링크를 클릭해서 회원가입을 마무리해주세요.
+
+    http://{{ domain }}{% url 'accounts:activate' uid64=uid token=token%}
+ 
+{% endautoescape %}

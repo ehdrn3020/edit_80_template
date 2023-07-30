@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} 세부 추천여행 - 위고세부 {% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="sub5_top_wrap center_975">
+		<!-- <div class="sub5_banner"><img src="{% static 'images/sub/sub5_banner.jpg' %}" alt="위고세부 홍보업체"></div> -->
+		<h2 class="point_color tit">WELLCOME <br/>위고세부 </h2>
+		<p>
+			저희와 함께해주신, 그리고 해주실 모든분들께 <br/>
+			위고에서의 일어난 모든일에 특별한 의미를 드리고싶습니다. <br>
+			위고가 아닌 다른곳에서는 일어날 수 없는 그러한 일을.
+		</p>
+		<span class="space"></span>
+	</div><!-- sub5_top_wrap -->
+</div><!-- container -->
+
+<div class="content_us center_975">
+	<!-- <h2 class="tit blue_font">위고세부 파트너 요청</h2> -->
+	<div class="content_form" id="partner_form">
+		<h3>파트너문의</h3>
+		<span class="line"></span>
+		<p>배너 / 광고 / 파트너쉽 언제든 <b class="blue_font">문의</b>주세요.</p>
+		<form action="{% url 'promotions:partnership' %}" method="POST">
+			{% csrf_token %}
+			<fieldset class="cont_form_set">
+				<span>연락처</span>
+				<input type="text" name="contact_info" placeholder="연락처를 입력해주세요">
+			</fieldset>
+			<fieldset class="cont_form_set">
+				<span>내&nbsp;&nbsp;&nbsp;용</span>
+				<textarea name="content" placeholder="내용을 입력해주세요" maxlength="499"></textarea>
+			</fieldset>
+			<fieldset class="cont_form_set_submit">
+				<button type="submit">전송</button>
+			</fieldset>
+		</form>
+	</div>
+</div>
+{% if board_kind == 'partner' %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('html, body').animate({ scrollTop: $('#partner_form').offset().top }, 'slow');
+	});
+</script>
+{% endif %}
+
+{% endblock %}

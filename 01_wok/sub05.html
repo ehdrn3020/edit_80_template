@@ -1,0 +1,151 @@
+ <!DOCTYPE html>
+<html lang="ko" class="asideOpen">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>웍[WOK] 예약문의</title>
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.YJ.datepicker.js"></script>
+    <script src="js/TweenMax.js"></script>
+    <script src="js/jquery.superscrollorama.js"></script>
+    <script src="js/common.js"></script>
+</head>
+
+<body>
+  <?php
+    include('php/connect.php');
+
+    //pagination
+    $LIST_SIZE = 6;
+    $MORE_PAGE = 2;
+
+    $all = $conn->query("SELECT * FROM wok ORDER BY id DESC");
+
+    $page = $_GET['page'] ? intval($_GET['page']) : 1;
+    $page_count = CEIL($all->num_rows/$LIST_SIZE);
+
+    $start_page = max($page - $MORE_PAGE, 1);
+    $end_page = min($page + $MORE_PAGE, $page_count);
+    $prev_page = max($start_page - $MORE_PAGE - 1, 1);
+    $next_page = min($end_page + $MORE_PAGE + 1, $page_count);
+
+    $offset = ( $page - 1 ) * $LIST_SIZE;
+    $rows = $conn->query("SELECT * FROM wok ORDER BY id DESC LIMIT $offset, $LIST_SIZE");
+  ?>
+	<div class="warapper sub07 sub05">
+    <?php include 'layout/header.html';?>
+    <?php include 'layout/quick_side.html';?>
+        <div class="container">
+            <div class="sub_visual">
+                <div class="title">
+                    예약문의
+                </div>
+            </div>
+            <div class="con_1">
+                <div class="search_box">
+                    <div class="sub_title">
+                        <img src="img/sub7_title.png" alt="community">
+                    </div>
+                </div>
+            </div>
+            <div class="con_2 con">
+                <div class="inner">
+                    <div class="board_wrap">
+                      <?php foreach( $rows as $row): ?>
+                        <div class="box">
+                          <a href="#self" class="c-popup_trigger">
+                            <div class="both_wrap">
+                              <div class="tx1">NO.<?php echo $row['ID'];?></div>
+                              <div class="tx2_r">예약문의</div>
+                            </div>
+                            <div class="tx3"><?php echo $row['TITLE']?></div>
+                            <div class="tx4"><?php echo mb_substr($row['NAME'],0,2);?>*님
+                              <?php if($row['COMMENTS'] > 0): ?>
+                                [<?php echo $row['COMMENTS'] ?>]
+                              <?php endif ?>
+                            </div>
+                            <div class="tx5"><?php echo substr($row['DATE'],0,10);?></div>
+                          </a>
+                        </div>
+                      <?php endforeach ?>
+                    </div>
+                    <div class="pagination">
+                        <div class="paging" id="page1">
+                            <a href="<?= "$PHP_SELP?page=1" ?>" class="page_first"><span class="hidden">처음</span></a>
+                            <a href="<?= "$PHP_SELP?page=$prev_page" ?>" class="page_prev"><span class="hidden">이전</span></a>
+
+                            <span class="page">
+                              <?php for( $p = $start_page; $p <= $end_page; $p++ ): ?>
+                                <?php if($p == $page): ?>
+                                <a href="<?= "$PHP_SELP?page=$p" ?>" class="on">
+                                    <span><?= $p ?></span>
+                                </a>
+                                <?php else: ?>
+                                <a href="<?= "$PHP_SELP?page=$p" ?>" class="">
+                                    <span><?= $p ?></span>
+                                </a>
+                                <?php endif ?>
+                              <?php endfor ?>
+                            </span>
+
+                            <a href="<?= "$PHP_SELP?page=$page_count" ?>" class="page_next"><span class="hidden">다음</span></a>
+                            <a href="<?= "$PHP_SELP?page=$next_page" ?>" class="page_last"><span class="hidden">끝</span></a>
+
+                        </div>
+                    </div>
+                    <a href="sub06.html" class="btn_write">
+                        <img src="img/sub7_write.png" alt="글쓰기">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php include 'layout/footer.html';?>
+        <?php include 'layout/quick_mobile.html';?>
+    </div>
+    <?php $conn->close(); ?>
+    <div class="c-popup">
+      <div class="c-popup_aligner">
+        <div class="c-popup_heading">
+          <div class="c-popup_text">비밀번호 입력</div>
+          <a href="#" class="c-popup_close"> 닫기</a>
+        </div>
+        <div class="c-popup_cont">
+          <form action="php/pwd.php" method="post">
+            <div class="boxed">
+              <input type="text" id="id" name="id" readonly class="m_w100p" />
+            </div>
+            <br/>
+            <div class="boxed">
+              <input type="password" id="password" name="password" placeholder="비밀번호" class="m_w100p" />
+            </div>
+            <div class="c-popup_buttons">
+              <button type="submit" class="c-popup_button c-popup_button-2">확인</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $('.c-popup_trigger').on('click',function(){
+        $('.c-popup').addClass('c-popup--active');
+        $('html').addClass('is-popup-open');
+        $('#id').val($(this).children().eq(0).children().eq(0).text());
+        return false;
+      });
+
+      $('.c-popup_close').on('click', function(){
+        $('.c-popup').removeClass('c-popup--active');
+        $('html').removeClass('is-popup-open');
+
+        return false;
+      });
+    </script>
+</body>
+
+</html>

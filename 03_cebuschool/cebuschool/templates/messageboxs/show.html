@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>세부스쿨 쪽지함</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300&amp;subset=korean" rel="stylesheet">
+	<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script>
+		$(function(){ 
+			$('ul.msg_tab > li').eq(0).addClass('selected'); 
+			$('.msg_tab_con').hide();
+			$('.msg_tab_con').eq(0).show(); 
+			$('ul.msg_tab > li').click(function(){
+				$('ul.msg_tab > li').removeClass('selected'); 
+				$(this).addClass('selected'); 
+				$('.msg_tab_con').hide();
+				$('.msg_tab_con').eq($(this).index()).show(); 	
+					return false; 
+			});
+		});
+	</script>
+	<style>
+	.add_user {position: absolute;top: 0;right: 0;padding: 20px;font-size: 1em;color: #fff;}
+	.msg_skin #msg_title {position: relative;padding: 20px;border-bottom: 1px solid #e1e1e1;background: #009fd9;color: #fff;font-size: 1.5em;text-align: center;}
+	 .view-cont-header { position: fixed;top: 68px;left: 0;z-index: 99;width: 100%;height: 43px;border-bottom: 1px solid #E0E0E0;padding-left: 60px;background: #FAFAFA;}
+	 .thum{position: relative;width: 30px;height: 30px;float: left;margin-top: 5px;}
+	 .thum > img{width: 100%;height: auto;border-radius: 100%;}
+	 .to_name{display: block;margin-top: 5px;margin-bottom: 15px;font-size: 1.3em;line-height: 30px;text-indent: 10px;font-weight: bold;}
+	 .date{font-size: 12px;color: #ccc;margin-left: 15px;font-weight: normal;}
+	 .view-cont{width: 100%;height: 100%;max-height:360px;margin-top:45px;padding: 20px;overflow-y: scroll;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+	 .msg_box{overflow: hidden;width: 70%;padding: 20px;background: #f9f9f9;border: 1px solid #eee;-webkit-border-radius: 15px;-moz-border-radius:15px ; border-radius:15px ;}
+	.msg_box img{width: 100%;height: auto;}
+	.msg_box p{padding: 10px;font-size: 13px;}
+	.btn-back {  position: absolute; top: 0;left: 0;width: 44px;  height: 43px; display: inline-block; line-height: 43px;font-size: 15px;border-right: 1px solid #EEE;text-align: center;color: #454545;}
+
+	#msg_write_wrap {position: fixed;bottom: 0;width: 100%;background: #F9F9F9;}
+	#msg_write .form {position: relative;border-top: 1px solid #C0C0C0;background: #FFF;}
+	#msg_write .input_txt {max-height: 212px;background: #FFF;padding: 12px 72px 0 12px;}
+	#msg_write .form #chat_cmt {display: block;width: 100%;height: 60px;padding: 0px;border: 0;font-size: 13px;line-height:	 20px;resize: none;color: #333;font-weight: 400px;max-height: 212px;}
+	#msg_write .btn_send {top: 10px;right: 7px;width: 60px;height: 35px;line-height: 35px;font-size:	 13px;background:#f1f1f1;position: absolute;cursor: pointer;text-align: center;color: #333;z-index	: 99;border: 1px solid #ccc;}
+	#msg_write .btn_send:hover{background: #fff;}
+	.msg_file {position: relative;height: 36px;background: #f9f9f9;}
+	.msg_file input {position: relative;height: 36px;width: 36px;opacity: 0;overflow: hidden;cursor: pointer;}
+	.msg_file  label {height: 36px;display: block;overflow: hidden;cursor: pointer;}
+	.msg_file .btn_img {position: absolute;top: 0;left: 0;width: 36px;height: 36px;font-size: 16px;color: #999;text-align:	 center;line-height: 28px;}
+	#userFile:nth-child(2) .btn_img{left:36px;}
+</style>
+</head>
+<body scrolling="no">
+<!-- 쪽지함 목록 시작 { -->
+<div id="msg" class="msg_skin">
+    <h1 id="msg_title">아이디님의 쪽지함<a href="#" class="add_user"><i class="fas fa-user-plus"></i></a></h1>
+	<div class="view-cont-header">
+		<a href="{% url 'pages:messageboxs_index' %}" class="btn-back"><i class="fas fa-chevron-left"></i></a>
+		<span class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></span>
+		<span class="to_name">교육매니저<span class="date">03. 14</span></span>
+		</div>
+	</div>
+	<div class="view-cont">
+		<span class="thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></span>
+		<span class="to_name">교육매니저<span class="date">03. 14</span></span>
+		<div class="msg_box">
+			<span class="img"><img src="{% static 'images/common/coupon.png' %}" alt="내 썸네일"></span>
+			<p class="txt">
+				축! 교육 할인 쿠폰이 도착했습니다.<br>
+				<br>
+				<br>
+				<br>
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				<br>
+				<br>
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				<br>
+				<br>
+				<br>
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				<br>
+				<br>
+				<br>
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				안녕하세요. 아이디님
+				아이보스 회원가입을 진심으로 축하드립니다.
+				<br>
+			</p>
+		</div>
+	</div>
+</div>
+<div id="msg_write_wrap" class="write_wrap">
+	<form action="">
+		<div id="msg_write">
+			<div class="form">
+				<div class="input_txt">
+					<textarea name="comment_1" id="chat_cmt" placeholder="메세지를 입력 해주세요." style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 60px;"></textarea>
+				</div>
+				<input type="submit" name="writeEnd" value="보내기" id="writeEnd" class="btn_send" alt="보내기">
+			</div>
+		</div>
+	</form>
+	<div class="msg_file">
+		<form action="">
+			<label id="userFile">
+				<span class="btn_img" title="파일첨부"><i class="fas fa-paperclip"></i></span>
+				<input type="file" name="userFile_1" id="userFile" class="userFile">
+			</label>
+			<label id="userFile">
+				<span class="btn_img" title="파일첨부"><i class="far fa-image"></i></span>
+				<input type="file" name="userFile_2" id="userFile" class="userFile">
+			</label>	
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}국내 최대 필리핀 세부 자유여행 커뮤니티{% endblock %}
+{% block header %}
+  <style>
+    @media all and (max-width:1119px){
+      .mypage_left{display: block!important;}
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="container center_970">
+    {% include "mypages/_header.html" %}
+    <script>
+    // 화면 1120px 이상일때 강제 url 넘김
+    $(document).ready(function(){
+        if($(window).width() > 1120){
+            location.href = "{% url 'mypages:userinfo' 'index' %}";
+        }
+    });
+    </script>
+    <div class="mypage_left">
+        <div class="sec sec1">
+          <h2 class="tit">정보</h2>
+          <ul class="sec_wrap">
+              <li><a href="{% url 'mypages:index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+              {% comment %} <li><a href="#"><i class="far fa-file-alt"></i>게시글</a></li> {% endcomment %}
+              {% comment %} <li><a href="#"><i class="fas fa-comments"></i>댓글</a></li>
+              <li><a href="#"><i class="fas fa-id-badge"></i>스크랩</a></li>
+              <li><a href="#"><i class="fas fa-clipboard-list"></i>이벤트</a></li> {% endcomment %}
+          </ul>
+        </div><!-- sec1 -->
+        <!-- 좌측메뉴 -->
+        {% include "mypages/_left.html" %}
+    </div>
+    {% comment %}
+    <div class="mypage_right">
+      <div class="sec sec7">
+  	    <h2 class="tit"><span class="user_name">아이디</span>님의 게시글</h2>
+  	    <div class="mypage_board">
+          <table>
+              <colgroup>
+                  <col class="col1">
+                  <col class="col2">
+                  <col class="col3">
+                  <col class="col3">
+              </colgroup>
+              <tr>
+                  <td class="like_num"><i class="fas fa-heart"></i> 56<span class="category ">가입인사</span></td>
+                  <th class="board_tit">
+                      <a href="#">
+                          안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+                          <span class="icon"><img src="{$ static 'images/common/img.gif' %}" alt="사진첨부 있음"></span><span class="score">[ 4 ]</span>
+                      </a>
+                  </th>
+                  <td>16:00</td>
+                  <td>1275</td>
+              </tr>
+              <tr>
+                  <td class="like_num"><i class="fas fa-heart"></i> 56<span class="category ">가입인사</span></td>
+                  <th class="board_tit"><a href="#">안녕하세요 </a></th>
+                  <td>16:00</td>
+                  <td>1275</td>
+              </tr>
+          </table>
+          <div class="pager">
+              <span class="pager_wrap">
+                  <a href="#" class="pager_prev"></a>
+                  <a href="#" class="selected">1</a>
+                  <a href="#">2</a>
+                  <a href="#">3</a>
+                  <a href="#">4</a>
+                  <a href="#">5</a>
+                  <a href="#" class="pager_next"></a>
+              </span>
+          </div>
+  	    </div>
+      </div>
+    </div>
+    {% endcomment %}
+    <!-- 팝업 -->
+    {% include "mypages/_userpop.html" %}
+  </div><!-- container -->
+{% endblock %}

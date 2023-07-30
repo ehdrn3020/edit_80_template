@@ -1,0 +1,196 @@
+{% load static %}
+{% load socialaccount %}
+{% load humanize %}
+<style>
+  dt a{font-size:1em;}
+</style>
+<!-- 로그인후 화면 -->
+{% if user.is_authenticated %}
+<div class="main_login">
+  <h2 class="sound_only">로그인 중</h2>
+  <div class="sec main_login_top">
+    <div class="my_thum">
+      <img src="{{user.profile_image}}" alt="내 썸네일">
+      <span class="setup">
+        <a href="{% url 'mypages:userinfo' 'index' %}"><img src="{% static 'images/common/main_31.png' %}" alt="아이콘"></a>
+      </span>
+    </div>
+    <div class="id_box"><span><img src="{{ user.level_icon }}" alt="아이콘"></span>{{ user.username }}</div>
+    <ul class="my_info">
+      <li clas="mypage boder_right"><a href="{% url 'mypages:index' %}">마이페이지</a></li>
+      <li class="point"><a href="#">{{ user.point | intcomma}}</a>point</li>
+    </ul>
+    <div class="login_btn">
+      <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="로그아웃">
+      </form>
+    </div>
+  </div>
+  <div class="main_login_btm">
+    <ul>
+      <li>
+        <a href="#">
+          {% if main_cntAlarm != 0 %}
+            <span>{{ main_cntAlarm }}</span>
+          {% endif %}
+          알림</a>
+      </li>
+      <li><a href="#">내글</a></li>
+      <li><a href="#">내댓글</a></li>
+      <li><a href="#">
+        {% if cntMsg != 0 %}
+          <span>{{ cntMsg }}</span>
+        {% endif %}
+        쪽지</a></li>
+      <li><a href="#">스크랩</a></li>
+    </ul>
+  </div>
+  <!-- 알림 -->
+  <div class="main_login_box">
+    <div class="main_login_head">
+    <h2 class="tit">전체 알림</h2>
+      <span>
+        {% if main_cntAlarm > 0 %}
+        <a href="#" onClick="alarm_url('0');return false;" class="point_color">전체읽음표시</a>
+        {% else %}
+        <a href="#" class="point_color">전체읽음표시</a>
+        {% endif %}
+        <a href="{% url 'msgboxs:index' 'index' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+          알림함
+        </a>
+      </span>
+    </div>
+    <div class="main_login_wrap">
+      {% if main_cntAlarm > 0 %}
+        {% for alist in main_alarmlist|slice:":4" %}
+        <dl class="text_list">
+          {% if alist.act_type == 'comment' %}
+          <dt><a href="#알림이동" onClick="alarm_url({{alist.id}});return false;">내 게시글에 댓글이 달렸습니다.</a></dt>
+          {% elif alist.act_type == 're_comment' %}
+          <dt><a href="#알림이동" onClick="alarm_url({{alist.id}});return false;">내 댓글에 대댓글이 추가되었습니다.</a></dt>
+          {% elif alist.act_type == 'c_like' %}
+          <dt><a href="#알림이동" onClick="alarm_url({{alist.id}});return false;">내 댓글에 좋아요가 추가되었습니다.</a></dt>
+          {% elif alist.act_type == 'like' %}
+          <dt><a href="#알림이동" onClick="alarm_url({{alist.id}});return false;">내 글에 좋아요가 추가되었습니다.</a></dt>
+          {% endif %}
+          <dd>{{alist.board_name}}</dd>
+          <dd>{{alist.upload_date|date:"Y.m.j"}}</dd>
+        </dl>
+        {% endfor %}
+      {% else %}
+      <ul class="no_notice">
+        <li class="tit">새로운 알림이 없습니다.</li>
+        <li class="txt">나의 게시글, 댓글에 대한 추천과 댓글 알림을<br>확인해보세요.</li>
+        <li class="btn">
+          <a href="{% url 'msgboxs:index' 'index'%}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+            알림함
+          </a>
+        </li>
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  <!-- 클릭시 해당하는 알림으로 이동 -->
+  {% include "pages/_alarm.html" %}
+
+  <!-- 내글 -->
+  <div class="main_login_box">
+    <div class="main_login_head">
+    <h2 class="tit">내 게시글</h2>
+      <span class="one">
+        <a href="{% url 'mypages:active' 'board' %}">전체보기</a>
+      </span>
+    </div>
+    <div class="main_login_wrap">
+      {% for board in boards %}
+      <dl class="text_list">
+        <dt><a href="{% url 'mypages:active' 'board' %}">{{board.title|slice:":50"}}</a></dt>
+        <dd>{{board.board_kind}}</dd>
+        <dd>댓글<span class="point_color">{{board.comments}}</span></dd>
+        <dd>조회<span>{{board.views}}</span></dd>
+        <dd>{{board.upload_date|date:"Y.m.j"}}</dd>
+      </dl>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 내댓글 -->
+  <div class="main_login_box">
+    <div class="main_login_head">
+    <h2 class="tit">내 댓글</h2>
+      <span class="one">
+        <a href="{% url 'mypages:active' 'comment' %}">전체보기</a>
+      </span>
+    </div>
+    <div class="main_login_wrap">
+      {% for comment in mycomments %}
+      <dl class="text_list">
+        <dt><a href="{% url 'mypages:active' 'comment' %}">{{comment.content|slice:":50"}}</a></dt>
+        <dd>{{comment.comment_table__board_kind}}</dd>
+        <dd>좋아요<span class="point_color">{{comment.likes}}</span></dd>
+        <dd>{{comment.upload_date|date:"Y.m.j"}}</dd>
+      </dl>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 쪽지 -->
+  <div class="main_login_box">
+    <div class="main_login_head">
+    <h2 class="tit">안읽은 쪽지</h2>
+      <span class="one">
+        <a href="{% url 'msgboxs:index' 'message'%}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false">쪽지함</a>
+      </span>
+    </div>
+    <div class="main_login_wrap">
+      {% for chat in chat_list_n|slice:":3" %}
+      <dl class="thum_text_list">
+        <dd><div class="my_thum"><img src="{{chat.from_user.profile_image}}" alt="내 썸네일"></div></dd>
+        <dt>
+          <a href="{% url 'msgboxs:index' 'message'%}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false">{{chat.from_user}}</a>
+          <span>{{chat.upload_date|date:"Y.m.j"}}</span>
+          <p>{{chat.content|slice:":50"}}</p>
+        </dt>
+      </dl>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 스크랩 -->
+  <div class="main_login_box">
+    <div class="main_login_head">
+    <h2 class="tit">스크랩함</h2>
+      <span class="one">
+        <a href="{% url 'mypages:active' 'scrap' %}">전체보기</a>
+      </span>
+    </div>
+    <div class="main_login_wrap">
+      {% for scrap in scraps %}
+      <dl class="text_list">
+        <dt><a href="{% url 'mypages:active' 'scrap' %}">{{scrap.content_object|slice:":50"}}</a></dt>
+        <dd>{{scrap.tag}}</dd>
+        <dd>{{scrap.upload_date|date:"Y.m.j"}}</dd>
+      </dl>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<!-- 로그인전 화면 -->
+<div class="main_logout">
+  <h2 class="sound_only">로그아웃 상태, 로그인하세요</h2>
+  <p>로그인 후 더욱 많은 기능을 이용하세요!</p>
+  <div class="do_login">
+    <ul>
+      <li><a href="{% provider_login_url 'naver' %}"><img src="{% static 'images/main/login_naver.png' %}" alt=""><img src="{% static 'images/main/login_naver_on.png' %}" alt=""><span>네이버계정으로 로그인</span></a></li>
+      <li><a href="#" onclick="alert('준비중입니다');"><img src="{% static 'images/main/login_facebook.png' %}" alt=""><img src="{% static 'images/main/login_facebook_on.png' %}" alt=""><span>페이스북계정으로 로그인</span></a></li>
+      <li><a href="{% provider_login_url 'google' %}"><img src="{% static 'images/main/login_google.png' %}" alt=""><img src="{% static 'images/main/login_google_on.png' %}" alt=""><span>구글계정으로 로그인</span></a></li>
+      <li><a href="{% provider_login_url 'kakao' %}"><img src="{% static 'images/main/login_kakao.png' %}" alt=""><img src="{% static 'images/main/login_kakao_on.png' %}" alt=""><span>카카오계정으로 로그인</span></a></li>
+      <li><a href="{% url 'accounts:login_email' %}"><img src="{% static 'images/main/login_mail.png' %}" alt=""><img src="{% static 'images/main/login_mail_on.png' %}" alt=""><span>이메일 또는 아이디로 로그인</span></a></li>
+    </ul>
+  </div>
+  <span class="join"><a href="{% url 'accounts:register_index' %}">회원가입</a></span>
+  <span class="find_id"><a href="{% url 'accounts:find' %}">ID/PW찾기</a></span>
+</div>
+{% endif %}

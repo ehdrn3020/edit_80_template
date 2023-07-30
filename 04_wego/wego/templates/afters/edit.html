@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 필리핀 세부여행 - 위고세부 {% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2><a href="{% url 'afters:index' %}">후기</a><i class="fas fa-chevron-right"></i></h2>
+					<h3><a href="#">글수정</a></h3>
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<a href="{% url 'afters:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+				</div><!-- article_btn -->
+			</div><!-- sec_ctg -->
+			<form action="{% url 'afters:edit' old_data.id %}" method="POST">
+				{% csrf_token %}
+				<div class="board_select">
+					<select name="board_kind" required>
+						<option value="여행" {% if old_data.board_kind == "여행" %} selected {% endif %}>여행
+						<option value="숙소" {% if old_data.board_kind == "숙소" %} selected {% endif %}>숙소
+						<option value="맛집" {% if old_data.board_kind == "맛집" %} selected {% endif %}>맛집
+						<option value="마사지" {% if old_data.board_kind == "마사지" %} selected {% endif %}>마사지
+						<option value="뷰티" {% if old_data.board_kind == "뷰티" %} selected {% endif %}>뷰티
+						<option value="기타" {% if old_data.board_kind == "기타" %} selected {% endif %}>기타
+					</select>
+				</div><!-- board_select -->
+				<div class="board_title">
+					<fieldset>
+						<span>제목</span><input type="text" name="title" class="board_title" value="{{ old_data.title }}" maxlength="40" required>
+					</fieldset>
+				</div><!-- board_title -->
+				<!-- 본문 -->
+				{% include 'partials/summernote_after.html' %}
+				<div class="board_title">
+					<fieldset>
+						<span>태그</span><input type="text" name="tag" class="board_tag" value="{{ old_data.tag }}" placeholder="#세부자유여행#막탄쇼핑몰" maxlength="40">
+						<span>링크</span><input type="text" name="url_link" class="board_tag" value="{{ old_data.url_link }}" placeholder="http://example.com" maxlength="200">
+					</fieldset>
+				</div><!-- board_title -->
+				<!-- 구글지도 -->
+				{% include 'partials/gmap_create.html' %}
+				<div class="board_submit"><input type="submit" class="board_submit_btn" value="작성완료"></div>
+			</form>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+						{% for banner in banners.banners_review_left|slice:":2" %}
+						<div class="swiper-slide">
+							<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+								<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "afters/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+    {% include "pages/_quickmenu.html" %}
+
+		<!-- 배너 클릭스크립트 -->
+		{% include "pages/_banner.html" %}
+
+	</div><!-- container_wrap -->
+</div><!-- container -->
+{% endblock %}

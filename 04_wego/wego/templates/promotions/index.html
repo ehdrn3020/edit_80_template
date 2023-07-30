@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == '리조트'%}
+	세부 자유여행 리조트 호텔 - 위조세부
+	{% elif board_kind == '호텔'%}
+	필리핀 세부 자유여행 가볼만한곳 베스트 - 위고세부
+	{% elif board_kind == '교민맛집'%}
+	세부여행 식당 레스토랑 - 위고세부
+	{% elif board_kind == '로컬맛집'%}
+	세부시티 막탄 맛집 추천 - 위고세부
+	{% elif board_kind == '호핑'%}
+	세부 호핑투어 후기- 위고세부
+	{% elif board_kind == '데이투어'%}
+	세부 3박4일 가족여행 커플여행 - 위고세부
+	{% elif board_kind == '마사지샵'%}
+	세부 마자시 스파 추천 - 위고세부
+	{% elif board_kind == '뷰티샵'%}
+	세부 네일아트 뷰티샵 - 위고세부
+	{% elif board_kind == '다이빙샵'%}
+	세부 다이빙 액티비티 쇼핑 - 위고세부
+	{% elif board_kind == '기념품샵'%}
+	세부 자유여행 액티비티 쇼핑 - 위고세부
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&region=KR"></script>
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<!-- <script type="text/JavaScript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script type="text/JavaScript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script> -->
+
+<!-- promotion css,js new -->
+<link rel="stylesheet" href="{% static 'css/promotion.css' %}">
+<link rel="stylesheet" href="{% static 'css/promotion_media.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+<script type="text/javascript" src="{% static 'js/promotion.js' %}"></script>
+<script type="text/JavaScript" src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <!-- Content -->
+	<div class="sub5_banner top_banner">
+		<img src="{% static 'images/promotion/sub_promotion.jpg' %}" alt="위고세부 세부여행 추천" class="promotion_pc">
+		<img src="{% static 'images/promotion/sub_promotion_mob.jpg' %}" alt="위고세부 세부여행 후기" class="promotion_mob">
+	</div>
+	<div class="container_promotion center_975">
+		<span class="promotion_space"></span>
+		<div class="box_event">
+			<span class="selected" data-id="top_tab1"><a href="#베스트">베스트</a></span>
+			<span data-id="top_tab2"><a href="#할인이벤트">할인이벤트</a></span>
+		</div>
+		<div class="promotion_wrap">
+			<div class="scrollarea">
+				<ul class="promotion_tab">
+					<li {% if board_kind == "전체" %} class="selected" {% endif %}><a href="#전체" data-id="tab0">전체</a></li>
+					<li {% if board_kind == "리조트" %} class="selected" {% endif %}><a href="#리조트" data-id="tab1">리조트</a></li>
+					<li {% if board_kind == "호텔" %} class="selected" {% endif %}><a href="#호텔" data-id="tab2">호텔</a></li>
+					<li {% if board_kind == "교민맛집" %} class="selected" {% endif %}><a href="#교민맛집" data-id="tab3">교민맛집</a></li>
+					<li {% if board_kind == "로컬맛집" %} class="selected" {% endif %}><a href="#로컬맛집" data-id="tab4">로컬맛집</a></li>
+					<li {% if board_kind == "호핑" %} class="selected" {% endif %}><a href="#호핑" data-id="tab5">호핑</a></li>
+					<li {% if board_kind == "데이투어" %} class="selected" {% endif %}><a href="#데이투어" data-id="tab6">데이투어</a></li>
+					<li {% if board_kind == "마사지샵" %} class="selected" {% endif %}><a href="#마사지샵" data-id="tab7">마사지샵</a></li>
+					<li {% if board_kind == "풀빌라" %} class="selected" {% endif %}><a href="#풀빌라" data-id="tab8">풀빌라</a></li>
+					<li {% if board_kind == "뷰티샵" %} class="selected" {% endif %}><a href="#뷰티샵" data-id="tab9">뷰티샵</a></li>
+					<li {% if board_kind == "다이핑샵" %} class="selected" {% endif %}><a href="#다이핑샵" data-id="tab10">다이핑샵</a></li>
+					<li {% if board_kind == "기념품샵" %} class="selected" {% endif %}><a href="#기념품샵" data-id="tab11">기념품샵</a></li>
+				</ul>
+			</div>
+		</div><!-- sub5_top_wrap -->
+
+		<div class="clear active" data-id="top_tab1">
+			<!-- 베스트 -->
+			{% for list in best_list %}
+				{% for obj in list %}
+				<div class="sort-box {% if obj.board_kind == board_kind %}active
+				{% elif forloop.parentloop.counter0 == 0 and board_kind == '전체' %} active
+				{% endif %}" data-id="tab{{forloop.parentloop.counter0}}">
+					<a href="{% url 'promotions:show' obj.id %}" title="상세페이지로 이동">
+						<div class="img-wrap">
+							<img src="{{obj.pimg1}}" >
+						</div>
+						<div class="tag_wrap">
+							<ul class="tag">
+								{% if obj.tag1 %}<li class="label b3">{{obj.tag1}}</li>{% endif %}
+								{% if obj.tag2 %}<li class="label b2">{{obj.tag2}}</li>{% endif %}
+								{% if obj.tag3 %}<li class="label b1">{{obj.tag3}}</li>{% endif %}
+							</ul>
+						</div>
+					</a>
+					<div class="txt-box" data-id="tab{{forloop.parentloop.counter}}">
+						<span class="category">{{obj.brand_name}}</span>
+						<span class="emsp">&nbsp;|&nbsp;</span>
+						<span class="star">
+							<img src="{% static 'images/promotion/star.png' %}">
+							<span>{{obj.star_total}}</span>/5 ({{obj.star_participate|intcomma}})
+						</span>
+						<p>{{obj.introduction}}</p>
+						<div class="tag-wrap space promotion_tag">
+							{% if obj.rep_txt1 %}<span class="tag b1">{{obj.rep_txt1}}</span>{% endif %}
+							{% if obj.rep_txt2 %}<span class="tag b2">{{obj.rep_txt2}}</span>{% endif %}
+							{% if obj.rep_txt3 %}<span class="tag b3">{{obj.rep_txt3}}</span>{% endif %}
+						</div>
+						<p class="pay promotion_pay">
+							<img src="{% static 'images/promotion/pay.png' %}">
+							<span class="pay_text">{{obj.p_price_min|intcomma}} ~ </span>
+							<br><label>예약금 {{obj.w_price_min|intcomma}}원</label>
+						</p>
+						<a href="{% url 'promotions:show' obj.id %}" class="btn" title="상세페이지로 이동">상세보기</a>
+					</div>
+				</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+		<div class="clear" data-id="top_tab2">
+			<!-- 할인이벤트 -->
+			{% for list in sale_list %}
+				{% for obj in list %}
+				<div class="sort-box {% if obj.board_kind == board_kind %}active
+				{% elif forloop.parentloop.counter0 == 0 and board_kind == '전체' %} active
+				{% endif %}" data-id="tab{{forloop.parentloop.counter0}}">
+					<a href="{% url 'promotions:show' obj.id %}" title="상세페이지로 이동">
+						<div class="img-wrap">
+							<img src="{{obj.pimg1}}" >
+						</div>
+						<div class="tag_wrap">
+							<ul class="tag">
+								{% if obj.tag1 %}<li class="label b3">{{obj.tag1}}</li>{% endif %}
+								{% if obj.tag2 %}<li class="label b2">{{obj.tag2}}</li>{% endif %}
+								{% if obj.tag3 %}<li class="label b1">{{obj.tag3}}</li>{% endif %}
+							</ul>
+						</div>
+					</a>
+					<div class="txt-box" data-id="tab{{forloop.parentloop.counter}}">
+						<span class="category">{{obj.brand_name}}</span>
+						<span class="emsp">&nbsp;|&nbsp;</span>
+						<span class="star">
+							<img src="{% static 'images/promotion/star.png' %}">
+							<span>{{obj.star_total}}</span>/5 ({{obj.star_participate|intcomma}})
+						</span>
+						<p>{{obj.introduction}}</p>
+						<div class="tag-wrap space promotion_tag">
+							{% if obj.rep_txt1 %}<span class="tag b1">{{obj.rep_txt1}}</span>{% endif %}
+							{% if obj.rep_txt2 %}<span class="tag b2">{{obj.rep_txt2}}</span>{% endif %}
+							{% if obj.rep_txt3 %}<span class="tag b3">{{obj.rep_txt3}}</span>{% endif %}
+						</div>
+						<p class="pay promotion_pay">
+							<img src="{% static 'images/promotion/pay.png' %}">
+							<span class="pay_text">{{obj.p_price_min|intcomma}} ~ </span>
+							<br><label>예약금 {{obj.w_price_min|intcomma}}원</label>
+						</p>
+						<a href="{% url 'promotions:show' obj.id %}" class="btn" title="상세페이지로 이동">상세보기</a>
+					</div>
+				</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	</div><!-- container -->
+	<!-- container2 -->
+	<div class="container_promotion center_975">
+		<span class="promotion_space"></span>
+		<div class="box_event_sub">
+			<span class="selected_sub" data-id="top_tab11"><a href="#최신순">최신순</a></span>
+			<span data-id="top_tab12"><a href="#평점순">평점순</a></span>
+			<span data-id="top_tab13"><a href="#리뷰많은순">리뷰많은순</a></span>
+		</div>
+		<div class="promotion_wrap">
+			<div class="scrollarea">
+				<ul class="promotion_tab_sub">
+					<li {% if board_kind == "전체" %} class="selected_sub" {% endif %}><a href="#전체" data-id="tab20">전체</a></li>
+					<li {% if board_kind == "리조트" %} class="selected_sub" {% endif %}><a href="#리조트" data-id="tab21">리조트</a></li>
+					<li {% if board_kind == "호텔" %} class="selected_sub" {% endif %}><a href="#호텔" data-id="tab22">호텔</a></li>
+					<li {% if board_kind == "교민맛집" %} class="selected_sub" {% endif %}><a href="#교민맛집" data-id="tab23">교민맛집</a></li>
+					<li {% if board_kind == "로컬맛집" %} class="selected_sub" {% endif %}><a href="#로컬맛집" data-id="tab24">로컬맛집</a></li>
+					<li {% if board_kind == "호핑" %} class="selected_sub" {% endif %}><a href="#호핑" data-id="tab25">호핑</a></li>
+					<li {% if board_kind == "데이투어" %} class="selected_sub" {% endif %}><a href="#데이투어" data-id="tab26">데이투어</a></li>
+					<li {% if board_kind == "마사지샵" %} class="selected_sub" {% endif %}><a href="#마사지샵" data-id="tab27">마사지샵</a></li>
+					<li {% if board_kind == "풀필라" %} class="selected_sub" {% endif %}><a href="#풀빌라" data-id="tab28">풀빌라</a></li>
+					<li {% if board_kind == "뷰티샵" %} class="selected_sub" {% endif %}><a href="#뷰티샵" data-id="tab29">뷰티샵</a></li>
+					<li {% if board_kind == "다이빙샵" %} class="selected_sub" {% endif %}><a href="#다이빙샵" data-id="tab210">다이빙샵</a></li>
+					<li {% if board_kind == "기념품샵" %} class="selected_sub" {% endif %}><a href="#기념품샵" data-id="tab211">기념품샵</a></li>
+				</ul>
+			</div>
+		</div><!-- sub5_top_wrap -->
+
+		<!-- 최신순 -->
+		<div class="clear_sub active_sub" data-id="top_tab11">
+		{% for list in promotion_list %}
+			{% for obj in list %}
+			<div class="sort-box_sub {% if obj.board_kind == board_kind %} active_sub
+			{% elif forloop.parentloop.counter0 == 0 and board_kind == '전체' %} active_sub
+			{% endif %}" data-id="tab2{{forloop.parentloop.counter0}}">
+				<a href="{% url 'promotions:show' obj.id %}" title="상세페이지로 이동">
+					<div class="img-wrap">
+						<img src="{{obj.pimg1}}" >
+					</div>
+					<div class="tag_wrap">
+						<ul class="tag">
+							{% if obj.tag1 %}<li class="label b3">{{obj.tag1}}</li>{% endif %}
+							{% if obj.tag2 %}<li class="label b2">{{obj.tag2}}</li>{% endif %}
+							{% if obj.tag3 %}<li class="label b1">{{obj.tag3}}</li>{% endif %}
+						</ul>
+					</div>
+				</a>
+				<div class="txt-box" data-id="tab2{{forloop.parentloop.counter0}}">
+					<span class="category">{{obj.brand_name}}</span>
+					<span class="emsp">&nbsp;|&nbsp;</span>
+					<span class="star">
+						<img src="{% static 'images/promotion/star.png' %}">
+						<span>{{obj.star_total}}</span>/5 ({{obj.star_participate|intcomma}})
+					</span>
+					<p>{{obj.introduction}}</p>
+					<div class="tag-wrap space promotion_tag">
+						{% if obj.rep_txt1 %}<span class="tag b1">{{obj.rep_txt1}}</span>{% endif %}
+						{% if obj.rep_txt2 %}<span class="tag b2">{{obj.rep_txt2}}</span>{% endif %}
+						{% if obj.rep_txt3 %}<span class="tag b3">{{obj.rep_txt3}}</span>{% endif %}
+					</div>
+					<p class="pay promotion_pay">
+						<img src="{% static 'images/promotion/pay.png' %}">
+						<span class="pay_text">{{obj.p_price_min|intcomma}} ~ </span>
+						<br><label>예약금 {{obj.w_price_min|intcomma}}원</label>
+					</p>
+					<a href="{% url 'promotions:show' obj.id %}" class="btn" title="상세페이지로 이동">상세보기</a>
+				</div>
+			</div>
+			{% endfor %}
+		{% endfor %}
+		</div>
+		<!-- 평점순 -->
+		<div class="clear_sub" data-id="top_tab12">
+		{% for list in staravg_list %}
+			{% for obj in list %}
+			<div class="sort-box_sub {% if obj.board_kind == board_kind %} active_sub
+			{% elif forloop.parentloop.counter0 == 0 and board_kind == '전체' %} active_sub
+			{% endif %}" data-id="tab2{{forloop.parentloop.counter0}}">
+				<a href="{% url 'promotions:show' obj.id %}" title="상세페이지로 이동">
+					<div class="img-wrap">
+						<img src="{{obj.pimg1}}" >
+					</div>
+					<div class="tag_wrap">
+						<ul class="tag">
+							{% if obj.tag1 %}<li class="label b3">{{obj.tag1}}</li>{% endif %}
+							{% if obj.tag2 %}<li class="label b2">{{obj.tag2}}</li>{% endif %}
+							{% if obj.tag3 %}<li class="label b1">{{obj.tag3}}</li>{% endif %}
+						</ul>
+					</div>
+				</a>
+				<div class="txt-box" data-id="tab1{{forloop.parentloop.counter}}">
+					<span class="category">{{obj.brand_name}}</span>
+					<span class="emsp">&nbsp;|&nbsp;</span>
+					<span class="star">
+						<img src="{% static 'images/promotion/star.png' %}">
+						<span>{{obj.star_total}}</span>/5 ({{obj.star_participate|intcomma}})
+					</span>
+					<p>{{obj.introduction}}</p>
+					<div class="tag-wrap space promotion_tag">
+						{% if obj.rep_txt1 %}<span class="tag b1">{{obj.rep_txt1}}</span>{% endif %}
+						{% if obj.rep_txt2 %}<span class="tag b2">{{obj.rep_txt2}}</span>{% endif %}
+						{% if obj.rep_txt3 %}<span class="tag b3">{{obj.rep_txt3}}</span>{% endif %}
+					</div>
+					<p class="pay promotion_pay">
+						<img src="{% static 'images/promotion/pay.png' %}">
+						<span class="pay_text">{{obj.p_price_min|intcomma}} ~ </span>
+						<br><label>예약금 {{obj.w_price_min|intcomma}}원</label>
+					</p>
+					<a href="{% url 'promotions:show' obj.id %}" class="btn" title="상세페이지로 이동">상세보기</a>
+				</div>
+			</div>
+			{% endfor %}
+		{% endfor %}
+		</div>
+		<!-- 리뷰많은순 -->
+		<div class="clear_sub" data-id="top_tab13">
+		{% for list in starparti_list %}
+			{% for obj in list %}
+			<div class="sort-box_sub {% if obj.board_kind == board_kind %} active_sub
+			{% elif forloop.parentloop.counter0 == 0 and board_kind == '전체' %} active_sub
+			{% endif %}" data-id="tab2{{forloop.parentloop.counter0}}">
+				<a href="{% url 'promotions:show' obj.id %}" title="상세페이지로 이동">
+					<div class="img-wrap">
+						<img src="{{obj.pimg1}}" >
+					</div>
+					<div class="tag_wrap">
+						<ul class="tag">
+							{% if obj.tag1 %}<li class="label b3">{{obj.tag1}}</li>{% endif %}
+							{% if obj.tag2 %}<li class="label b2">{{obj.tag2}}</li>{% endif %}
+							{% if obj.tag3 %}<li class="label b1">{{obj.tag3}}</li>{% endif %}
+						</ul>
+					</div>
+				</a>
+				<div class="txt-box" data-id="tab1{{forloop.parentloop.counter}}">
+					<span class="category">{{obj.brand_name}}</span>
+					<span class="emsp">&nbsp;|&nbsp;</span>
+					<span class="star">
+						<img src="{% static 'images/promotion/star.png' %}">
+						<span>{{obj.star_total}}</span>/5 ({{obj.star_participate|intcomma}})
+					</span>
+					<p>{{obj.introduction}}</p>
+					<div class="tag-wrap space promotion_tag">
+						{% if obj.rep_txt1 %}<span class="tag b1">{{obj.rep_txt1}}</span>{% endif %}
+						{% if obj.rep_txt2 %}<span class="tag b2">{{obj.rep_txt2}}</span>{% endif %}
+						{% if obj.rep_txt3 %}<span class="tag b3">{{obj.rep_txt3}}</span>{% endif %}
+					</div>
+					<p class="pay promotion_pay">
+						<img src="{% static 'images/promotion/pay.png' %}">
+						<span class="pay_text">{{obj.p_price_min|intcomma}} ~ </span>
+						<br><label>예약금 {{obj.w_price_min|intcomma}}원</label>
+					</p>
+					<a href="{% url 'promotions:show' obj.id %}" class="btn" title="상세페이지로 이동">상세보기</a>
+				</div>
+			</div>
+			{% endfor %}
+		{% endfor %}
+		</div>
+	</div><!-- container2 -->
+	<!-- write -->
+	<div class="promotion_write center_975">
+		<div class="promotion_write_btn">
+			<a href="{% url 'promotions:create' %}">
+				<span>
+					<img src="{% static 'images/promotion/review_04.png' %}" alt="글쓰기">
+				</span>
+				글쓰기
+			</a>
+		</div><!-- article_btn -->
+	</div>
+	<!-- paging -->
+	<div class="paging">
+		{% if page_obj.has_other_pages %}
+		<ul>
+			{% if page_obj.has_previous %}
+			<li class="last"><a href="?page={{page_obj.previous_page_number}}"></a></li>
+			{% endif %}
+			{% for i in page_range %}
+				{% if page_obj.number == i %}
+				<li class="on"><a href="">{{i}}</a></li>
+				{% else %}
+				<li><a href="?page={{ i }}">{{i}}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if page_obj.has_next %}
+			<li class="next"><a href="?page={{page_obj.next_page_number}}"></a></li>
+			{% endif %}
+		</ul>
+		{% endif %}
+	</div>
+
+	<form action="{% url 'promotions:index' %}" method="GET">
+		<div class="sch_box center_975">
+			<label for="sch_btn" class="sound_only">검색어 필수</label>
+			<select name="sch_slt" class="btn_sch_select">
+				<option value="업체명" {%if request.GET.sch_slt == "업체명"%}selected{%endif%}>업체명</option>
+				<option value="제목" {%if request.GET.sch_slt == "제목"%}selected{%endif%}>제목</option>
+			</select>
+			<input type="text" name="sch_tx" id="sch_btn" maxlength="20" {%if request.GET.sch_tx != None%}value="{{s_text}}"{%endif%}>
+			<button type="text" id="sch_submit" class="sch_submit" value="검색">검색</button>
+		</div>
+	</form>
+{% endblock %}

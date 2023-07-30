@@ -1,0 +1,134 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+*{
+    box-sizing: border-box;
+}
+button, input[type=file], input[type=image], input[type=reset], input[type=button], input[type=submit] {
+    border: none;
+    background: none;
+    border-radius: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+a, address, area, article, aside, audio, b, body, br, button, canvas, caption, cite, col, colgroup, dd, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, frame, frameset, h1, h2, h3, h4, h5, h6, head, header, hr, html, i, iframe, img, input, label, legend, li, link, map, meta, nav, object, ol, p, pre, q, rp, rt, ruby, s, script, section, select, source, span, strong, style, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, title, tr, u, ul, video {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    vertical-align: top;
+    outline: none;
+}
+th, td {
+    vertical-align: middle;
+}
+legend, hr, caption {
+    visibility: hidden;
+    overflow: hidden;
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+    border: none;
+    background: none;
+    position: absolute;
+    left: -9999em;
+    top: -9999em;
+    opacity: 0;
+}
+input[type=text], input[type=number], input[type=email], input[type=password] {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding: 7px 15px;
+    border: 1px solid #cccccc;
+    background: none;
+    font-size: 16px;
+    letter-spacing: -0.03em;
+    color: #222222;
+    font-family:'default'
+    /* -webkit-box-shadow: 0 0 0 1000px white inset; */
+}
+select {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding: 7px 15px;
+    border: 1px solid #cccccc;
+    background: url(../img/slt.png) top 15px right 15px no-repeat;
+    font-size: 16px;
+    letter-spacing: -0.03em;
+    color: #222222;
+    -webkit-appearance: none;
+    appearance: none;
+}
+textarea {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #cccccc;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666666;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+table {
+    width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
+}

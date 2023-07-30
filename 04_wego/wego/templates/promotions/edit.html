@@ -1,0 +1,527 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}세부 기념품 - 위고세부{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+
+<script type="text/JavaScript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- promotion css,js new -->
+<link rel="stylesheet" href="{% static 'css/promotion.css' %}">
+<link rel="stylesheet" href="{% static 'css/promotion_media.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+<script type="text/JavaScript" src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+<style>
+	.map_choice {
+	    position: relative;
+	    padding: 0;
+	    border-top: 0px solid #e1e1e1;
+	}
+	.board_submit_btn {
+	    width: 30%;
+	    padding: 15px 30px;
+	    font-size: 1.5em;
+	}
+	.board_submit {
+    text-align: center;
+    padding: 20px 0 5px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+	{% include 'javascript/promotions_js.html' %}
+  <!-- Content -->
+	<div id="container" class="white_bg">
+		<h2 class="sound_only">본문 영역</h2>
+		<div class="container_wrap center_975">
+			<h4 class="stit_con_title">글수정</h4>
+			<div class="tbl_scroll">
+				<form action="{% url 'promotions:edit' old_data.id %}" method="POST">
+					{% csrf_token %}
+					<table class="tbl_basic">
+						<caption>
+							글수정
+						</caption>
+						<colgroup>
+							<col>
+							<col>
+							<col>
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label for="brand_name">
+										업체명<span class="ico_tbl_must" title="업체명 입력"></span>
+									</label>
+								</th>
+								<td>
+									<input type="text" name="brand_name" id="brand_name" value="{{old_data.brand_name}}" maxlength="10" required>
+								</td>
+								<th>
+									<label for="board_kind">
+										업종<span class="ico_tbl_must" title="업종 입력"></span>
+									</label>
+								</th>
+								<td>
+									<select name="board_kind" id="board_kind" required>
+									    <option disabled value selected>--업종선택--</option>
+											<option value="리조트" {% if old_data.board_kind == '리조트' %} selected {% endif %}>리조트</option>
+									    <option value="호텔" {% if old_data.board_kind == '호텔' %} selected {% endif %}>호텔</option>
+									    <option value="교민맛집" {% if old_data.board_kind == '교민맛집' %} selected {% endif %}>교민맛집</option>
+									    <option value="로컬맛집" {% if old_data.board_kind == '로컬맛집' %} selected {% endif %}>로컬맛집</option>
+											<option value="호핑" {% if old_data.board_kind == '호핑' %} selected {% endif %}>호핑</option>
+											<option value="데이투어" {% if old_data.board_kind == '데이투어' %} selected {% endif %}>데이투어</option>
+											<option value="마사지샵" {% if old_data.board_kind == '마사지샵' %} selected {% endif %}>마사지샵</option>
+											<option value="뷰티샵" {% if old_data.board_kind == '뷰티샵' %} selected {% endif %}>뷰티샵</option>
+											<option value="다이빙샵" {% if old_data.board_kind == '다이빙샵' %} selected {% endif %}>다이빙샵</option>
+											<option value="기념품샵" {% if old_data.board_kind == '기념품샵' %} selected {% endif %}>기념품샵</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label>한줄소개<span class="ico_tbl_must" title="한줄소개 입력"></span></label>
+								</th>
+								<td colspan="3">
+									<input type="text" title="한줄소개 입력" name="introduction" id="introduction" value="{{old_data.introduction}}" maxlength="53" required>
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									<label>가격<span style="font-size:0.8em;">(페소)</span><span class="ico_tbl_must" title="가격 입력"></span></label>
+								</th>
+								<td>
+									<label>
+										<input type="text" class="price_write_min" name="p_price_min" placeholder="최소가격(페소)" value="{{old_data.p_price_min}}" maxlength="10" required/>
+									</label>
+									<span style="color:#999">&nbsp;~&nbsp;</span>
+									<label>
+										<input type="text" class="price_write_max" name="p_price_max" placeholder="최대가격(페소)" value="{{old_data.p_price_max}}" maxlength="10" required/>
+									</label>
+								</td>
+								<th>
+									<label>예약금<span style="font-size:0.8em;">(원)</span><span class="ico_tbl_must" title="예약금 입력"></span></label>
+								</th>
+								<td>
+									<label>
+										<input type="text" class="price_write_min" name="w_price_min" placeholder="최소(원)-해당시에만" value="{% if old_data.w_price_min %}{{old_data.w_price_min}}{% else %}0{% endif %}" maxlength="10" required/>
+									</label>
+									<span style="color:#999">&nbsp;~&nbsp;</span>
+									<label>
+										<input type="text" class="price_write_max" name="w_price_max" placeholder="최대(원)-해당시에만" value="{% if old_data.w_price_max %}{{old_data.w_price_max}}{% else %}0{% endif %}" maxlength="10" required/>
+									</label>
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									<label for="phone">
+										카톡ID<span class="ico_tbl_must" title="카카오톡ID 입력"></span>
+									</label>
+								</th>
+								<td>
+									<input type="text" name="kakao_id" id="kakao_id" value="{{old_data.kakao_id}}" maxlength="50" required>
+								</td>
+								<th>
+									<label>영업일<span class="ico_tbl_must" title="영업일 입력"></span></label>
+								</th>
+								<td class="pd_top">
+									<label  class="input_check mon" for="day_mon">
+										<input type="checkbox" name="workday_mon" id="day_mon" value='Y' {% if old_data.workday.0 == 'Y' or old_data.workday_mon %} checked {% endif %}>월
+									</label>
+									<label  class="input_check tue" for="day_tue">
+										<input type="checkbox" name="workday_tue" id="day_tue" value='Y' {% if old_data.workday.1 == 'Y' or old_data.workday_tue %} checked {% endif %}>화
+									</label>
+									<label  class="input_check wed" for="day_wed">
+										<input type="checkbox" name="workday_wed" id="day_wed" value='Y' {% if old_data.workday.2 == 'Y' or old_data.workday_wed %} checked {% endif %}>수
+									</label>
+									<label  class="input_check thu" for="day_thu">
+										<input type="checkbox" name="workday_thur" id="day_thu" value='Y' {% if old_data.workday.3 == 'Y' or old_data.workday_thur %} checked {% endif %}>목
+									</label>
+									<label  class="input_check fri" for="day_fri">
+										<input type="checkbox" name="workday_fri" id="day_fri" value='Y' {% if old_data.workday.4 == 'Y' or old_data.workday_fri %} checked {% endif %}>금
+									</label>
+									<label  class="input_check sat" for="day_sat">
+										<input type="checkbox" name="workday_sat" id="day_sat" value='Y' {% if old_data.workday.5 == 'Y' or old_data.workday_sat %} checked {% endif %}>토
+									</label>
+									<label  class="input_check sun" for="day_sun">
+										<input type="checkbox" name="workday_sun" id="day_sun" value='Y' {% if old_data.workday.6 == 'Y' or old_data.workday_sun %} checked {% endif %}>일
+									</label>
+									<label  class="input_check day_all" for="day_all" style="width: 40px;">
+										<input type="checkbox" name="workday_all" id="day_all" value='Y' {% if old_data.all_workday == 'Y' %} checked {% endif %}>365일
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label>영업시간<span style="font-size:0.8em;">(평일)</span><span class="ico_tbl_must" title="영업시간 입력"></span></label>
+								</th>
+								<td>
+									<label>
+										<input type="text" class="timepicker01" name="worktime_start" value="{{old_data.worktime_start}}" maxlength="50" required/>
+									</label>
+									<span style="color:#999">&nbsp;~&nbsp;</span>
+									<label>
+										<input type="text" class="timepicker02" name="worktime_finish" value="{{old_data.worktime_finish}}" maxlength="50" required/>
+									</label>
+								</td>
+								<th>
+									<label>영업시간<span style="font-size:0.8em;">(주말)</span><span class="ico_tbl_must" title="영업시간 입력"></span></label>
+								</th>
+								<td>
+									<label>
+										<input type="text" class="timepicker01" name="worktime_start_weekend" value="{{old_data.worktime_start_weekend}}" maxlength="50" required/>
+									</label>
+									<span style="color:#999">&nbsp;~&nbsp;</span>
+									<label>
+										<input type="text" class="timepicker02" name="worktime_finish_weekend" value="{{old_data.worktime_finish_weekend}}" maxlength="50" required/>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label for="phone">
+										연락처<span class="ico_tbl_must" title="연락처 입력"></span>
+									</label>
+								</th>
+								<td>
+									<input type="text" name="phone" id="phone" placeholder="'-'포함 입력" value="{{old_data.phone}}" maxlength="50" required>
+								</td>
+								<th>
+									<label for="address">
+										주소<span class="ico_tbl_must" title="주소찾기" ></span>
+									</label>
+								</th>
+								<td>
+									<input type="text" name="address" id="address" value="{{old_data.address}}" maxlength="100" required>
+									<!-- <label for="search_addr"  class="addr_btn">검색</label>
+									<button type="button" onclick="openZipSearch()" id="search_addr" class="search_addr"></button> -->
+								</td>
+							</tr>
+
+							<tr>
+								<th>
+									<label>사이트<span class="ico_tbl_must" title="사이트 입력"></span></label>
+								</th>
+								<td colspan="3">
+									<input type="text" title="문의링크 입력" name="url_link" id="url_link" placeholder="네이버카페, 홈페이지URL 또는 카카오플러스톡을 입력해주세요." value="{{old_data.url_link}}" maxlength="100" required>
+								</td>
+							</tr>
+
+							<tr class="bg_gray">
+								<th>
+									<label for="cstPic">
+										사진<span class="ico_tbl_must" title="사진 등록"></span>
+									</label>
+								</th>
+								<td colspan="3" class="col_3">
+									<div class="filebox">
+										<label for="imgName">이미지</label>
+										<input type="file" id="imgName" name="imgName" multiple>
+										<a class="del_img">삭제</a>
+										<a class="rotate_img">회전</a>
+									</div>
+									<div class="fileContents">
+										<!-- <a href="javascript:;" onclick="">
+											<img class="thumbnailImg" src="{% static 'images/promotion/thumb_none.jpg' %}" style="display:inline;"/>
+										</a> -->
+										<a class="fimg1 imgUpload_promotion" {% if old_data.pimg.0 or old_data.pimg1 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img1" src="{% if old_data.pimg.0 %}{{ old_data.pimg.0 }}{% else %}{{old_data.pimg1}}{% endif %}">
+											<input type="hidden" class="pimg1" name="pimg1" value="{% if old_data.pimg.0 %}{{ old_data.pimg.0 }}{% else %}{{old_data.pimg1}}{% endif %}">
+											<input type="hidden" class="degree1" value="90">
+										</a>
+										<a class="fimg2 imgUpload_promotion" {% if old_data.pimg.1 or old_data.pimg2 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img2" src="{% if old_data.pimg.1 %}{{ old_data.pimg.1 }}{% else %}{{old_data.pimg2}}{% endif %}">
+											<input type="hidden" class="pimg2" name="pimg2" value="{% if old_data.pimg.1 %}{{ old_data.pimg.1 }}{% else %}{{old_data.pimg2}}{% endif %}">
+											<input type="hidden" class="degree2" value="90">
+										</a>
+										<a class="fimg3 imgUpload_promotion" {% if old_data.pimg.2 or old_data.pimg3 %} style="display:" {% else %} style="display:none" {% endif %}>
+										<img class="thumbnailImg img3" src="{% if old_data.pimg.2 %}{{ old_data.pimg.2 }}{% else %}{{old_data.pimg3}}{% endif %}">
+											<input type="hidden" class="pimg3" name="pimg3" value="{% if old_data.pimg.2 %}{{ old_data.pimg.2 }}{% else %}{{old_data.pimg3}}{% endif %}">
+											<input type="hidden" class="degree3" value="90">
+										</a>
+										<a class="fimg4 imgUpload_promotion" {% if old_data.pimg.3 or old_data.pimg4 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img4" src="{% if old_data.pimg.3 %}{{ old_data.pimg.3 }}{% else %}{{old_data.pimg4}}{% endif %}">
+											<input type="hidden" class="pimg4" name="pimg4" value="{% if old_data.pimg.3 %}{{ old_data.pimg.3 }}{% else %}{{old_data.pimg4}}{% endif %}">
+											<input type="hidden" class="degree4" value="90">
+										</a>
+										<a class="fimg5 imgUpload_promotion" {% if old_data.pimg.4 or old_data.pimg5 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img5" src="{% if old_data.pimg.4 %}{{ old_data.pimg.4 }}{% else %}{{old_data.pimg5}}{% endif %}">
+											<input type="hidden" class="pimg5" name="pimg5" value="{% if old_data.pimg.4 %}{{ old_data.pimg.4 }}{% else %}{{old_data.pimg5}}{% endif %}">
+											<input type="hidden" class="degree5" value="90">
+										</a>
+										<a class="fimg6 imgUpload_promotion" {% if old_data.pimg.5 or old_data.pimg6 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img6" src="{% if old_data.pimg.5 %}{{ old_data.pimg.5 }}{% else %}{{old_data.pimg6}}{% endif %}">
+											<input type="hidden" class="pimg6" name="pimg6" value="{% if old_data.pimg.5 %}{{ old_data.pimg.5 }}{% else %}{{old_data.pimg6}}{% endif %}">
+											<input type="hidden" class="degree6" value="90">
+										</a>
+										<a class="fimg7 imgUpload_promotion" {% if old_data.pimg.6 or old_data.pimg7 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img7" src="{% if old_data.pimg.6 %}{{ old_data.pimg.6 }}{% else %}{{old_data.pimg7}}{% endif %}">
+											<input type="hidden" class="pimg7" name="pimg7" value="{% if old_data.pimg.6 %}{{ old_data.pimg.6 }}{% else %}{{old_data.pimg7}}{% endif %}">
+											<input type="hidden" class="degree7" value="90">
+										</a>
+										<a class="fimg8 imgUpload_promotion" {% if old_data.pimg.7 or old_data.pimg8 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img8" src="{% if old_data.pimg.7 %}{{ old_data.pimg.7 }}{% else %}{{old_data.pimg8}}{% endif %}">
+											<input type="hidden" class="pimg8" name="pimg8" value="{% if old_data.pimg.7 %}{{ old_data.pimg.7 }}{% else %}{{old_data.pimg8}}{% endif %}">
+											<input type="hidden" class="degree8" value="90">
+										</a>
+										<a class="fimg9 imgUpload_promotion" {% if old_data.pimg.8 or old_data.pimg9 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img9" src="{% if old_data.pimg.8 %}{{ old_data.pimg.8 }}{% else %}{{old_data.pimg9}}{% endif %}">
+											<input type="hidden" class="pimg9" name="pimg9" value="{% if old_data.pimg.8 %}{{ old_data.pimg.8 }}{% else %}{{old_data.pimg9}}{% endif %}">
+											<input type="hidden" class="degree9" value="90">
+										</a>
+										<a class="fimg10 imgUpload_promotion" {% if old_data.pimg.9 or old_data.pimg10 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img10" src="{% if old_data.pimg.9 %}{{ old_data.pimg.9 }}{% else %}{{old_data.pimg10}}{% endif %}">
+											<input type="hidden" class="pimg10" name="pimg10" value="{% if old_data.pimg.9 %}{{ old_data.pimg.9 }}{% else %}{{old_data.pimg10}}{% endif %}">
+											<input type="hidden" class="degree10" value="90">
+										</a>
+										<a class="fimg11 imgUpload_promotion" {% if old_data.pimg.10 or old_data.pimg11 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img11" src="{% if old_data.pimg.10 %}{{ old_data.pimg.10 }}{% else %}{{old_data.pimg11}}{% endif %}">
+											<input type="hidden" class="pimg11" name="pimg11" value="{% if old_data.pimg.10 %}{{ old_data.pimg.10 }}{% else %}{{old_data.pimg11}}{% endif %}">
+											<input type="hidden" class="degree11" value="90">
+										</a>
+										<a class="fimg12 imgUpload_promotion" {% if old_data.pimg.11 or old_data.pimg12 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img12" src="{% if old_data.pimg.11 %}{{ old_data.pimg.11 }}{% else %}{{old_data.pimg12}}{% endif %}">
+											<input type="hidden" class="pimg12" name="pimg12" value="{% if old_data.pimg.11 %}{{ old_data.pimg.11 }}{% else %}{{old_data.pimg12}}{% endif %}">
+											<input type="hidden" class="degree12" value="90">
+										</a>
+										<a class="fimg13 imgUpload_promotion" {% if old_data.pimg.12 or old_data.pimg13 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img13" src="{% if old_data.pimg.12 %}{{ old_data.pimg.12 }}{% else %}{{old_data.pimg13}}{% endif %}">
+											<input type="hidden" class="pimg13" name="pimg13" value="{% if old_data.pimg.12 %}{{ old_data.pimg.12 }}{% else %}{{old_data.pimg13}}{% endif %}">
+											<input type="hidden" class="degree13" value="90">
+										</a>
+										<a class="fimg14 imgUpload_promotion" {% if old_data.pimg.13 or old_data.pimg14 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img14" src="{% if old_data.pimg.13 %}{{ old_data.pimg.13 }}{% else %}{{old_data.pimg14}}{% endif %}">
+											<input type="hidden" class="pimg14" name="pimg14" value="{% if old_data.pimg.13 %}{{ old_data.pimg.13 }}{% else %}{{old_data.pimg14}}{% endif %}">
+											<input type="hidden" class="degree14" value="90">
+										</a>
+										<a class="fimg15 imgUpload_promotion" {% if old_data.pimg.14 or old_data.pimg15 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img15" src="{% if old_data.pimg.14 %}{{ old_data.pimg.14 }}{% else %}{{old_data.pimg15}}{% endif %}">
+											<input type="hidden" class="pimg15" name="pimg15" value="{% if old_data.pimg.14 %}{{ old_data.pimg.14 }}{% else %}{{old_data.pimg15}}{% endif %}">
+											<input type="hidden" class="degree15" value="90">
+										</a>
+										<a class="fimg16 imgUpload_promotion" {% if old_data.pimg.15 or old_data.pimg16 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img16" src="{% if old_data.pimg.15 %}{{ old_data.pimg.15 }}{% else %}{{old_data.pimg16}}{% endif %}">
+											<input type="hidden" class="pimg16" name="pimg16" value="{% if old_data.pimg.15 %}{{ old_data.pimg.15 }}{% else %}{{old_data.pimg16}}{% endif %}">
+											<input type="hidden" class="degree16" value="90">
+										</a>
+										<a class="fimg17 imgUpload_promotion" {% if old_data.pimg.16 or old_data.pimg17 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img17" src="{% if old_data.pimg.16 %}{{ old_data.pimg.16 }}{% else %}{{old_data.pimg17}}{% endif %}">
+											<input type="hidden" class="pimg17" name="pimg17" value="{% if old_data.pimg.16 %}{{ old_data.pimg.16 }}{% else %}{{old_data.pimg17}}{% endif %}">
+											<input type="hidden" class="degree17" value="90">
+										</a>
+										<a class="fimg18 imgUpload_promotion" {% if old_data.pimg.17 or old_data.pimg18 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img18" src="{% if old_data.pimg.17 %}{{ old_data.pimg.17 }}{% else %}{{old_data.pimg18}}{% endif %}">
+											<input type="hidden" class="pimg18" name="pimg18" value="{% if old_data.pimg.17 %}{{ old_data.pimg.17 }}{% else %}{{old_data.pimg18}}{% endif %}">
+											<input type="hidden" class="degree18" value="90">
+										</a>
+										<a class="fimg19 imgUpload_promotion" {% if old_data.pimg.18 or old_data.pimg19 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img19" src="{% if old_data.pimg.18 %}{{ old_data.pimg.18 }}{% else %}{{old_data.pimg19}}{% endif %}">
+											<input type="hidden" class="pimg19" name="pimg19" value="{% if old_data.pimg.18 %}{{ old_data.pimg.18 }}{% else %}{{old_data.pimg19}}{% endif %}">
+											<input type="hidden" class="degree19" value="90">
+										</a>
+										<a class="fimg20 imgUpload_promotion" {% if old_data.pimg.19 or old_data.pimg20 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img20" src="{% if old_data.pimg.19 %}{{ old_data.pimg.19 }}{% else %}{{old_data.pimg20}}{% endif %}">
+											<input type="hidden" class="pimg20" name="pimg20" value="{% if old_data.pimg.19 %}{{ old_data.pimg.19 }}{% else %}{{old_data.pimg20}}{% endif %}">
+											<input type="hidden" class="degree20" value="90">
+										</a>
+										<p class="write_txt">상품사진은 최소5장 최대20장 등록가능합니다.<p/>
+										<!-- <p class="write_txt">첫번째 메인사진은 가로,세로 3:2비율 사진으로 올려주세요. <p/> -->
+									</div>
+								</td>
+							</tr>
+
+							<tr class="bg_gray">
+								<th>
+									<label for="cstPic">
+										대표상품<span class="ico_tbl_must" title="사진 등록"></span>
+									</label>
+								</th>
+								<td colspan="3" class="col_3">
+									<div class="filebox">
+										<label for="imgName2">이미지</label>
+										<input type="file" id="imgName2" name="imgName2" multiple>
+										<a class="del_img_rep">삭제</a>
+										<a class="rotate_img_rep">회전</a>
+									</div>
+									<div class="fileContents">
+										<a class="fimg1_second imgUpload_promotion_rep" {% if old_data.rep_img.0 or old_data.rep_img1 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img1_second" src="{% if old_data.rep_img.0 %}{{ old_data.rep_img.0 }}{% else %}{{old_data.rep_img1}}{% endif %}">
+											<input type="hidden" class="pimg1_second" name="rep_img1" value="{% if old_data.rep_img.0 %}{{ old_data.rep_img.0 }}{% else %}{{old_data.rep_img1}}{% endif %}">
+											<input type="hidden" class="degree1_second" value="90">
+										</a>
+										<a class="fimg2_second imgUpload_promotion_rep" {% if old_data.rep_img.1 or old_data.rep_img2 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img2_second" src="{% if old_data.rep_img.1 %}{{ old_data.rep_img.1 }}{% else %}{{old_data.rep_img2}}{% endif %}">
+											<input type="hidden" class="pimg2_second" name="rep_img2" value="{% if old_data.rep_img.1 %}{{ old_data.rep_img.1 }}{% else %}{{old_data.rep_img2}}{% endif %}">
+											<input type="hidden" class="degree2_second" value="90">
+										</a>
+										<a class="fimg3_second imgUpload_promotion_rep" {% if old_data.rep_img.2 or old_data.rep_img3 %} style="display:" {% else %} style="display:none" {% endif %}>
+										<img class="thumbnailImg img3_second" src="{% if old_data.rep_img.2 %}{{ old_data.rep_img.2 }}{% else %}{{old_data.rep_img3}}{% endif %}">
+											<input type="hidden" class="pimg3_second" name="rep_img3" value="{% if old_data.rep_img.2 %}{{ old_data.rep_img.2 }}{% else %}{{old_data.rep_img3}}{% endif %}">
+											<input type="hidden" class="degree3_second" value="90">
+										</a>
+										<a class="fimg4_second imgUpload_promotion_rep" {% if old_data.rep_img.3 or old_data.rep_img4 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img4_second" src="{% if old_data.rep_img.3 %}{{ old_data.rep_img.3 }}{% else %}{{old_data.rep_img4}}{% endif %}">
+											<input type="hidden" class="pimg4_second" name="rep_img4" value="{% if old_data.rep_img.3 %}{{ old_data.rep_img.3 }}{% else %}{{old_data.rep_img4}}{% endif %}">
+											<input type="hidden" class="degree4_second" value="90">
+										</a>
+										<a class="fimg5_second imgUpload_promotion_rep" {% if old_data.rep_img.4 or old_data.rep_img5 %} style="display:" {% else %} style="display:none" {% endif %}>
+											<img class="thumbnailImg img5_second" src="{% if old_data.rep_img.4 %}{{ old_data.rep_img.4 }}{% else %}{{old_data.rep_img5}}{% endif %}">
+											<input type="hidden" class="pimg5_second" name="rep_img5" value="{% if old_data.rep_img.4 %}{{ old_data.rep_img.4 }}{% else %}{{old_data.rep_img5}}{% endif %}">
+											<input type="hidden" class="degree5_second" value="90">
+										</a>
+									</div>
+									<input type="text" class="rep_img1_txt" name="rep_txt1" id="rep_txt1" {% if old_data.rep_txt1 or old_data.rep_img.0 %} style="display:" {% else %} style="display:none" {% endif %} value="{{ old_data.rep_txt1 }}" placeholder="대표상품명1" maxlength="7">
+									<input type="text" class="rep_img2_txt" name="rep_txt2" id="rep_txt2" {% if old_data.rep_txt2 or old_data.rep_img.1 %} style="display:" {% else %} style="display:none" {% endif %} value="{{ old_data.rep_txt2 }}" placeholder="대표상품명2" maxlength="7">
+									<input type="text" class="rep_img3_txt" name="rep_txt3" id="rep_txt3" {% if old_data.rep_txt3 or old_data.rep_img.2 %} style="display:" {% else %} style="display:none" {% endif %} value="{{ old_data.rep_txt3 }}" placeholder="대표상품명3" maxlength="7">
+									<input type="text" class="rep_img4_txt" name="rep_txt4" id="rep_txt4" {% if old_data.rep_txt4 or old_data.rep_img.3 %} style="display:" {% else %} style="display:none" {% endif %} value="{{ old_data.rep_txt4 }}" placeholder="대표상품명4" maxlength="7">
+									<input type="text" class="rep_img5_txt" name="rep_txt5" id="rep_txt5" {% if old_data.rep_txt5 or old_data.rep_img.4 %} style="display:" {% else %} style="display:none" {% endif %} value="{{ old_data.rep_txt5 }}" placeholder="대표상품명5" maxlength="7">
+									<p class="write_txt">대표상품은 최소3개 최대5개 등록가능합니다.<p/>
+								</td>
+							</tr>
+
+							<tr class="bg_gray">
+								<th>
+									<label for="cstPic">
+										편의시설<span class="ico_tbl_must" title="편의시설"></span>
+									</label>
+								</th>
+								<td colspan="3" class="col_3">
+									<div class="reserve_btn write">
+										<a>{{opts.0.content}}</a>
+										<input type="checkbox" class="input_check" name="opt1" id="opt1" value='Y' {% if old_data.opt.0 == 'Y' or old_data.opt1 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.1.content}}</a>
+										<input type="checkbox" class="input_check" name="opt2" id="opt2" value='Y' {% if old_data.opt.1 == 'Y' or old_data.opt2 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.2.content}}</a>
+										<input type="checkbox" class="input_check" name="opt3" id="opt3" value='Y' {% if old_data.opt.2 == 'Y' or old_data.opt3 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.3.content}}</a>
+										<input type="checkbox" class="input_check" name="opt4" id="opt4" value='Y' {% if old_data.opt.3 == 'Y' or old_data.opt4 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.4.content}}</a>
+										<input type="checkbox" class="input_check" name="opt5" id="opt5" value='Y' {% if old_data.opt.4 == 'Y' or old_data.opt5 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.5.content}}</a>
+										<input type="checkbox" class="input_check" name="opt6" id="opt6" value='Y' {% if old_data.opt.5 == 'Y' or old_data.opt6 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.6.content}}</a>
+										<input type="checkbox" class="input_check" name="opt7" id="opt7" value='Y' {% if old_data.opt.6 == 'Y' or old_data.opt7 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.7.content}}</a>
+										<input type="checkbox" class="input_check" name="opt8" id="opt8" value='Y' {% if old_data.opt.7 == 'Y' or old_data.opt8 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.8.content}}</a>
+										<input type="checkbox" class="input_check" name="opt9" id="opt9" value='Y' {% if old_data.opt.8 == 'Y' or old_data.opt9 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.9.content}}</a>
+										<input type="checkbox" class="input_check" name="opt10" id="opt10" value='Y' {% if old_data.opt.9 == 'Y' or old_data.opt10 %} checked {% endif %} style="display:none;">
+									</div>
+
+									<div class="reserve_btn write">
+										<a>{{opts.10.content}}</a>
+										<input type="checkbox" class="input_check" name="opt11" id="opt11" value='Y' {% if old_data.opt.10 == 'Y' or old_data.opt11 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.11.content}}</a>
+										<input type="checkbox" class="input_check" name="opt12" id="opt12" value='Y' {% if old_data.opt.11 == 'Y' or old_data.opt12 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.12.content}}</a>
+										<input type="checkbox" class="input_check" name="opt13" id="opt13" value='Y' {% if old_data.opt.12 == 'Y' or old_data.opt13 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.13.content}}</a>
+										<input type="checkbox" class="input_check" name="opt14" id="opt14" value='Y' {% if old_data.opt.13 == 'Y' or old_data.opt14 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.14.content}}</a>
+										<input type="checkbox" class="input_check" name="opt15" id="opt15" value='Y' {% if old_data.opt.14 == 'Y' or old_data.opt15 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.15.content}}</a>
+										<input type="checkbox" class="input_check" name="opt16" id="opt16" value='Y' {% if old_data.opt.15 == 'Y' or old_data.opt16 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.16.content}}</a>
+										<input type="checkbox" class="input_check" name="opt17" id="opt17" value='Y' {% if old_data.opt.16 == 'Y' or old_data.opt17 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.17.content}}</a>
+										<input type="checkbox" class="input_check" name="opt18" id="opt18" value='Y' {% if old_data.opt.17 == 'Y' or old_data.opt18 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.18.content}}</a>
+										<input type="checkbox" class="input_check" name="opt19" id="opt19" value='Y' {% if old_data.opt.18 == 'Y' or old_data.opt19 %} checked {% endif %} style="display:none;">
+									</div>
+									<div class="reserve_btn write">
+										<a>{{opts.19.content}}</a>
+										<input type="checkbox" class="input_check" name="opt20" id="opt20" value='Y' {% if old_data.opt.19 == 'Y' or old_data.opt20 %} checked {% endif %} style="display:none;">
+									</div>
+
+									<div class="reserve_write">
+										<p class="write_txt">편의시설은 최대20개까지 선택하실 수 있습니다.<p/>
+									</div>
+								</td>
+							</tr>
+
+							<tr class="bg_gray map">
+								<th>
+									<label for="cstPic">
+										상세설명<span class="ico_tbl_must" title="상세설명"></span>
+									</label>
+								</th>
+								<td colspan="3" class="col_3">
+									<div class="coment_box write" >
+										<!-- 본문 -->
+										{% include 'partials/summernote_promotion.html' %}
+									</div>
+								</td>
+							</tr>
+
+							<tr class="bg_gray map">
+								<th>
+									<label for="cstMap">
+										지도<span class="ico_tbl_must" title="지도"></span>
+									</label>
+								</th>
+								<td colspan="3" class="col_3">
+									<div class="view_content_in">
+										<!-- 구글지도 -->
+										{% include 'partials/gmap_create.html' %}
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- <div class="reserve_btn complete">
+						<a>작성완료</a>
+					</div> -->
+					<div class="board_submit">
+						<input type="submit" name="preview" class="board_submit_btn" style="background:#aaa;" value="미리보기">
+						<input type="submit" class="board_submit_btn" value="작성완료">
+					</div>
+					<p class="write_txt complete">관리자 승인 후 게시됩니다(12시간이내).</p>
+				</form>
+			</div>
+		</div><!-- container_wrap -->
+	</div>
+	<!-- container -->
+{% endblock %}

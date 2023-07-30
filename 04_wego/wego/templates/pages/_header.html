@@ -1,0 +1,239 @@
+{% load static %}
+{% load humanize %}
+<div id="header">
+	<h2 class="sound_only">상단 영역</h2>
+	<div id="tnb">
+		<h2 class="sound_only">유틸메뉴</h2>
+		<div class="center">
+			<!-- <ul class="hd_day">
+				<li><span>Today </span><span class="bold"> 245</span></li>
+				<li><span>Total </span><span class="bold"> 1,256</span></li>
+			</ul> -->
+			{% if user.is_authenticated %}
+			<ul class="hd_link">
+				<!-- <li><a href="#" style="vertical-align: middle;"><img src="{% static 'images/common/main_3.png' %}" alt="레벨아이콘"> 전문가</a></li> -->
+				<li>
+					<a href="javascript:bookmarksite('세부 여행의 모든것! 위고세부!','http://wegocebu.com')" style="vertical-align: middle;">
+						<i class="far fa-star" style="color:#fbb300;margin-right: 0px;"></i>즐겨찾기
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'msgboxs:index' 'index'%}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes,scrollbars=1'); return false;">
+						<i class="far fa-bell" style="color:#777; font-size: 15px;vertical-align: middle;"></i>알림{% if main_cntAlarm != 0 %}<span class="update">{{ main_cntAlarm }}</span>{% endif %}
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'msgboxs:index' 'message'%}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes,scrollbars=1'); return false;">
+						<i class="far fa-envelope" style="color:#777; font-size: 15px;vertical-align: middle;"></i>쪽지{% if cntMsg != 0 %}<span class="update">{{ cntMsg }}</span>{% endif %}
+					</a>
+				</li>
+				<li class="hd_my_info"><a href="#"><div class="my_thum"><img src="{{user.profile_image}}" alt="내 썸네일"></div></a>
+					<ul>
+						<li><div class="my_thum"><img src="{{user.profile_image}}" alt="내 썸네일"></div><a href="#"><span class="your_id">{{user.username}}님</span></a></li>
+						<li>
+							<ul>
+								<li><a href="#">정회원</a></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li><a href="#"><span class="icon"><i class="fas fa-seedling"></i></span>{{user.point|intcomma}} P</a></li>
+								<li><a href="#"><span class="icon"><i class="fas fa-euro-sign"></i></span>0캐시</a></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li><a href="#" onclick="location.href='{% url 'mypages:userinfo' 'index' %}'">내 정보</a></li>
+								<li><a href="#" onclick="location.href='{% url 'mypages:active' 'index' %}'">내 활동</a></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li>
+									<form action="{% url 'accounts:logout' %}" method="POST" >
+										{% csrf_token %}
+										<input type="submit" value="로그아웃" style="display:inline-block;border:1px solid #ccc;padding: 1px 2px;background:#fff;">
+									</form>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			{% else %}
+			<ul class="hd_link">
+				<li>
+					<a href="#" style="vertical-align: middle;">
+						<i class="far fa-star" style="color:#fbb300;margin-right: 0px;"></i>즐겨찾기
+					</a>
+				</li>
+				<li><a href="{% url 'accounts:login' %}">로그인</a></li>
+				<li><a href="{% url 'accounts:register_index' %}">회원가입</a></li>
+			</ul>
+			{% endif %}
+		</div>
+	</div><!-- tnb -->
+	<!-- 북마크 -->
+	<script type="text/javascript">
+		function bookmarksite(title,url){
+			//IE
+			if(document.all){ window.external.AddFavorite(url,title)}
+			//Chrome
+			else if(window.chrome){ alert("Ctrl+D키를 누르시면 즐겨찾기에 추가하실 수 있습니다."); }
+			//FireFox
+			else if(window.sidebar){ window.sidebar.addPaner(title,url,""); }
+			//Opera
+			else if(window.opera && window.print){
+				var elem = document.createElment('a');
+				elem.setAttribute('href',url);
+				elem.setAttribute('title',title);
+				elem.setAttribute('rel','sidebar');
+				elem.click();
+			}
+			else if(window.external){ window.external.AddFavorite(url,title); }
+		}
+	</script>
+
+	<div id="header_wrap">
+		<h2 class="sound_only">로고</h2>
+		<h1 id="logo"><a href="{% url 'pages:index' %}"><img src="{% static 'images/common/logo.png' %}" alt="위고세부"></a></h1>
+		<div class="hd_sch_wr">
+      <fieldset id="hd_sch">
+				<legend>사이트 내 전체검색</legend>
+        <form name="fsearchbox" method="" action="#">
+          <input type="hidden" name="sfl" value="wr_subject||wr_content">
+          <input type="hidden" name="sop" value="and">
+          <label for="sch_stx" class="sound_only">검색어 필수</label>
+					<!-- <select name="sch_select" class="sch_select">
+						<option>제목1</option>
+						<option>제목2</option>
+						<option>제목3</option>
+						<option>제목4</option>
+						<option>제목5</option>
+					</select> -->
+          <input type="text" name="stx" id="sch_stx" maxlength="20" placeholder="베타서비스 종료 후 사용하실 수 있습니다.">
+					<button type="images" id="sch_submit" value="검색"><img src="{% static 'images/common/main_12.png' %}" alt="검색">
+						<span class="sound_only">검색</span>
+					</button>
+        </form>
+      </fieldset>
+			<!-- 인기검색어 시작 { -->
+			<!-- <section id="popular">
+				<h2 class="sound_only">인기검색어</h2>
+				<div class="popular_inner">
+					<ul>
+						<li class="item"><a href="#">테스팅</a></li>
+						<li class="item"><a href="#">블락체크</a></li>
+						<li class="item"><a href="#">관리자</a></li>
+						<li class="item"><a href="#">셔츠</a></li>
+						<li class="item"><a href="#">test</a></li>
+						<li class="item"><a href="#">11</a></li>
+						<li class="item"><a href="#">1234</a></li>
+					</ul>
+					<span class="popular_btns">
+						<a href="#" class="pp-next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+						<a href="#" class="pp-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+					</span>
+				</div>
+			</section> -->
+			<!-- } 인기검색어 끝 -->
+		</div><!-- hd_sch_wr -->
+		<div class="hd_banner">
+			<a href="{{ banners.banner_top.link_url }}" target="_blank" name="{{ banners.banner_top.id }}" class="banner">
+				<img src="{{ banners.banner_top.photo.url }}" alt="{{ banners.banner_top.description }}">
+			</a>
+		</div>
+
+		<!-- 모바일 폴다운 메뉴 -->
+		<div class="nav_wrapper">
+			<div id="m_logo" class="menu_center">
+				<a href="{% url 'pages:index' %}">
+					<img src="{% static 'images/common/m_logo.png' %}" style="width:130px;" alt="위고세부">
+				</a>
+			</div><!-- m_logo -->
+
+			<!-- 로그인후 -->
+			{% if user.is_authenticated %}
+			<div class="util_icon">
+				<ul>
+					<li class="search"><a href="#"><i class="fas fa-search"></i></a></li>
+					<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=300,height=450,status=yes,menubar=yes,scrollbars=1');return false"><i class="far fa-envelope"></i></i>
+						{% if cntMsg > 0 %}
+						<span class="update">{{cntMsg}}</span>
+						{% endif %}
+					</a></li>
+					<li><a href="{% url 'msgboxs:index' 'index' %}" onclick="openWinCenter(this.href,'newwin','width=300,height=450,status=yes,menubar=yes,scrollbars=1');return false"><i class="fas fa-bell"></i>
+						{% if main_cntAlarm > 0 %}
+							<span class="update">{{main_cntAlarm}}</span>
+						{% endif %}
+					</a></li>
+				</ul>
+			</div>
+			<div class="spinner-master">
+				<input type="checkbox" id="spinner-form" />
+				<label for="spinner-form" class="spinner-spin">
+				<div class="spinner diagonal part-1"></div>
+				<div class="spinner horizontal"></div>
+				<div class="spinner diagonal part-2"></div>
+				</label>
+			</div>
+			<!-- 로그인 후 폴다운 메뉴 화면 -->
+			<ul class="m_nav">
+				<li><div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div><a href="#"><span class="your_id">{{user.username}}님</span></a></li>
+				<li>
+					<ul>
+						<li><a href="#">정회원</a></li>
+					</ul>
+				</li>
+				<li>
+					<ul>
+						<li><a href="#"><span class="icon"><i class="fas fa-seedling"></i></span>{{user.point|intcomma}} P</a></li>
+						<li><a href="#"><span class="icon"><i class="fas fa-euro-sign"></i></span>0캐시</a></li>
+					</ul>
+				</li>
+				<li>
+					<ul>
+						<li><a href="{% url 'mypages:index' %}">내 등급</a></li>
+						<li><a href="{% url 'mypages:userinfo' 'index' %}">내 정보</a></li>
+						<li><a href="{% url 'mypages:active' 'index' %}">내 활동</a></li>
+					</ul>
+				</li>
+				<li>
+					<ul>
+						<li>
+							<form action="{% url 'accounts:logout' %}" method="POST" >
+								{% csrf_token %}
+								<input type="submit" value="로그아웃" style="display:inline-block;border:1px solid #ccc;padding: 1px 2px;background:#fff;">
+							</form>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+		<!-- 로그인 전 -->
+		{% else %}
+		<div class="util_icon">
+			<ul>
+				<li class="search"><a href="#"><i class="fas fa-search"></i></a></li>
+			</ul>
+		</div>
+		<div class="spinner-master">
+			<input type="checkbox" id="spinner-form" />
+			<label for="spinner-form" class="spinner-spin">
+			<div class="spinner diagonal part-1"></div>
+			<div class="spinner horizontal"></div>
+			<div class="spinner diagonal part-2"></div>
+			</label>
+		</div>
+		<!-- 로그인 전 폴다운 메뉴 화면 -->
+		<ul class="m_nav m_nav_login">
+			<li><a href="{% url 'accounts:login' %}">로그인</a></li>
+			<li><a href="{% url 'accounts:register_index' %}">회원가입</a></li>
+		</ul>
+		{% endif %}
+		</div>
+	</div><!-- header_wrap -->
+	<!-- 메뉴 -->
+	{% include 'pages/_navbar.html' %}
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</div><!-- header -->

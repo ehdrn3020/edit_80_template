@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == 'all'%}
+	세부여행비용 - 위고세부
+	{% elif board_kind == 'best'%}
+	세부여행추천- 위고세부
+	{% elif board_kind == 'oneday'%}
+	세부 데이투어 여행 계획 - 위고세부
+	{% elif board_kind == 'fiveday'%}
+	세부 3박5일 4박6일 - 위고세부
+	{% elif board_kind == 'longday'%}
+	세부 한달살기 - 위고세부
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<style>
+	@media (max-width: 1119px){
+		.board_ctg { height: 150px; }
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div id="container">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2><a href="{% url 'courses:index' %}">여행코스</a><i class="fas fa-chevron-right"></i></h2>
+					{% if board_kind == 'all'%}
+					<h3><a href="{% url 'courses:index' %}">전체</a></h3>
+          {% elif board_kind == 'best'%}
+					<h3><a href="{% url 'courses:index' 'best' %}">베스트</a></h3>
+					{% elif board_kind == 'oneday'%}
+					<h3><a href="{% url 'courses:index' 'oneday' %}">1일플랜</a></h3>
+					{% elif board_kind == 'fiveday'%}
+					<h3><a href="{% url 'courses:index' 'fiveday' %}">3박5일</a></h3>
+          {% elif board_kind == 'longday'%}
+					<h3><a href="{% url 'courses:index' 'longday' %}">장기플랜</a></h3>
+					{% endif %}
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+          <a href="{% url 'courses:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+					<a href="{% url 'courses:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="sec board_ctg">
+				<div class="board_ctg_top">
+					<ul>
+						<li {%if board_kind == 'all'%}class="selected"{%endif%}><a href="{% url 'courses:index' %}">전체보기</a></li>
+            <li {%if board_kind == 'best'%}class="selected"{%endif%}><a href="{% url 'courses:index' 'best' %}">베스트</a></li>
+						<li {%if board_kind == 'oneday'%}class="selected"{%endif%}><a href="{% url 'courses:index' 'oneday' %}">1일플랜</a></li>
+						<li {%if board_kind == 'fiveday'%}class="selected"{%endif%}><a href="{% url 'courses:index' 'fiveday' %}">3박5일</a></li>
+            <li {%if board_kind == 'longday'%}class="selected"{%endif%}><a href="{% url 'courses:index' 'longday' %}">장기플랜</a></li>
+					</ul>
+				</div><!-- board_ctg_top -->
+				<div class="board_ctg_btm">
+					<div class="board_sch">
+					   <fieldset id="bd_sch">
+					   	<i class="fas fa-search"></i>
+							<legend>사이트 내 전체검색</legend>
+							<form action="{% url 'courses:index' board_kind %}" method="GET">
+								<label for="bd_sch_stx" class="sound_only">검색어 필수</label>
+								<select name="sch_slt" class="bd_sch_select">
+									<option value="제목" {%if request.GET.sch_slt == "제목"%}selected{%endif%}>제목</option>
+									<option value="글쓴이" {%if request.GET.sch_slt == "글쓴이"%}selected{%endif%}>글쓴이</option>
+								</select>
+								<input type="text" name="sch_tx" id="bd_sch_stx" maxlength="20" {%if request.GET.sch_tx != None%}value="{{s_text}}"{%endif%}>
+								<button type="text" id="bd_sch_submit" value="검색">검색</button>
+							</form>
+						</fieldset>
+					</div><!-- board_sch -->
+					<!-- 핫키워드 -->
+					{% include "partials/hot_keyword.html" %}
+				</div>
+			<script type="text/javascript">
+				$(function()
+				{
+					var ticker = function()
+					{
+						setTimeout(function(){
+							$('#bd_ticker li:first').animate( {marginTop: '-25px'}, 400, function()
+							{
+								$(this).detach().appendTo('ul#bd_ticker').removeAttr('style');
+							});
+							ticker();
+						}, 3000);
+					};
+					ticker();
+				});
+			</script>
+			</div><!-- sec -->
+			<div class="sec review_board">
+				<!-- <h4 class="board_data">2019.05.30.</h4> -->
+				<div class="review_board_list">
+					<ul>
+						{% for course in courses %}
+						<li>
+							<span class="left_line"></span>
+							<span class="left_dot"></span>
+							<a href="{% url 'courses:show' course.id %}" class="review_board_link">
+								<div class="review_board_user board_user">
+									<div class="thum"><img class="board_img_profile" src="{{course.user.profile_image}}" alt="썸네일"></div>
+									<div class="info">
+										<span class="level_icon"><img src="{{course.user.level_icon}}" alt="세부여행코스">{{course.user.username}}</span>&nbsp;&nbsp;&nbsp;
+										{% if course.likes > 0 %}
+										<span class="like_num"><i class="fas fa-heart"></i> {{course.likes|intcomma}} </span>
+										{% endif %}
+										<span class="view_num">조회수 {{course.views|intcomma}}</span>
+
+										{% if course.upload_date|date:"Y-m-d:H" != time %}
+										<span class="time_before">{{course.upload_date|date:"M j일 D P "}}</span>
+										{% else %}
+										<span class="time_before">{{course.upload_date|timesince}} 전</span>
+										{% endif %}
+									</div>
+								</div>
+								{% if course.index_image1 != 'NONE' %}
+								<div class="review_board_img">
+									<ul>
+										{% if course.index_image1 != 'NONE' %}
+											<li><img src="{{ course.index_image1 }}" alt=""></li>
+										{% endif %}
+										{% if course.index_image2 != 'NONE' %}
+											<li><img src="{{ course.index_image2 }}" alt=""></li>
+										{% endif %}
+										{% if course.index_image3 != 'NONE' %}
+											<li><img src="{{ course.index_image3 }}" alt=""></li>
+										{% endif %}
+										{% if course.index_image4 != 'NONE' %}
+											<li><img src="{{ course.index_image4 }}" alt=""></li>
+										{% endif %}
+										{% if course.index_image5 != 'NONE' %}
+											<li><img src="{{ course.index_image5 }}" alt=""></li>
+										{% endif %}
+									</ul>
+								</div>
+								{% endif %}
+								<div class="review_board_tit">
+									<h6>
+									<!-- 글특성 -->
+									{% if course.attribute != 'NONE' %}
+									<span class="ctg_icon">
+										{% if course.attribute == '공지' %}
+										<img src="{% static 'images/common/review_17.png' %}" alt="공지">
+										{% elif course.attribute == '광고' %}
+										<img src="{% static 'images/common/review_25.jpg' %}" alt="광고">
+										{% endif %}
+									</span>
+									{% else %}
+										{% if course.best_published %}
+										<span class="ctg_icon">
+											<img src="{% static 'images/common/review_26.png' %}" alt="베스트">
+										</span>
+										{% endif %}
+									{% endif %}
+									<!-- 제목 -->
+									{{course.title}}
+									<!-- 댓글/뉴/이미지 -->
+									{% if course.comments > 0 %}
+									<span class="score">
+										<i class="far fa-comment-dots"> {{course.comments}}</i>
+									</span>
+									{% endif %}
+									{% if course.upload_date|date:"Y-m-d" == new_date %}
+									<span class="new_icon"><img src="{% static 'images/common/icon_new.jpg' %}" alt="새로운 글"></span>
+									{% endif %}
+									{% if course.index_image1 != 'NONE' %}
+									<span class="photo_cion"><img src="{% static 'images/common/img.gif' %}" alt="이미지 첨부표시"></span>
+									{% endif %}
+									</h6>
+									<p>{{course.index_content}}</p>
+								</div>
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="sec_ctg">
+				<div class="article_btn">
+					<a href="{% url 'courses:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+					<a href="{% url 'courses:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="pager ten">
+				{% if courses.has_other_pages %}
+				<span class="pager_wrap">
+					{% if courses.has_previous %}
+						<a href="?page={{courses.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in page_range %}
+						{% if courses.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if courses.has_next %}
+						<a href="?page={{courses.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+			<br><br>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					{% for banner in banners.banners_review_left|slice:":2" %}
+					<div class="swiper-slide">
+						<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "courses/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+		{% include 'pages/_quickmenu.html' %}
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+
+{% endblock %}

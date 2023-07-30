@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: 'TmonMonsori';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/TmonMonsori.ttf.woff');
+  /* IE9 Compat Modes */
+  src: local('TmonMonsori'), local('TmonMonsori'),
+    url('../fonts/TmonMonsori.ttf.eot') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('../fonts/TmonMonsori.ttf.woff') format('woff'),
+    /* Modern Browsers */
+    url('../fonts/TmonMonsori.ttf.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'BMDOHYEON';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/BMDOHYEON_ttf.woff');
+  /* IE9 Compat Modes */
+  src: local('TmonMonsori'), local('TmonMonsori'),
+    url('../fonts/BMDOHYEON_ttf.eot') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('../fonts/BMDOHYEON_ttf.woff') format('woff'),
+    /* Modern Browsers */
+    url('../fonts/BMDOHYEON_ttf.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NanumSquareR.woff');
+  /* IE9 Compat Modes */
+  src: local('TmonMonsori'), local('TmonMonsori'),
+    url('../fonts/NanumSquareR.eot') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('../fonts/NanumSquareR.woff') format('woff'),
+    /* Modern Browsers */
+    url('../fonts/NanumSquareR.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 위고센터 글쓰기 {% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg">
+				<div class="breadcrumb">
+					<h2>
+            {% if board_kind == 'notice' %}
+              <a href="{% url 'centers:index' 'notice' %}">공지사항</a><i class="fas fa-chevron-right"></i>
+            {% elif board_kind == 'customerCenter' %}
+              <a href="{% url 'centers:index' 'customerCenter' %}">고객센터</a><i class="fas fa-chevron-right"></i>
+            {% endif %}
+          </h2>
+					<h3><a>글쓰기</a></h3>
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<!-- <a href="#"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a> -->
+				</div><!-- article_btn -->
+			</div><!-- sec_ctg -->
+
+      {% if board_kind == 'notice' %}
+			<form action="{% url 'centers:create' 'notice' %}" method="POST">
+      {% elif board_kind == 'customerCenter' %}
+      <form action="{% url 'centers:create' 'customerCenter' %}" method="POST">
+      {% endif %}
+				{% csrf_token %}
+  			<div class="board_select">
+  				<select name="board_kind" required>
+            {% if old_data.board_kind == "공지사항" or board_kind == "notice" %}
+  					  <option value="공지사항">공지사항
+            {% elif old_data.board_kind == "고객센터" or board_kind == "customerCenter" %}
+  						<option value="고객센터">고객센터
+            {% endif %}
+  				</select>
+  			</div><!-- board_select -->
+  			<div class="board_title">
+  				<fieldset>
+  					<span>제목</span><input type="text" name="title" class="board_title" value="{{ old_data.title }}" placeholder="{%if board_kind == 'customerCenter'%}글 작성시 {{point.point}}포인트가 적립됩니다.{%endif%}" maxlength="40" required>
+  				</fieldset>
+  			</div><!-- board_title -->
+  			<!-- 본문 -->
+  			{% include 'partials/summernote_center.html' %}
+  			<div class="board_title">
+  				<fieldset>
+						{% if board_kind == 'notice' %}
+  					<span>태그</span><input type="text" name="tag" class="board_tag" value="{{ old_data.tag }}" placeholder="#세부자유여행#막탄쇼핑몰" maxlength="40">
+  					<span>링크</span><input type="text" name="url_link" class="board_tag" value="{{ old_data.url_link }}" placeholder="http://example.com" maxlength="200">
+						{% elif board_kind == 'customerCenter' %}
+						<span>설정</span>
+						<input type="radio" name="secret" value="공개" checked style="-webkit-appearance:radio;">공개&nbsp;
+						<input type="radio" name="secret" value="비공개" style="-webkit-appearance:radio;">비공개
+						{% endif %}
+					</fieldset>
+  			</div><!-- board_title -->
+  			<div class="board_submit"><input type="submit" class="board_submit_btn" value="작성완료"></div>
+			</form>
+
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+						{% for banner in banners.banners_review_left|slice:":2" %}
+						<div class="swiper-slide">
+							<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+								<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+			<!--우측 섹션 -->
+			{% include "centers/_index_right.html" %}
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+    {% include "pages/_quickmenu.html" %}
+		<!-- 배너 클릭스크립트 -->
+		{% include "pages/_banner.html" %}
+
+	</div><!-- container_wrap -->
+</div><!-- container -->
+{% endblock %}

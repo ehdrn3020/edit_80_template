@@ -1,0 +1,112 @@
+{% load static %}
+  <script src="{% static 'summernote_dist/summernote-lite.js' %}"></script>
+  <script src="{% static 'summernote_dist/lang/summernote-ko-KR.js' %}"></script>
+  <link href="{% static 'summernote_dist/summernote-lite.css' %}" rel="stylesheet">
+  <style>
+    .note-editor.note-frame{
+      border: 1px solid #e1e1e1;
+      margin:1em 0;
+    }
+    .note-modal-content {
+      /* text-align: center; */
+      margin-top:18%;
+    }
+    .content_size{
+      margin: 1em;
+      font-size: 0.8em;
+      text-align: right;
+    }
+    @media (max-width: 1120px){
+      .note-editor.note-frame{
+        margin:1em;
+      }
+    }
+    .note-frame * {
+        max-width: 100%;
+    }
+  </style>
+
+  <textarea id="summernote" class="summnernote_content" name="content">{{old_data.content}}</textarea>
+  <p class="content_size">이미지용량은 100MB 미만으로 업로드해주세요.</p>
+  <!-- 이미지업로드 로딩시 -->
+  <div id="overrap_loading">
+    <div id ="progress_loading">
+      <img src="{% static 'images/common/ajax-loader.gif' %}">
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function() {
+    $('#summernote').summernote({
+      lang: 'ko-KR',
+		  height: 500,
+      minHeight: null,
+      maxHeight: null,
+		  focus:false,
+      toolbar: [
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['fontname',['fontname']],
+        ['font', ['font']],
+        ['fontsize', ['fontsize']],
+        ['height', ['height']],
+        ['color', ['color']],
+        ['para', ['ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+      ],
+      callbacks: {
+				onImageUpload: function(files, editor, welEditable) {
+          var size = 0;
+          for (var i = files.length - 1; i >= 0; i--) {
+            // 일회 이미지업로드 용량 체크
+            size += files[i].size;
+            if(size > 105971520 || files[i].size > 10485760 ){
+              alert('이미지파일은 1회 100MB미만, 단일파일 10MB미만으로 업로드해주세요!');
+            }else{
+              // 콜백
+          	  sendFile(files[i], this);
+            }
+          }
+        },
+			}
+	  });
+
+    function sendFile(file, editor) {
+      var data = new FormData();
+      data.append('file', file);
+    	$.ajax({
+      	data: data,
+        type: "POST",
+      	url: "{% url 'infos:summernote_tmp' %}",
+        processData: false,
+        contentType: false,
+        cache: false,
+      	success: function(data) {
+          if(data.status == 'success'){
+            var image = $('<img>').attr('src', data.img_path).css('width','100%');
+            var p = $('<p>');
+            $('#summernote').summernote('insertNode', image[0]);
+            $('#summernote').summernote('pasteHTML', '<p><br/></p>');
+          }
+          else if(data.status == 'ext error'){
+            alert('파일확장자를 확인해주세요.(.png, .jpg)');
+          }
+        },
+        error: function(request, status, error){
+          alert("잘못된 접근입니다.");
+        },
+    	});
+    }
+  });
+
+  // 로딩바
+  $(document).ready(function(){
+    $('#overrap_loading').hide(); //첫 시작시 로딩바를 숨겨준다.
+  })
+  .ajaxStart(function(){
+    $('#overrap_loading').show(); //ajax실행시 로딩바를 보여준다.
+  })
+  .ajaxStop(function(){
+    $('#overrap_loading').hide(); //ajax종료시 로딩바를 숨겨준다.
+  });
+  </script>

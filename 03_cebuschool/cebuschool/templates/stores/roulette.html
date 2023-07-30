@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 스쿨룰렛 {% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="sub4_wrap">
+        <div class="roulette">
+            <div class="panel">
+                <img src="{% static 'images/dg/roulette_03.png' %}" alt="">
+                <div class="panttegi">
+                    <img src="{% static 'images/dg/roulette_01.png' %}" alt="">
+                </div>
+                <div class="indicator">
+                    <img src="{% static 'images/dg/roulette_02.png' %}" alt="">
+                </div>
+                <button class="btn_start" onclick="roulette.start()">시작</button>
+            </div>
+        </div>
+    </div>
+</div><!-- container -->
+<script>
+    $.fn.animateRotate = function(angle, duration, easing, complete) {
+        var args = $.speed(duration, easing, complete);
+        var step = args.step;
+        return this.each(function(i, e) {
+            args.complete = $.proxy(args.complete, e);
+            args.step = function(now) {
+                $.style(e, 'transform', 'rotate(' + now + 'deg)');
+                if (step) return step.apply(e, arguments);
+            };
+            $({deg: 0}).animate({deg: angle}, args);
+        });
+    };
+
+    var roulette = {
+        start: function() {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'stores:school_roulette_create' %}",
+                data: {'mode': 'create', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: 'json',
+                success: function(response) {
+                    if (response.degree > 0){
+                        $(".panttegi img").animateRotate(response.degree, 4000, $.easing.easeInOutElastic, function(){
+                            alert(response.message);
+                        });
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+                error: function(request, status, error){ 
+                    alert("잘못된 접근입니다.")
+		        },
+            });
+        }
+    };
+</script>
+{% endblock %}

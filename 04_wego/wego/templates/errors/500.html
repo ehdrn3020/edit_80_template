@@ -1,0 +1,23 @@
+{% extends "accounts/base_account.html" %}
+{% load static %}
+
+{% block title %}에러 500{% endblock %}
+
+{% block content %}
+  <style>
+    .box_warp { margin: 15% auto 0; }
+  </style>
+	<!-- 회원가입 화면 {-->
+	<div id="join_bg">
+		<div class="box_warp">
+			<h3>접속에러 500</h3>
+			<p>찾고있는 리소스에 문제가 있어 표시할 수 없습니다.</p>
+			<a href="{% url 'centers:index' 'customerCenter' %}" class="btn_style">고객센터로</a>
+			<p class="line"></p>
+			<span class="sub_p">
+			운영시간: 10:30 ~ 18:00(토,일, 공휴일 후무) <br>
+			이메일 문의 : wegocebu@gmail.com</span>
+		</div>
+	</div>
+	<!-- } 회원가입 화면 -->
+{% endblock %}

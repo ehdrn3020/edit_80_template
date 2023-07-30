@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" class="asideOpen">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>WOK 위치안내 - 맛집위치,로컬음식,유명명소</title>
+  <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/gmap.css">
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/jquery.YJ.datepicker.js"></script>
+  <script src="js/TweenMax.js"></script>
+	<script src="js/jquery.superscrollorama.js"></script>
+  <script src="js/common.js"></script>
+</head>
+
+<body>
+    <div class="warapper">
+      <?php include 'layout/header.html';?>
+      <?php include 'layout/quick_side.html';?>
+        <div class="container">
+			 <div class="sub_visual sub_visual--store">
+                <div class="title">매장 찾기</div>
+            </div>
+			<div class="store">
+        <div class="gmap" id=gmap></div>
+			</div>
+        </div>
+        <?php include 'layout/footer.html';?>
+        <?php include 'layout/quick_mobile.html';?>
+    </div>
+    <script>
+    function initMap() {
+      // The location of Uluru
+      var uluru = {lat: 123.12341234, lng: 123.12341234};
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+        document.getElementById('gmap'), {zoom: 15, center: uluru});
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({position: uluru, map: map});
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=12341234AAAA&callback=initMap"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{% load static %}
+<div class="fixed_btm_menu">
+	<div class="fixed_click">
+		<div>
+			<a href="#"><img src="{% static 'images/common/iboss_join_bar_img1_1004.png' %}" alt=""></a>
+			<a href="#" class="link_btn"><img src="{% static 'images/common/iboss_join_bar_btn_1004.png' %}" alt=""></a>
+		</div>
+	</div>
+	<div class="fixed_btm_menu_bg">
+		<div class="fixed_btm_menu_wrap">
+			<h5><img src="{% static 'images/common/iboss_join_bar_txt_1004.png' %}" alt=""></h5>
+			<a href="{% url 'accounts:login' %}" class="btn_login">로그인</a>
+			<a href="{% url 'accounts:register_index' %}" class="btn_join">회원가입</a>
+		</div>
+	</div>
+</div><!-- fixed_btm_menu -->

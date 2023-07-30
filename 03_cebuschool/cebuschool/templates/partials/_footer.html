@@ -1,0 +1,66 @@
+{% load static %}
+<div id="m_footer">
+	<div class="footer_btn">
+		<span><a href="#">로그아웃</a></span>
+		<span><a href="#">숙소</a></span>
+		<span><a href="#">PC버전</a></span>
+		<span class="gotop"><a href="#"><i class="fas fa-arrow-up"></i> TOP</a></span>
+	</div>
+	<ul>
+		<li><a href="#">&copy; 세부스쿨 </a></li>
+		<li><a href="#">이용약관</a></li>
+		<li><a href="#">개인정보취급방침</a></li>
+	</ul>
+</div>
+<footer>
+	<div class="footer_warp center">
+		<div class="footer_logo">
+			<a href="#"><img src="{% static 'images/common/logo.png' %}" alt="세부스쿨 로고"></a>
+		</div><!-- footer_logo -->
+		<div class="footer_navlist">
+			<div class="footer_nav">
+				<ul>
+					<li><a href="#">파트너쉽</a></li>
+					<li><a href="#">이용약관</a></li>
+					<li><a href="#">개인정보취급방침</a></li>
+				</ul>
+			</div><!-- footer_nav -->
+			<div class="footer_info">
+				<ul>
+					<li>
+						<span><span class="sound_only">업체명</span>세부스쿨</span>
+						<span><span class="sound_only">전화번호</span>00-0000-0000</span>
+						<span>E-mail : cebuschool.co.kr</span>
+						<span>대표 : 세부스쿨</span>
+						<span><span class="sound_only">사업자번호</span>000-00-00000</span>
+						<span>기타 정보 1</span>
+						<span>기타 정보 2</span>
+					</li>
+					<li>
+						<span>추가적으로 적을 내용</span>
+					</li>
+				</ul><!-- footer_navlist -->
+			</div><!-- footer_info -->
+		</div><!-- footer_navlist -->
+	</div><!-- footer_warp -->
+</footer>
+<script>
+	/* 새창 한가운데 띄우기 */
+	function openWinCenter(url, wname, wopt) {
+		var newopt = "", wHeight = 0, wWidth = 0;
+		if (wopt != undefined) {
+			var woptlist = wopt.replace(/ /g, "").split(",");
+			for (var i in woptlist) {
+				if (woptlist[i].match(/^height=/i)) {
+					wHeight = parseInt(woptlist[i].substr(7),10);
+					if (!isNaN(wHeight)) newopt += "top=" + Math.floor((screen.availHeight - wHeight) / 2) + ",";
+				}
+				if (woptlist[i].match(/^width=/i)) {
+					wWidth = parseInt(woptlist[i].substr(6),10);
+					if (!isNaN(wWidth)) newopt += "left=" + Math.floor((screen.availWidth - wWidth) / 2) + ",";
+				}
+			}
+		}
+		return window.open(url, wname, newopt + wopt);
+	} 
+</script>

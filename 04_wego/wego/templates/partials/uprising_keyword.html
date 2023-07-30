@@ -1,0 +1,18 @@
+{% load static %}
+<div class="hot_keyword">
+    <ul id="ticker">
+      {% for keyword in upkeyword %}
+      <li><a href="#"><span class="num">{{forloop.counter}}</span><span class="keyword">{{keyword}}</span></a></li>
+      {% endfor %}
+    </ul>
+    <span><i class="fas fa-chevron-down"></i></span>
+    <div class="hot_keyword_open">
+      <h2 class="tit">급상승 검색어</h2>
+      <ul>
+        {% for keyword in upkeyword %}
+        <li><a href="#"><span class="num">{{forloop.counter}}</span><span class="keyword">{{keyword}}</span></a></li>
+        {% endfor %}
+        <li class="live_clock"><a href="#">{{rigth_date}} 기준</a></li>
+      </ul>
+    </div>
+</div>

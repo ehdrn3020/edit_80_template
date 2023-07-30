@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}세부시티, 막탄세부국제공항의 정보{% endblock %}
+{% block content %}
+<div class="container center_970">
+    {% include "mypages/_header.html" %}
+	<script>
+		$(function(){
+			$(document).ready(function(){
+				$('.mypage_nav ul li:nth-child(1)').addClass('selected');
+				$('.m_mypage_nav').hide();
+				$('.m_mypage_nav').eq(0).show();
+			});
+		});
+	</script>
+	<div class="mypage_left">
+		<div class="sec sec1">
+      <h2 class="tit">메뉴</h2>
+			<ul class="sec_wrap">
+				<li><a href="{% url 'mypages:userinfo' 'index' %}"><i class="fas fa-th"></i>전체보기</a></li>
+				<li><a href="{% url 'mypages:userinfo' 'profile' %}"><i class="fas fa-user"></i>프로필</a></li>
+				{% comment %}<li><a href="{% url 'mypages:userinfo' 'rank' %}"><i class="fas fa-tachometer-alt"></i>등급</a></li>{% endcomment %}
+				<li><a href="{% url 'mypages:userinfo' 'phone' %}"><i class="fas fa-id-badge"></i>연락처</a></li>
+			</ul>
+		</div><!-- sec1 -->
+    <!-- 좌측메뉴 -->
+    {% include "mypages/_left.html" %}
+	</div>
+
+	<div class="mypage_right">
+    {% if name == 'index' or name == 'profile' %}
+		<div class="sec sec1" id="menu_profile">
+			<h2 class="tit">프로필 이미지</h2>
+			<div class="sec_wrap">
+				<div class="change_img">
+					<h4 class="tit"><span class="user_name">아이디</span>님의 프로필 이미지</h4>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr>
+								<td class="profile_img"><span><img src="{{user.profile_image}}" width=102 height=102></span></td>
+								<td class="profile_upload">
+									<input type="text" class="file_upload_name" id="file_upload_name" disabled />
+									<input type="button" id="file_upload" name="file_upload" >
+									<label for="file_upload" class="upload_hidden">프로필</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    {% endif %}
+    {% comment %}
+		<div class="sec sec2" id="menu_rank">
+			<h2 class="tit">등급 아이콘</h2>
+			<div class="sec_wrap">
+				<div class="change_img">
+					<h4 class="tit"><span class="user_name">아이디</span>님의 등급아이콘</h4>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr>
+								<td class="profile_img"><span><img src="{% static 'images/sub/profile.png' %}"></span></td>
+								<td class="profile_upload">
+									<input type="text" class="icon_upload_name" id="icon_upload_name" disabled />
+									<input type="button" id="icon_upload" name="icon_upload">
+									<label for="icon_upload" class="upload_hidden">파일선택</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    {% endcomment %}
+    {% if name == 'index' or name == 'phone' %}
+		<div class="sec sec3" id="menu_phone">
+			<h2 class="tit">정보 및 연락처</h2>
+			<a href="{% url 'mypages:userinfo' 'edit' %}" class="crystal_btn"><i class="fas fa-pencil-alt"></i> 수정</a>
+			<div class="mypage_intro_add">
+				 <ul>
+				 	<li>
+					 	<dl>
+				 			<dt><i class="fas fa-user"></i> 비밀번호</dt>
+              {% if user.social_login == '이메일아이디' %}
+              <dd class="add_ready"><a href="{% url 'mypages:userinfo' 'pwd' %}">+ 비밀번호변경</a></dd>
+              {% else %}
+              <dd><a>소셜아이디로 가입하셨습니다.</a></dd>
+              {% endif %}
+				 		</dl>
+				 		<dl>
+				 			<dt><i class="fas fa-mobile-alt"></i> 휴대폰</dt>
+				 			<dd class="add_ready">
+                {% if user.phone %}
+                <a href="{% url 'mypages:userinfo' 'edit' %}">{{user.phone}}</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개</span></dd>
+                {% else %}
+                <a href="{% url 'mypages:userinfo' 'edit' %}">+ 휴대폰 추가</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개</span></dd>
+                {% endif %}
+            </dl>
+				 	</li>
+					<li>
+				 		<dl>
+				 			<dt><i class="fas fa-envelope"></i> 이메일</dt>
+				 			<dd><a>{{user.email}}</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개</span></dd>
+				 		</dl>
+				 	</li>
+					<li>
+				 		<dl>
+				 			<dt><i class="fas fa-comments"></i> 카카오톡</dt>
+              {% if user.kakaotalk %}
+              <dd class="add_ready"><a href="{% url 'mypages:userinfo' 'edit' %}">{{user.kakaotalk}}</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개</span></dd>
+              {% else %}
+              <dd class="add_ready"><a href="{% url 'mypages:userinfo' 'edit' %}">+ 카카오톡 추가</a><span class="lock_intro"><i class="fas fa-lock"></i> 비공개</span></dd>
+              {% endif %}
+				 		</dl>
+				 	</li>
+				 </ul>
+			</div>
+		</div>
+    {% endif %}
+    <!-- 비밀번호변경 -->
+    {% if name == 'pwd' %}
+    <div class="sec sec3" id="menu_phone">
+      <h2 class="tit">비밀번호 변경</h2>
+      <form action="{% url 'mypages:chg_pwd' %}" method="POST">
+      {% csrf_token %}
+      <button class="crystal_btn" style="border:none;"><i class="fas fa-pencil-alt"></i> 완료</button>
+        <div class="mypage_intro_add">
+          <ul>
+            <li>
+              <dl>
+                <dt><i class="fas fa-user"></i> 암호</dt>
+                <dd class="add_ready">
+                  <input type="password" name='pwd' style="border: 1px solid gray;" required maxlength="20">
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <dl>
+                <dt><i class="fas fa-user"></i> 새 암호</dt>
+                <dd><input type="password" name='newpwd' style="border: 1px solid gray;" required maxlength="20"></dd>
+              </dl>
+            </li>
+            <li>
+              <dl>
+                <dt><i class="fas fa-user"></i> 암호확인</dt>
+                <dd class="add_ready">
+                  <input type="password" name='newpwdck' style="border: 1px solid gray;" required maxlength="20">
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+    {% if name == 'edit' %}
+    <div class="sec sec3" id="menu_phone">
+      <h2 class="tit">정보 및 연락처 변경</h2>
+      <form action="{% url 'mypages:chg_info' %}" method="POST">
+      {% csrf_token %}
+      <button class="crystal_btn" style="border:none;"><i class="fas fa-pencil-alt"></i> 완료</button>
+        <div class="mypage_intro_add">
+          <ul>
+            <li>
+              <dl>
+                <dt><i class="fas fa-mobile-alt"></i> 휴대폰</dt>
+                <dd class="add_ready">
+                  <input type="text" name='phone' style="border: 1px solid gray;" value="{{user.phone}}" maxlength="11">
+                  <span> '-'생략</span>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <dl>
+                <dt><i class="fas fa-envelope"></i> 이메일</dt>
+                <dd><a>{{user.email}}</a><span class="lock_intro"></dd>
+              </dl>
+            </li>
+            <li>
+              <dl>
+                <dt><i class="fas fa-comments"></i> 카카오톡</dt>
+                <dd class="add_ready">
+                  <input type="text" name='kakaotalk' value="{{user.kakaotalk}}" style="border: 1px solid gray;" maxlength="30">
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+    <!-- 팝업 -->
+    {% include "mypages/_userpop.html" %}
+	</div>
+</div><!-- container -->
+{% endblock %}

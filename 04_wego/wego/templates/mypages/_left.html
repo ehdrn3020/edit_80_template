@@ -1,0 +1,42 @@
+{% load static %}
+{% load humanize %}
+
+<div class="sec sec2">
+    <h2 class="tit">소개</h2>
+    <ul class="sec_wrap">
+        <li class="level"><i class="far fa-address-card"></i><img src="{{ user.level_icon }}" alt=""><a class="point_color">{{user.level}}</a> 레벨</li>
+        <li class="point"><i class="fas fa-coins"></i><a class="point_color">{{user.point|intcomma}}</a> Point</li>
+        <li class="point"><i class="fas fa-donate"></i><a class="point_color">{{user.cash|intcomma}}</a> Cash</li>
+        <li class="history"><i class="far fa-user-circle"></i><a class="point_color">{{user.date_joined}}</a> 가입</li>
+    </ul>
+</div>
+<div class="rank_box">
+  <img src="{% static 'images/sub/rank.png' %}" alt="">
+  <strong class="rank_tit">위고세부 랭킹</strong>
+  <p class="rank_result"><span class="rank_num">{{rank}}</span>위<!--<span class="rank_update">930▲</span>--></p>
+  <p><span class="user_name">아이디</span>님은 위고세부 상위 <span class="rank_point"> {{p}}%</span> 입니다.</p>
+</div>
+<script>
+    var decimal_places = 0;
+    var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 1000;
+    var rank = parseInt($('.rank_num').text());
+
+    $('.rank_num').animateNumber(
+      {
+        number: rank * decimal_factor,
+        numberStep: function(now, tween) {
+          var floored_number = Math.floor(now) / decimal_factor,
+              target = $(tween.elem);
+          if (decimal_places > 0) {
+          floored_number = floored_number.toFixed(decimal_places);
+          }
+          target.text(floored_number);
+        }
+      },
+      {
+        easing: 'swing',
+        duration: 500
+      }
+    )
+</script>
+<a href="{% url 'msgboxs:search' %}" onclick="openWinCenter(this.href,'newwin','width=500,height=650,status=yes,menubar=yes,scrollbars=yes'); return false;" class="btn_style">쪽지 보내기</a>

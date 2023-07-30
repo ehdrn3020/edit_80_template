@@ -1,0 +1,1217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 이용후기 보기 {% endblock %}
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg">
+				<div class="breadcrumb">
+					<h2><a href="#">후기</a><i class="fas fa-chevron-right"></i></h2>
+					<h3><a href="#">호핑/다이빙</a></h3>
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<a href="#"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+					<a href="#"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div><!-- sec_ctg -->
+			<div class="board_veiw_title">
+				<h2 class="tit">블로그 광고 업체 로부터 사기당한거 같은데 도와주세요.</h2>
+				<div class="board_view_user board_user">
+					<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+					<div class="info">
+						<strong><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt="레벨5아이콘">아이디님</span> </strong>
+						<span class="like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 21</span>
+						<span class="comments"><i class="fas fa-comment-dots"></i> 댓글 <b class="blue_font"> 3 </b></span>
+						<span class="view_count">조회수 <b class="black_font"> 5123 </b></span>
+						<span class="data_time">2019.03.26 17:13</span>
+					</div>
+				</div>
+				<div class="sub2 bd_hot_keyword">
+					<ul id="bd_ticker">
+						<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">가족여행추천</span></a></li>
+						<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">친구여행추천</span></a></li>
+						<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">커플여행추천</span></a></li>
+						<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">힐링여행추천</span></a></li>
+						<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">맛집여행추천</span></a></li>
+					</ul>
+					<span><i class="fas fa-chevron-down"></i></span>
+					<div class="bd_hot_keyword_open">
+						<h2 class="tit">HOT 검색어</h2>
+						<ul>
+							<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">가족여행추천<i class="fas fa-external-link-alt"></i></span></a></li>
+							<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">친구여행추천<i class="fas fa-external-link-alt"></i></span></a></li>
+							<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">커플여행추천<i class="fas fa-external-link-alt"></i></span></a></li>
+							<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">힐링여행추천<i class="fas fa-external-link-alt"></i></span></a></li>
+							<li><a href="#"><img src="{% static 'images/common/hot.gif' %}" alt=""><span class="keyword">맛집여행추천<i class="fas fa-external-link-alt"></i></span></a></li>
+							<!-- <li class="live_clock"><a href="#">2019.04.04 11:32:00 기준</a></li> -->
+						</ul>
+					</div><!-- bd_hot_keyword_open -->
+				</div><!-- bd_hot_keyword -->
+				<script type="text/javascript">
+					$(function()
+					{
+						var ticker = function()
+						{
+							setTimeout(function(){
+								$('#bd_ticker li:first').animate( {marginTop: '-25px'}, 400, function()
+								{
+									$(this).detach().appendTo('ul#bd_ticker').removeAttr('style');
+								});
+								ticker();
+							}, 3000);
+						};
+						ticker();
+					});
+				</script>
+			</div><!-- board_veiw_title -->
+			<div class="ad_banner_txt">
+				<p><span class="subject_ad">AD</span>광고글입니다. 유투버, 컨텐츠 제작부터 효율적 매체 집행까지 한번에!</p>
+			</div><!-- ad_banner_txt -->
+			<div class="board_veiw_content">
+				<p>
+					안녕하세요 <br>
+					<br>
+					지난해 12월 블로그광고업체로부터 전화를받고<br>
+					<br>
+					때마침 블로그 광고가 필요하던때라<br>
+					<br>
+					6개월간 60만원을 내고 블로그 60개를 체험단으로 진행하였습니다.<br>
+					<br>
+					근데 4개월동안진행해도 진행률이 10프로도 채안되<br>
+					<br>
+					중간에 계속연락하면서 독촉하였지만 그마저도 안되어<br>
+					<br>
+					계약환불요청을 했습니다.
+					<br>
+					<br>
+				</p>
+				<img src="http://placehold.it/766x500" alt="">
+				<p>
+				<br>
+					안녕하세요 <br>
+					<br>
+					지난해 12월 블로그광고업체로부터 전화를받고<br>
+					<br>
+					때마침 블로그 광고가 필요하던때라<br>
+					<br>
+					6개월간 60만원을 내고 블로그 60개를 체험단으로 진행하였습니다.<br>
+					<br>
+					근데 4개월동안진행해도 진행률이 10프로도 채안되<br>
+					<br>
+					중간에 계속연락하면서 독촉하였지만 그마저도 안되어<br>
+					<br>
+					계약환불요청을 했습니다.
+					<br>
+					<br>
+				</p>
+			</div>
+			<div class="map_choice_ok">
+				<h2 class="tit">지도표시</h2>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62801.56731139691!2d123.87549790100347!3d10.334045485404037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999258dcd2dfd%3A0x4c34030cdbd33507!2z7ZWE66as7ZWAIOyEuOu2gA!5e0!3m2!1sko!2skr!4v1561906855100!5m2!1sko!2skr" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div><!-- map_choice -->
+			<div class="file_upload_ok">
+				<h2 class="tit">업로드</h2>
+				<a href="" class="file_send"><i class="fas fa-paperclip"></i> 첨부파일1.jpg <span class="check"><i class="fas fa-check"></i></span></a>
+				<a href="" class="file_send"><i class="fas fa-paperclip"></i> 첨부파일2.jpg <span class="check"><i class="fas fa-check"></i></span></a>
+			</div>
+			<div class="board_view_bottom_btn">
+				<a href="" class="like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 21</a>
+				<a href="" class="share_link"><i class="fas fa-external-link-alt"></i></a>
+				<a href="" class="msg_btn"><i class="fab fa-telegram-plane"></i> 쪽지보내기</a>
+			</div>
+			<div class="comment">
+				<div class="center">
+					<p class="tit">댓글 <b class="blue_font">8</b></p>
+					<div class="cmt_content">
+						<div class="cmt_list">
+							<div class="comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="cmt_list">
+							<div class="comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="more_cmt_list">
+							<div class="cmt_list">
+							<div class="comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="cmt_list">
+							<div class="comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="reply_comment_writer comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="cmt_list">
+							<div class="comment_writer board_user">
+								<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+								<div class="info">
+									<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>강남김실장</span></p>
+									<p class="data">2019.08.25</p>
+								</div>
+								<div>
+									<p class="comment_wrap">
+										비즈회원 신청했습니다. <br>
+										아직 승인이 안되어 쪽지 발송이 되지 않고 있어요직 승인이 안되어 쪽지 발송이 되지 않고 있어요직 승인이 안되어 쪽지 발송이 되지 않고 있어요직 승인이 안되어 쪽지 발송이 되지 않고 있어요직 승인이 안되어 쪽지 발송이 되지 않고 있어요 <br>
+										확인 부탁드리겠습니다.
+									</p>
+								</div>
+								<div class="dsc_comm">
+									<a href="#" class="like_btn like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> 2</span></a>
+									<a href="#" class="reply_btn">댓글 달기</a>
+								</div>
+								<div class="option_comm">
+									<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+									<ul class="option_comm_box">
+										<li><a href="#">신고하기</a></li>
+										<li><a href="message4.html">쪽지보내기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+							<a href="#">댓글 더보기 <b class="blue_font">+24</b><i class="fas fa-caret-down"></i></a>
+						</div>
+					</div>
+				</div>
+				<script>
+				$(document).ready(function(){
+					var cmt_show = false;
+					$(".more_cmt_list > .cmt_list").hide();
+					$(".more_cmt_list > a").click(function(){
+						cmt_show = !cmt_show;
+						if(cmt_show == true){
+						$(this).addClass("active");
+						$(this).html("댓글 닫기 <i class='fas fa-caret-up'></i>");
+						$(".more_cmt_list > .cmt_list").slideDown();
+						return false;
+						}else{
+							$(this).removeClass("active");
+							$(".more_cmt_list > .cmt_list").slideUp();
+							$(this).html("댓글 더보기 <b class='blue_font'>+24</b><i class='fas fa-caret-down'></i>");
+							return false;
+						}
+					});
+					// 메뉴 사이드 버튼 터치시 드롭메뉴
+					$(".option_comm .option_comm_box").hide();
+					$(".option_comm > a").addClass("off");
+					$(".option_comm >a ").click(function(){
+						$(".option_comm > a").removeClass("off");
+						$(".option_comm > a").addClass("on");
+						$(".option_comm .option_comm_box").not($(this)).stop().slideUp('fast');
+						$(this).find("+.option_comm_box").stop().slideDown('fast');		
+						return false;
+					});
+					// 메뉴 아닌 다른곳 터치 시 메뉴 사라짐
+					$("body").click(function(){
+						$(".option_comm .option_comm_box").stop().slideUp('fast');
+						return false;
+					});
+				});
+				</script>
+				<div class="cmt_submit">
+					<div class="board_user">
+						<div class="thum"><img src="{% static 'images/sub/thum2.jpg' %}" alt="썸네일"></div>
+						<div class="info">
+							<p class="writer"><span class="level_icon"><img src="{% static 'images/common/review_20.jpg' %}" alt=""></span><span>아이디님</span></p>
+						</div>
+					</div>
+					<div class="cmt_file">
+						<form action="" class="cmt_file_form">
+							<textarea name="" placeholder="댓글을 작성하시면 포인트가 적립됩니다." style="padding:10px;"></textarea>
+							<fieldset>
+								<input type="submit" class="cmt_submit_btn" value="등록">
+								<label id="userFile">
+									<span class="btn_img" title="파일첨부"><i class="far fa-image"></i></span>
+									<input type="file" name="userFile" id="userFile" class="userFile">
+								</label>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide"><img src="{% static 'images/main/s2.jpg' %}" alt="메인 배너1"></div>
+				  <div class="swiper-slide"><img src="{% static 'images/main/s1.jpg' %}" alt="메인 배너2"></div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- sec_left -->
+		<!-- } 섹션 왼쪽  -->
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!-- 로그인시 화면 -->
+			<div class="main_login">
+				<h2 class="sound_only">로그인 중</h2>
+				<div class="main sec main_login_top">
+					<div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"><span class="setup"><img src="{% static 'images/common/main_31.png' %}" alt="아이콘"></span></div>
+					<div class="id_box">아이디님<span><img src="{% static 'images/common/main_27.png' %}" alt="아이콘"></span></div>
+					<ul class="my_info">
+						<li clas="mypage boder_right"><a href="#">마이페이지</a></li>
+						<li class="point"><a href="#">332</a>point</li>
+					</ul>
+					<div class="login_btn">
+					    <a class="logout_btn">로그아웃</a>
+					</div>
+				</div>
+				<div class="main_login_btm">
+					<ul>
+						<li>
+							<a href="#"><span>1</span>알림</a>
+						</li>
+                        <li><a href="#">내글</a></li>
+						<li><a href="#">내댓글</a></li>
+						<li><a href="#">쪽지</a></li>
+						<li><a href="#">스크랩</a></li>
+					</ul>
+				</div>
+				<div class="main_login_box">
+					<div class="main_login_head">
+					   <h2 class="tit">전체 알림</h2>
+					   	<span>
+							<a href="#" class="point_color">모두 읽음 표시</a>
+							<a href="#">알림함</a>
+						</span> 
+					</div>
+					<div class="main_login_wrap">
+						<ul class="no_notice">
+							<li class="tit">새로운 알림이 없습니다.</li>
+							<li class="txt">나의 게시글, 댓글에 대한 추천과 댓글 알림을<br>확인해보세요.</li>
+							<li class="btn"><a href="#">알림함</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="main_login_box">
+					<div class="main_login_head">
+					   <h2 class="tit">내 게시글</h2>
+						<span class="one">
+							<a href="#">전체보기</a>
+						</span> 
+					</div>
+					<div class="main_login_wrap">
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+					</div>
+				</div>
+				<div class="main_login_box">
+					<div class="main_login_head">
+					   <h2 class="tit">내 댓글</h2>
+						<span class="one">
+							<a href="#">전체보기</a>
+						</span> 
+					</div>
+					<div class="main_login_wrap">
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+					</div>
+				</div>
+				<div class="main_login_box">
+					<div class="main_login_head">
+					   <h2 class="tit">받은 쪽지함</h2>
+						<span>
+							<a href="#" class="point_color">모두 읽음 표시</a>
+							<a href="message1.html" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes');return false">알림함</a>
+						</span> 
+					</div>
+					<div class="main_login_wrap">
+						<dl class="thum_text_list">
+							<dd><div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+							<dt>
+								<a href="#">교육매니저</a>
+								<span>19. 03. 14</span>
+								<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+							</dt>
+						</dl>
+						<dl class="thum_text_list">
+							<dd><div class="my_thum"><img src="{% static 'images/main/subject6.png' %}" alt="내 썸네일"></div></dd>
+							<dt>
+								<a href="#">교육매니저</a>
+								<span>19. 03. 14</span>
+								<p>축! 교육센텀쪽지내용 표시 모자라면 모자라면 모자라면</p>
+							</dt>
+						</dl>
+					</div>
+				</div>
+				<div class="main_login_box">
+					<div class="main_login_head">
+					   <h2 class="tit">스크랩함</h2>
+						<span class="one">
+							<a href="#">전체보기</a>
+						</span> 
+					</div>
+					<div class="main_login_wrap">
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+						<dl class="text_list">
+							<dt><a href="#">가입인사 드려요.</a></dt>
+							<dd><a href="#">가입인사</a></dd>
+							<dd><a href="#">댓글<span class="point_color">1</span></a></dd>
+							<dd><a href="#">조회<span>4</span></a></dd>
+							<dd><a href="#">15/25</a></dd>
+						</dl>
+					</div>
+				</div>
+			</div> 
+			<!-- 로그아웃시 화면 -->
+			<!--<div class="main_logout">
+				<h2 class="sound_only">로그아웃 상태, 로그인하세요</h2>
+				<p>로그인 후 더욱 많은 기능을 이용하세요!</p>
+				<div class="do_login">
+					<ul>
+						<li><a href="#"><img src="{% static 'images/main/login_naver.png' %}" alt=""><img src="{% static 'images/main/login_naver_on.png' %}" alt=""><span>네이버 계정으로 로그인</span></a></li>
+						<li><a href="#"><img src="{% static 'images/main/login_facebook.png' %}" alt=""><img src="{% static 'images/main/login_facebook_on.png' %}" alt=""><span>페이스북 계정으로 로그인</span></a></li>
+						<li><a href="#"><img src="{% static 'images/main/login_google.png' %}" alt=""><img src="{% static 'images/main/login_google_on.png' %}" alt=""><span>구글 계정으로 로그인</span></a></li>
+						<li><a href="#"><img src="{% static 'images/main/login_kakao.png' %}" alt=""><img src="{% static 'images/main/login_kakao_on.png' %}" alt=""><span>카카오톡 계정으로 로그인</span></a></li>
+						<li><a href="#"><img src="{% static 'images/main/login_mail.png' %}" alt=""><img src="{% static 'images/main/login_mail_on.png' %}" alt=""><span>이메일 또는 아이디로 로그인</span></a></li>
+					</ul>
+				</div>
+				<span class="join"><a href="join.html">회원가입</a></span>
+				<span class="find_id"><a href="find_id.html">ID/PW찾기</a></span>
+			</div>-->
+			<div class="sec ad_banner">
+				<h2 class="sound_only">광고 배너</h2>
+				<a href="#">
+					 <img src="{% static 'images/common/review_10.jpg' %}" alt="">
+				</a>
+			</div>
+			<div class="sec best_sec">
+				<h2 class="tit">베스트</h2>
+				<ul class="best_tab">
+					<li><a href="#">01</a></li>
+					<li><a href="#">02</a></li>
+					<li><a href="#">03</a></li>
+				</ul>
+				<div class="best_tab_content">
+					<ul>
+						<li><a href="#"><span class="blue_font">1</span>첫번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span class="blue_font">2</span>첫번째 과열 경쟁 속 스마트스토어 현실</a></li>
+						<li><a href="#"><span class="blue_font">3</span>첫번째 마케팅 입문자 책 추천해주세요!</a></li>
+						<li><a href="#"><span class="blue_font">4</span>첫번째 블로그 운영 시 이미지 편</a></li>
+						<li><a href="#"><span class="blue_font">5</span>첫번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>6</span>첫번째블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>7</span>첫번째과열 경쟁 속 스마트스토어 현실</a></li>
+					</ul>
+				</div>
+				<div class="best_tab_content">
+					<ul>
+						<li><a href="#"><span class="blue_font">1</span>두번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span class="blue_font">2</span>두번째 과열 경쟁 속 스마트스토어 현실</a></li>
+						<li><a href="#"><span class="blue_font">3</span>두번째 마케팅 입문자 책 추천해주세요!</a></li>
+						<li><a href="#"><span class="blue_font">4</span>두번째 블로그 운영 시 이미지 편</a></li>
+						<li><a href="#"><span class="blue_font">5</span>두번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>6</span>두번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>7</span>두번째 과열 경쟁 속 스마트스토어 현실</a></li>
+					</ul>
+				</div>
+				<div class="best_tab_content">
+					<ul>
+						<li><a href="#"><span class="blue_font">1</span>세번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span class="blue_font">2</span>세번째 과열 경쟁 속 스마트스토어 현실</a></li>
+						<li><a href="#"><span class="blue_font">3</span>세번째 마케팅 입문자 책 추천해주세요!</a></li>
+						<li><a href="#"><span class="blue_font">4</span>세번째 블로그 운영 시 이미지 편</a></li>
+						<li><a href="#"><span class="blue_font">5</span>세번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>6</span>세번째 블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+						<li><a href="#"><span>7</span>세번째 과열 경쟁 속 스마트스토어 현실</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="sec ad_banner">
+				<h2 class="sound_only">광고 배너</h2>
+				<a href="#">
+					 <img src="{% static 'images/common/review_10.jpg' %}" alt="">
+				</a>
+			</div>
+			<div class="sec new_writing">
+				<h2 class="tit">새글</h2>
+				<ul>
+					<li><a href="#"><span class="blue_font">•</span>블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+					<li><a href="#"><span class="blue_font">•</span>과열 경쟁 속 스마트스토어 현실</a></li>
+					<li><a href="#"><span class="blue_font">•</span>이미지 편집은 어떻게 하는지 알려주세요 블로그 운영 시</a></li>
+					<li><a href="#"><span class="blue_font">•</span>블로그 운영 시 이미지 편집은 어떻게 하는지 알려주세요</a></li>
+					<li><a href="#"><span class="blue_font">•</span>블로그 운영 시 이미지편</a></li>
+				</ul>
+				<a href="" class="more_btn"><i class="fas fa-plus"></i></a>
+			</div>
+			<div class="main sec sec10">
+				<h2 class="tit">쇼핑</h2>
+				<ul class="tab2">
+					<li><a href="#">상품</a></li>
+					<li><a href="#">쇼핑몰</a></li>
+					<li><a href="#">MEN</a></li>
+				</ul>
+				<div class="swiper-container swiper10 tab2_content">
+					<div class="swiper-wrapper">
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+				   </div><!-- swiper-wrapper -->
+				   <!-- Add Pagination -->
+					  <div class="swiper-pagination swiper-pagination2"></div>
+					  <!-- Add Arrows -->
+					  <div class="swiper_next swiper_next5"><span></span></div>
+					  <div class="swiper_prev swiper_prev5"><span></span></div>
+				</div><!-- tab2_content -->
+				<script>
+					$(document).ready(function(){
+						var swiper10= new Swiper('.swiper10', {
+						  spaceBetween: 0,
+						  loop:true,
+						  navigation: {
+						  nextEl: '.swiper_next5',
+						  prevEl: '.swiper_prev5',
+						  },
+						  autoplay: {
+						   delay: 5000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination2',
+							type: 'fraction',
+						  },
+						});
+					});
+				</script>
+				<div class="swiper-container swiper11 tab2_content">
+					<div class="swiper-wrapper">
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+				   </div><!-- swiper-wrapper -->
+				   <!-- Add Pagination -->
+					<div class="swiper-pagination swiper-pagination3"></div>
+					<!-- Add Arrows -->
+					<div class="swiper_next swiper_next6"><span></span></div>
+					<div class="swiper_prev swiper_prev6"><span></span></div>
+				</div><!-- tab2_content -->
+				<script>
+					$(document).ready(function(){
+						var swiper11= new Swiper('.swiper11', {
+						  spaceBetween: 0,
+						  loop:true,
+						  navigation: {
+						  nextEl: '.swiper_next6',
+						  prevEl: '.swiper_prev6',
+						  },
+						  pagination: {
+							el: '.swiper-pagination3',
+							type: 'fraction',
+						  },
+						});
+					});
+				</script>
+				<div class="swiper-container swiper12 tab2_content">
+					<div class="swiper-wrapper">
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+					  <div class="swiper-slide">
+						   <ul>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_77.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_79.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="img"><img src="{% static 'images/main/main_81.png' %}" alt=""></span>
+										<span class="img_t">1+1도 할인중~<br>전상품 10% 할인</span>
+									</a>
+								</li>
+						   </ul>
+					  </div>
+				   </div><!-- swiper-wrapper -->
+				   <!-- Add Pagination -->
+					  <div class="swiper-pagination swiper-pagination4"></div>
+					  <!-- Add Arrows -->
+					  <div class="swiper_next swiper_next7"><span></span></div>
+					  <div class="swiper_prev swiper_prev7"><span></span></div>
+				</div><!-- tab2_content -->
+				<script>
+					$(document).ready(function(){
+						var swiper12= new Swiper('.swiper12', {
+						  spaceBetween: 0,
+						  loop:true,
+						  navigation: {
+						  nextEl: '.swiper_next7',
+						  prevEl: '.swiper_prev7',
+						  },
+						  pagination: {
+							el: '.swiper-pagination4',
+							type: 'fraction',
+						  },
+						});
+					});
+				</script>
+			</div><!-- sec10 -->
+		</div><!-- sec_right -->
+		<!-- } 섹션 오른쪽 -->
+		<!-- Quick Menu -->
+        {% include 'partials/_quickmenu.html' %}
+        <!-- quick_menu -->
+	</div><!-- container_wrap -->
+</div><!-- container -->
+{% endblock %}

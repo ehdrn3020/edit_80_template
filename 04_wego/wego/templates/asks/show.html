@@ -1,0 +1,715 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{content.title}}{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="container" class="white_bg">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2 style="display:block;"><a href="{% url 'asks:index' %}">질문답변</a><i class="fas fa-chevron-right"></i></h2>
+					{% if board_kind == '전체'%}
+					<h3><a href="{% url 'asks:index' %}">전체</a></h3>
+					{% elif board_kind == '숙소'%}
+					<h3><a href="{% url 'asks:index' 'hotel' %}">숙소</a></h3>
+					{% elif board_kind == '여행'%}
+					<h3><a href="{% url 'asks:index' 'tour' %}">여행</a></h3>
+					{% elif board_kind == '일정'%}
+					<h3><a href="{% url 'asks:index' 'schedule' %}">일정</a></h3>
+					{% elif board_kind == '비용'%}
+					<h3><a href="{% url 'asks:index' 'cost' %}">비용</a></h3>
+					{% elif board_kind == '교통'%}
+					<h3><a href="{% url 'asks:index' 'traffic' %}">교통</a></h3>
+					{% elif board_kind == '기타'%}
+					<h3><a href="{% url 'asks:index' 'etc' %}">기타</a></h3>
+					{% endif %}
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<a href="{% url 'asks:create' %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div><!-- sec_ctg -->
+			<div class="board_veiw_title">
+				<h2 class="tit">{{content.title}}</h2>
+				<div class="board_view_user board_user">
+					<div class="thum"><img class="board_img_profile" src="{{content.user.profile_image}}" alt="썸네일"></div>
+					<div class="info">
+						<strong><span class="level_icon"><img src="{{content.user.level_icon}}" alt="세부자유여행">{{content.user.username}}</span></strong>
+						<span class="like_num"><i class="fas fa-heart"></i><b class="black_font">좋아요</b> {{content.likes|intcomma}}</span>
+						<span class="comments"><i class="fas fa-comment-dots"></i><b class="black_font"> 댓글 {{content.comments|intcomma}}</b></span>
+						<span class="view_count">조회수 <b class="black_font"> {{content.views|intcomma}} </b></span>
+						{% if content.upload_date|date:"Y-m-d:H" != time %}
+							<span class="data_time">{{content.upload_date|date:"M j일 D P "}}</span>
+						{% else %}
+							<span class="data_time">{{content.upload_date|timesince}} 전</span>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="ad_banner_txt">
+				<p>
+					<a href="#{{content.show_ad.brand_name}}" class="banner" name="{{content.show_ad.id}}">
+						<span class="subject_ad">AD</span>{{content.show_ad.description}}
+					</a>
+				</p>
+			</div><!-- ad_banner_txt -->
+
+			<!-- 글내용 -->
+			<div class="board_veiw_content">
+				{{ content.content|safe }}
+			</div>
+			<!-- 해쉬태그 -->
+			{% if content.tag %}
+			<div class="board_view_tag">{{ content.tag }}</div><br/>
+			{% endif %}
+
+			<!-- 관련링크 -->
+			{% if content.url_link %}
+			<div class="map_choice">
+				<h2 class="tit">관련링크</h2>
+				<a class="board_view_urllink" href="{{content.url_link}}" target="_blank">{{content.url_link}}</a>
+			</div>
+			{% endif %}
+
+			<!-- 구글지도 표시 -->
+			{% if content.g_map1 != 'NONE' %}
+				{% include 'partials/gmap_show.html' %}
+			{% endif %}
+
+			<div class="board_view_bottom_btn">
+				{% if addlike %}
+				<a href="#unlike" class="like_n clk_unlike">
+					<i class="fas fa-heart"></i><b class="black_font"> 좋아요</b> <span id="like_number">{{content.likes}}</span>
+				</a>
+				{% else %}
+				<a href="#like" class="like_n clk_like">
+					<i class="far fa-heart"></i><b class="black_font"> 좋아요</b> <span id="like_number">{{content.likes}}</span>
+				</a>
+				{% endif %}
+				<input type="hidden" id='like_id' value='{{addlike.id}}'>
+				<script type="text/javascript">
+					/* 좋아요 클릭 */
+				  $(".like_n").click(function(){
+						var toggle = $('.like_n').attr('class');
+						/* 좋아요 증가*/
+						if ( toggle == 'like_n clk_like'){
+							var content_id = {{content.id}};
+							var content_title = "{{content.title}}";
+					    $.ajax({
+					      type: "POST",
+					      url: "{% url 'asks:add_like' %}",
+					      data: {'content_id': content_id, 'content_name':'질문답변', 'content_title': content_title, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					      dataType: "json",
+					      success: function(response){
+									$('.like_n i').attr('class', 'fas fa-heart');
+									$('.like_n').removeClass("clk_like");
+									$('.like_n').addClass("clk_unlike");
+									$('#like_id').val(response.addlike_id);
+									$('#like_number').text(response.l_num);
+					      },
+					      error: function(request, status, error){
+					          alert("로그인 후 이용해주세요.");
+					      },
+					    });
+						}
+						/* 좋아요 감소 */
+						else{
+							var like_id = $('#like_id').val();
+							var content_id = {{content.id}};
+					    $.ajax({
+					      type: "POST",
+					      url: "{% url 'asks:add_unlike' %}",
+					      data: {'content_id': content_id, 'like_id': like_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+					      dataType: "json",
+					      success: function(response){
+									$('.like_n i').attr('class', 'far fa-heart');
+									$('.like_n').removeClass("clk_unlike");
+									$('.like_n').addClass("clk_like");
+									$('#like_number').text(response.l_num);
+					      },
+					      error: function(request, status, error){
+					          alert("로그인 후 이용해주세요.");
+					      },
+					    });
+						}
+				  });
+				</script>
+				<!-- 스크랩 -->
+				<a href="#scrap" class="share_link" id="scrap_btn"><i class="fas fa-external-link-alt"></i><b class="black_font">스크랩</b></a>
+				{% include "partials/scrap.html" %}
+				<a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;" class="msg_btn">
+					<i class="fab fa-telegram-plane"></i> 쪽지</a>
+			</div>
+
+			<div class="board_view_bottom_btn2">
+				{% if user.id == content.user.id or user.is_staff == True %}
+				<a href="{% url 'asks:edit' content.id %}">글수정</a>
+				<a href="javascript:delete_content();">글삭제</a>
+				<script>
+					function delete_content() {
+						if (confirm("삭제하시겠습니까?") == true){
+							var url = "{% url 'asks:delete' 123 %}";
+							var id = {{content.id}};
+							document.location.href = url.replace('123', id);
+						}else{
+							return false;
+						}
+					}
+				</script>
+				{% endif %}
+				<a href="{% url 'asks:index' %}">목록으로</a>
+			</div><!-- article_btn -->
+
+			<!-- 댓글 -->
+			<div class="comment">
+				<div class="center">
+					<p class="tit">댓글 <b class="blue_font">{{comments.count}}</b></p>
+					<div class="cmt_content">
+						{% for comment in comments|slice:":10" %}
+							{% if not comment.parent_id %}
+							<div class="cmt_list">
+								<div class="comment_writer board_user">
+									<div class="thum"><img class="board_img_profile" src="{{comment.user.profile_image}}" alt="썸네일"></div>
+									<div class="info">
+										<p class="writer">
+											<span class="level_icon"><img src="{{comment.user.level_icon}}" alt="여행질문"></span>
+											<span id="comment_id_{{comment.id}}">{{comment.user.username}}</span>
+											{% if comment.user.username == content.user.username %}
+											<span class="is_writer">글쓴이</span>
+											{% endif %}
+										</p>
+										{% if comment.upload_date|date:"Y-m-d:H" != time %}
+											<p class="data">{{comment.upload_date|date:"M j일 D P "}}</p>
+										{% else %}
+											<p class="data">{{comment.upload_date|timesince}} 전</p>
+										{% endif %}
+									</div>
+									<div>
+										<div class="comment_wrap" id="c_content{{comment.id}}">
+											{{comment.content|linebreaksbr }}
+										</div>
+									</div>
+									<div class="dsc_comm">
+										<!-- 댓글좋아요여부 -->
+										{% if c_addlikes %}
+											{% if comment.id in c_addlikes %}
+											<a href="#unlike" class="like_btn like_num c_unlike" id="c_like{{comment.id}}"><i class="fas fa-heart"> {{comment.likes}}</i></a>
+											{% else %}
+												{% if comment.likes == 0%}
+												<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"></i></a>
+												{% else %}
+												<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"> {{comment.likes}}</i></a>
+												{% endif %}
+											{% endif %}
+										{% else %}
+											{% if comment.likes == 0%}
+											<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"></i></a>
+											{% else %}
+											<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"> {{comment.likes}}</i></a>
+											{% endif %}
+										{% endif %}
+										<a href="#re_cmt" class="reply_btn">댓글달기</a>
+									</div>
+									<div class="option_comm">
+										<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+										<ul class="option_comm_box">
+											{% if user.username == comment.user.username %}
+											<form action="{% url 'comments:delete_ask' %}" method="POST" onSubmit="return confirm_del()">
+												{% csrf_token %}
+												<input type="hidden" name="content_id" value="{{content.id}}">
+												<input type="hidden" name="comment_id" value="{{comment.id}}">
+												<li class="remove_comment"><input type="submit" class="del_btn" value="삭제하기"></li>
+											</form>
+											{% else %}
+											<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+												쪽지보내기</a></li>
+											{% endif %}
+										</ul>
+									</div>
+								</div>
+								<!-- 대댓글보기 -->
+								{% if comment.comment_ask_set.all %}
+									{% for recomment in comment.comment_ask_set.all|dictsort:"upload_date"%}
+										{% if recomment.is_published %}
+										<div class="reply_comment_writer comment_writer board_user">
+											<div class="thum"><img class="board_img_profile" src="{{recomment.user.profile_image}}" alt="썸네일"></div>
+											<div class="info">
+												<p class="writer">
+													<span class="level_icon"><img src="{{recomment.user.level_icon}}" alt="세부브이로그"></span>
+													<span id="comment_id_{{recomment.id}}">{{recomment.user.username}}</span>
+													{% if recomment.user.username == content.user.username %}
+													<span class="is_writer">글쓴이</span>
+													{% endif %}
+												</p>
+												{% if recomment.upload_date|date:"Y-m-d:H" != time %}
+													<p class="data">{{recomment.upload_date|date:"M j일 D P "}}</p>
+												{% else %}
+													<p class="data">{{recomment.upload_date|timesince}} 전</p>
+												{% endif %}
+											</div>
+											<div>
+												<div class="comment_wrap" id="c_content{{recomment.id}}">
+													{{recomment.content|linebreaksbr}}
+												</div>
+											</div>
+											<div class="dsc_comm">
+												<!-- 대댓글좋아요여부 -->
+												{% if c_addlikes %}
+													{% if recomment.id in c_addlikes %}
+													<a href="#unlike" class="like_btn like_num c_unlike" id="c_like{{recomment.id}}"><i class="fas fa-heart"> {{recomment.likes}}</i></a>
+													{% else %}
+														{% if recomment.likes == 0%}
+														<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"></i></a>
+														{% else %}
+														<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"> {{recomment.likes}}</i></a>
+														{% endif %}
+													{% endif %}
+												{% else %}
+													{% if recomment.likes == 0%}
+													<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"></i></a>
+													{% else %}
+													<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"> {{recomment.likes}}</i></a>
+													{% endif %}
+												{% endif %}
+											</div>
+											<div class="option_comm">
+												<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+												<ul class="option_comm_box">
+													{% if user.username == recomment.user.username %}
+													<form action="{% url 'comments:delete_ask' %}" method="POST" onSubmit="return confirm_del()">
+														{% csrf_token %}
+														<input type="hidden" name="content_id" value="{{content.id}}">
+														<input type="hidden" name="comment_id" value="{{recomment.id}}">
+														<li class="remove_comment"><input type="submit" class="del_btn" value="삭제하기"></li>
+													</form>
+													{% else %}
+													<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+														쪽지보내기</a></li>
+													{% endif %}
+												</ul>
+											</div>
+										</div>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+								<!-- 대댓글쓰기 -->
+								<div class="re_cmt">
+									<div class="cmt_submit" style="margin-bottom:0em; margin-top:1em; padding: 1.2em;">
+										{% if user.id != None %}
+										<div class="board_user">
+											<div class="thum"><img class="board_img_profile" src="{{user.profile_image}}" alt="썸네일"></div>
+											<div class="info">
+												<p class="writer"><span class="level_icon"><img src="{{user.level_icon}}" alt="cebu travel"></span><span>{{user.username}}</span></p>
+											</div>
+										</div>
+										<form action="{% url 'comments:create_ask_re' %}" method="POST">
+										{% csrf_token %}
+											<div class="cmt_file">
+												<textarea class="comment_content" name="comment_content" placeholder="댓글을 작성하시면 {{point.point}}포인트가 적립됩니다." style="padding:10px;" maxlength="1000"></textarea>
+												<input type="hidden" name="content_id" value="{{content.id}}">
+												<input type="hidden" name="comment_id" value="{{comment.id}}">
+												<fieldset class="filedset">
+													<input type="submit" class="cmt_submit_btn re" value="등록">
+												</fieldset>
+											</div>
+										</form>
+										{% else %}
+										<textarea class="comment_content" placeholder="로그인 후 이용해주세요" style="padding:10px;" disabled></textarea>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							{% endif %}
+						{% endfor %}
+						<div class="more_cmt_list">
+							{% for comment in comments|slice:"10:" %}
+								{% if not comment.parent_id %}
+								<div class="cmt_list">
+									<div class="comment_writer board_user">
+										<div class="thum"><img class="board_img_profile" src="{{comment.user.profile_image}}" alt="썸네일"></div>
+										<div class="info">
+											<p class="writer">
+												<span class="level_icon"><img src="{{comment.user.level_icon}}" alt="세부가족여행"></span>
+												<span id="comment_id_{{comment.id}}">{{comment.user.username}}</span>
+												{% if comment.user.username == content.user.username %}
+												<span class="is_writer">글쓴이</span>
+												{% endif %}
+											</p>
+											{% if comment.upload_date|date:"Y-m-d:H" != time %}
+												<p class="data">{{comment.upload_date|date:"M j일 D P "}}</p>
+											{% else %}
+												<p class="data">{{comment.upload_date|timesince}} 전</p>
+											{% endif %}
+										</div>
+										<div>
+											<div class="comment_wrap" id="c_content{{comment.id}}">
+												{{comment.content|linebreaksbr }}
+											</div>
+										</div>
+										<div class="dsc_comm">
+											<!-- 댓글좋아요여부 -->
+											{% if c_addlikes %}
+												{% if comment.id in c_addlikes %}
+												<a href="#unlike" class="like_btn like_num c_unlike" id="c_like{{comment.id}}"><i class="fas fa-heart"> {{comment.likes}}</i></a>
+												{% else %}
+													{% if comment.likes == 0%}
+													<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"></i></a>
+													{% else %}
+													<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"> {{comment.likes}}</i></a>
+													{% endif %}
+												{% endif %}
+											{% else %}
+												{% if comment.likes == 0%}
+												<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"></i></a>
+												{% else %}
+												<a href="#like" class="like_btn like_num c_like" id="c_like{{comment.id}}"><i class="far fa-heart"> {{comment.likes}}</i></a>
+												{% endif %}
+											{% endif %}
+											<a href="#re_cmt" class="reply_btn">댓글달기</a>
+										</div>
+										<div class="option_comm">
+											<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+											<ul class="option_comm_box">
+												{% if user.username == comment.user.username %}
+												<form action="{% url 'comments:delete_ask' %}" method="POST" onSubmit="return confirm_del()">
+													{% csrf_token %}
+													<input type="hidden" name="content_id" value="{{content.id}}">
+													<input type="hidden" name="comment_id" value="{{comment.id}}">
+													<li class="remove_comment"><input type="submit" class="del_btn" value="삭제하기"></li>
+												</form>
+												{% else %}
+												<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+													쪽지보내기</a></li>
+												{% endif %}
+										</div>
+									</div>
+									<!-- 대댓글보기 -->
+									{% if comment.comment_ask_set.all %}
+										{% for recomment in comment.comment_ask_set.all|dictsort:"upload_date"%}
+											{% if recomment.is_published %}
+											<div class="reply_comment_writer comment_writer board_user">
+												<div class="thum"><img class="board_img_profile" src="{{recomment.user.profile_image}}" alt="썸네일"></div>
+												<div class="info">
+													<p class="writer">
+														<span class="level_icon"><img src="{{recomment.user.level_icon}}" alt="세부가볼만한곳"></span>
+														<span id="comment_id_{{recomment.id}}">{{recomment.user.username}}</span>
+														{% if recomment.user.username == content.user.username %}
+														<span class="is_writer">글쓴이</span>
+														{% endif %}
+													</p>
+													{% if recomment.upload_date|date:"Y-m-d:H" != time %}
+														<p class="data">{{recomment.upload_date|date:"M j일 D P "}}</p>
+													{% else %}
+														<p class="data">{{recomment.upload_date|timesince}} 전</p>
+													{% endif %}
+												</div>
+												<div>
+													<div class="comment_wrap" id="c_content{{recomment.id}}">
+														{{recomment.content|linebreaksbr}}
+													</div>
+												</div>
+												<div class="dsc_comm">
+													<!-- 대댓글좋아요여부 -->
+													{% if c_addlikes %}
+														{% if recomment.id in c_addlikes %}
+														<a href="#unlike" class="like_btn like_num c_unlike" id="c_like{{recomment.id}}"><i class="fas fa-heart"> {{recomment.likes}}</i></a>
+														{% else %}
+															{% if recomment.likes == 0%}
+															<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"></i></a>
+															{% else %}
+															<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"> {{recomment.likes}}</i></a>
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% if recomment.likes == 0%}
+														<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"></i></a>
+														{% else %}
+														<a href="#like" class="like_btn like_num c_like" id="c_like{{recomment.id}}"><i class="far fa-heart"> {{recomment.likes}}</i></a>
+														{% endif %}
+													{% endif %}
+												</div>
+												<div class="option_comm">
+													<a href="#"><img src="{% static 'images/common/three.png' %}" width="15" alt="썸네일"></a>
+													<ul class="option_comm_box">
+														{% if user.username == recomment.user.username %}
+														<form action="{% url 'comments:delete_ask' %}" method="POST" onSubmit="return confirm_del()">
+															{% csrf_token %}
+															<input type="hidden" name="content_id" value="{{content.id}}">
+															<input type="hidden" name="comment_id" value="{{recomment.id}}">
+															<li class="remove_comment"><input type="submit" class="del_btn" value="삭제하기"></li>
+														</form>
+														{% else %}
+														<li><a href="{% url 'msgboxs:index' 'message' %}" onclick="openWinCenter(this.href,'newwin','width=450,height=580,status=yes,menubar=yes'); return false;">
+															쪽지보내기</a></li>
+														{% endif %}
+													</ul>
+												</div>
+											</div>
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+									<!-- 대댓글쓰기 -->
+									<div class="re_cmt">
+										<div class="cmt_submit" style="margin-bottom:0em; margin-top:1em; padding: 1.2em;">
+											{% if user.id != None %}
+											<div class="board_user">
+												<div class="thum"><img class="board_img_profile" src="{{user.profile_image}}" alt="썸네일"></div>
+												<div class="info">
+													<p class="writer"><span class="level_icon"><img src="{{user.level_icon}}" alt="필리핀 갤러리"></span><span>{{user.username}}</span></p>
+												</div>
+											</div>
+											<form action="{% url 'comments:create_ask_re' %}" method="POST">
+											{% csrf_token %}
+												<div class="cmt_file">
+													<textarea class="comment_content" name="comment_content" placeholder="댓글을 작성하시면 {{point.point}}포인트가 적립됩니다." style="padding:10px;" maxlength="1000"></textarea>
+													<input type="hidden" name="content_id" value="{{content.id}}">
+													<input type="hidden" name="comment_id" value="{{comment.id}}">
+													<fieldset class="filedset">
+														<input type="submit" class="cmt_submit_btn re" id="cmt_submit_re" value="등록">
+													</fieldset>
+												</div>
+											</form>
+											{% else %}
+											<textarea class="comment_content" placeholder="로그인 후 이용해주세요" style="padding:10px;" disabled></textarea>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+							{% endfor %}
+							{% if comments.count > 10 %}
+								<a href="#">댓글 더보기 <i class="fas fa-caret-down"></i></a>
+							{% else %}
+							<br/>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<script>
+				$(document).ready(function(){
+					var cmt_show = false;
+					$(".more_cmt_list > .cmt_list").hide();
+					$(".more_cmt_list > a").click(function(){
+						cmt_show = !cmt_show;
+						if(cmt_show == true){
+						$(this).addClass("active");
+						$(this).html("댓글 닫기 <i class='fas fa-caret-up'></i>");
+						$(".more_cmt_list > .cmt_list").slideDown();
+						return false;
+						}else{
+							$(this).removeClass("active");
+							$(".more_cmt_list > .cmt_list").slideUp();
+							$(this).html("댓글 더보기 <i class='fas fa-caret-down'></i>");
+							return false;
+						}
+					});
+					// 메뉴 사이드 버튼 터치시 드롭메뉴
+					$(".option_comm .option_comm_box").hide();
+					$(".option_comm > a").addClass("off");
+					$(".option_comm >a ").click(function(){
+						if($(this).attr('class')=="off"){
+							$(".option_comm > a").removeClass("off");
+							$(".option_comm > a").addClass("on");
+							$(".option_comm .option_comm_box").not($(this)).stop().slideUp('fast');
+							$(this).find("+.option_comm_box").stop().slideDown('fast');
+							return false;
+						}
+						//한번더 클릭시 메뉴사라짐
+						else{
+							$(".option_comm > a").removeClass("on");
+							$(".option_comm > a").addClass("off");
+							$(".option_comm .option_comm_box").stop().slideUp('fast');
+							return false;
+						}
+					});
+					//대댓글쓰기 숨기기
+					$(".re_cmt").hide();
+					$(".re_cmt").addClass("off");
+					//댓글 쓴 후 댓글에 포커스
+					{% if comment_id is not None %}
+						$(".more_cmt_list > .cmt_list").show();
+						cmt_show = !cmt_show;
+						if(cmt_show == true){
+							$(".more_cmt_list > a").addClass("active");
+							$(".more_cmt_list > a").html("댓글 닫기 <i class='fas fa-caret-up'></i>");
+							$(".more_cmt_list > .cmt_list").slideDown();
+
+							var element = $('#comment_id_{{comment_id}}')[0];
+							var elementRect = element.getBoundingClientRect();
+							var absoluteElementTop = elementRect.top + window.pageYOffset;
+							var middle = absoluteElementTop - (window.innerHeight / 2);
+							window.scrollTo(0, middle);
+							return false;
+						}
+					{% endif %}
+				});
+				//댓글작성 클릭시 포커스
+				$(".comment_content").click(function(){
+					var element = $(this)[0];
+					var elementRect = element.getBoundingClientRect();
+					var absoluteElementTop = elementRect.top + window.pageYOffset;
+					var middle = absoluteElementTop - (window.innerHeight / 2);
+					window.scrollTo(0, middle);
+				});
+				//대댓글토글
+				$('.reply_btn').click(function(){
+					var re_textarea = $(this).parent().parent().parent().children('.re_cmt');
+					if(re_textarea.attr('class')=="re_cmt off"){
+						re_textarea.removeClass("off");
+						re_textarea.addClass("on");
+						re_textarea.stop().slideDown('fast');
+						return false;
+					}
+					else{
+						re_textarea.removeClass("on");
+						re_textarea.addClass("off");
+						re_textarea.stop().slideUp('fast');
+						return false;
+					}
+				});
+				//댓글삭제알람
+				function confirm_del(){
+					if(!confirm("댓글을 삭제하시겠습니까?")) {
+						return false;
+					}
+				}
+				/* 댓글 좋아요 클릭 */
+				$(".like_btn").click(function(){
+					var toggle = $(this).attr('class');
+					/* 댓글 좋아요 증가*/
+					if ( toggle == 'like_btn like_num c_like'){
+						var content_id = {{content.id}};
+						var comment_id = $(this).attr('id').replace('c_like','');
+						var content_content = $('#c_content'+comment_id).text();
+						$.ajax({
+							type: "POST",
+							url: "{% url 'asks:c_add_like' %}",
+							data: {'content_id': content_id, 'comment_id':comment_id, 'content_name':'질문답변댓글', 'content_content': content_content, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+							dataType: "json",
+							success: function(response){
+								$('#c_like'+response.comment_id).removeClass("c_like");
+								$('#c_like'+response.comment_id).addClass("c_unlike");
+								$('#c_like'+response.comment_id+' i').attr('class', 'fas fa-heart');
+								var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								$('#c_like'+response.comment_id+' i').text(' '+l_num);
+							},
+							error: function(request, status, error){
+									alert("로그인 후 이용해주세요.");
+							},
+						});
+					}
+					/* 댓글 좋아요 감소 */
+					else{
+						var content_id = {{content.id}};
+						var comment_id = $(this).attr('id').replace('c_like','');
+						$.ajax({
+							type: "POST",
+							url: "{% url 'asks:c_add_unlike' %}",
+							data: {'content_id': content_id, 'comment_id':comment_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+							dataType: "json",
+							success: function(response){
+								$('#c_like'+response.comment_id).removeClass("c_unlike");
+								$('#c_like'+response.comment_id).addClass("c_like");
+								$('#c_like'+response.comment_id+' i').attr('class', 'far fa-heart');
+								var l_num = String(response.l_num).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								if(l_num != 0)
+									$('#c_like'+response.comment_id+' i').text(' '+l_num);
+								else
+									$('#c_like'+response.comment_id+' i').text('');
+							},
+							error: function(request, status, error){
+									alert("로그인 후 이용해주세요.");
+							},
+						});
+					}
+				});
+				</script>
+				<!-- 댓글쓰기 -->
+				<div class="cmt_submit">
+					{% if user.id != None %}
+					<div class="board_user">
+						<div class="thum"><img class="board_img_profile" src="{{user.profile_image}}" alt="썸네일"></div>
+						<div class="info">
+							<p class="writer"><span class="level_icon"><img src="{{user.level_icon}}" alt="세부여행후기"></span><span>{{user.username}}</span></p>
+						</div>
+					</div>
+					<form action="{% url 'comments:create_ask' %}" method="POST">
+					{% csrf_token %}
+						<div class="cmt_file">
+							<textarea class="comment_content" name="comment_content" placeholder="댓글을 작성하시면 {{point.point}}포인트가 적립됩니다." style="padding:10px;" maxlength="1000"></textarea>
+							<input type="hidden" name="content_id" value="{{content.id}}">
+							<fieldset>
+								<input type="submit" class="cmt_submit_btn" value="등록">
+							</fieldset>
+						</div>
+					</form>
+					{% else %}
+					<textarea class="comment_content" placeholder="로그인 후 이용해주세요" style="padding:10px;" disabled></textarea>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+						{% for banner in banners.banners_review_left|slice:":2" %}
+						<div class="swiper-slide">
+							<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+								<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "asks/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+  	{% include 'pages/_quickmenu.html' %}
+
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+
+{% endblock %}

@@ -1,0 +1,1790 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} 위고세부 WEGO - 세부 자유여행 커뮤니티 {% endblock %}
+{% block header %}
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<style>
+		.swiper-container {
+		  width: 100%;
+		}
+		.swiper-slide {
+		  text-align: center;
+
+		  /* Center slide text vertically */
+		  display: -webkit-box;
+		  display: -ms-flexbox;
+		  display: -webkit-flex;
+		  display: flex;
+		  -webkit-box-pack: center;
+		  -ms-flex-pack: center;
+		  -webkit-justify-content: center;
+		  justify-content: center;
+		  -webkit-box-align: center;
+		  -ms-flex-align: center;
+		  -webkit-align-items: center;
+		  align-items: center;
+		}
+		.swiper-container-finger>.swiper-scrollbar{height: 0;}
+		.swiper-pagination-bullet{background: #fff;}
+		.swiper-pagination-bullet-active{background: #fff;}
+		.swiper-pager{cursor: pointer;z-index: 11;}
+		a { font-size: 1.1em;}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<div id="container">
+		<h2 class="sound_only">본문 영역</h2>
+		<div class="container_wrap center_975">
+			<!-- 섹션 왼쪽 { -->
+			<div class="sec_left">
+				<div class="main_banner">
+					<h2 class="sound_only">메인 슬라이드 배너</h2>
+					<!-- Swiper -->
+				<div class="swiper-container swiper1">
+					<div class="swiper-wrapper">
+					{% for slide in banners.banner_slide %}
+					<div class="swiper-slide">
+						<a href="{{slide.link_url}}" target="_blank" rel="nofollow" class="banner" name="{{ slide.id }}">
+							<img src="{{ slide.photo.url}}" alt="{{ slide.description }}">
+						</a>
+					</div>
+					{% endfor %}
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination swiper-pagination1"></div>
+				</div>
+					<script>
+						var swiper1 = new Swiper('.swiper1', {
+							loop:true,
+							autoplay: {
+							delay: 4000,
+							disableOnInteraction: false,
+							},
+							pagination: {
+								el: '.swiper-pagination1',
+								clickable: true,
+							},
+						});
+					</script>
+				</div>
+				<!-- 메인배너 -->
+				<div class="main sec sec1">
+					<h2 class="sound_only">여행 관련 정보 메뉴</h2>
+					<div class="sec_btn">
+						<!-- <span class="spuare_list"><i class="fas fa-th-large"></i></span>
+						<span class="list"><i class="fas fa-list"></i></span> -->
+						<span class="setup"><a href="{% url 'promotions:index' %}"><i class="fas fa-cog"></i></a></span>
+					</div>
+					<!-- Swiper { -->
+					<div class="swiper-container swiper-pager swiper-pager1">
+						<div class="swiper-wrapper">
+						  <div class="swiper-slide">
+								<span class="swiper-pagination-bullet">리조트</span>
+						  </div>
+						  <div class="swiper-slide">
+								<span class="swiper-pagination-bullet">호텔</span>
+						  </div>
+						  <div class="swiper-slide">
+								<span class="swiper-pagination-bullet">교민맛집</span>
+						  </div>
+						  <div class="swiper-slide">
+								<span class="swiper-pagination-bullet">로컬맛집</span>
+						  </div>
+						  <!-- <div class="swiper-slide">
+							<span class="swiper-pagination-bullet">여행사</span>
+						  </div> -->
+							<div class="swiper-slide">
+						 		<span class="swiper-pagination-bullet">호핑</span>
+						 	</div>
+							<div class="swiper-slide">
+						 		<span class="swiper-pagination-bullet">데이투어</span>
+						 	</div>
+							<div class="swiper-slide">
+								<span class="swiper-pagination-bullet">마사지샵</span>
+							</div>
+							<div class="swiper-slide">
+					 			<span class="swiper-pagination-bullet">뷰티샵</span>
+					 		</div>
+							<div class="swiper-slide">
+					 			<span class="swiper-pagination-bullet">다이빙샵</span>
+					 		</div>
+							<div class="swiper-slide">
+					 			<span class="swiper-pagination-bullet">기념품샵</span>
+					 		</div>
+						</div>
+					</div>
+					<div class="swiper-container swiper2">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<table>
+									<colgroup>
+	                  <col>
+	                  <col>
+	                  <col>
+	                  <col>
+	                  <col>
+	                </colgroup>
+									<tr>
+										{% for banner in banners.banner_1|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_1|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_1|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_2|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_2|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_2|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_3|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_3|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_3|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_4|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_4|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_4|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_5|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_5|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_5|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_6|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_6|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_6|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_7|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_7|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_7|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_8|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_8|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_8|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_9|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_9|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_9|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+							<div class="swiper-slide">
+								<table>
+									<tr>
+										{% for banner in banners.banner_10|slice:":5" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_10|slice:"5:10" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										{% for banner in banners.banner_10|slice:"10:15" %}
+											<td>
+												<a href="#{{banner.brand_name}}" class="banner" name="{{ banner.id }}">
+													<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+												</a>
+											</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+						<!-- <div class="swiper-pager swiper-pager1"></div> -->
+						<!-- Add Arrows -->
+						<div class="swiper_next"><span></span></div>
+						<div class="swiper_prev"><span></span></div>
+					</div>
+					<!-- } Swiper  -->
+					<a href="{% url 'promotions:index' %}" class="btn_more_ margin_t-1">
+						<span>더보기 +</span>
+					</a>
+				</div><!-- 메인배너 -->
+				<script>
+					var swiper2 = new Swiper('.swiper2', {
+					  spaceBetween: 10,
+					  loop:true,
+					  loopedSlides: 10,
+					  navigation: {
+					  nextEl: '.swiper_next',
+					  prevEl: '.swiper_prev',
+					  },
+					});
+					var swiper_pager1 = new Swiper('.swiper-pager1', {
+					  spaceBetween: 12,
+					  slidesPerView: 6,
+					  loop: true,
+					  loopedSlides: 12, //looped slides should be the same
+					  touchRatio: 0.2,
+					  slideToClickedSlide: true,
+					});
+					 swiper2.controller.control = swiper_pager1;
+					 swiper_pager1.controller.control = swiper2;
+				</script>
+
+				<!-- BEST후기 -->
+				<div class="main sec sec2">
+					<h2 class="tit">BEST후기 <span class="arr_ico"></span></h2>
+					<div class="live_next swiper_next"><span></span></div>
+					<div class="live_prev swiper_prev"><span></span></div>
+					<div class="sec_btn">
+						<a href="{% url 'afters:index' 'best' %}"><span class="setup"><i class="fas fa-cog"></i></span></a>
+					</div>
+					<div class="swiper-container live_vertical">
+						<div class="swiper-wrapper">
+							{% for best_after in best_afters %}
+							<div class="swiper-slide"><a href="{% url 'afters:show' best_after.id %}">{{best_after.title|slice:30}}</a></div>
+							{% endfor %}
+						</div>
+					</div>
+					<script>
+						var swiper0 = new Swiper('.live_vertical', {
+						direction: 'vertical',
+						loop:true,
+						autoplay: {
+							delay: 1500,
+							disableOnInteraction: false,
+						},
+						navigation: {
+							nextEl: '.live_next',
+							prevEl: '.live_prev',
+						},
+						});
+					</script>
+				</div> <!--BEST후기 -->
+
+				<!-- 여행정보글 -->
+				<div class="main sec sec3_1">
+					<div class="sec3_1-title">
+						<h2 class="tit">세부의 모든것</h2>
+						<a href="{% url 'infos:index' %}" class="sec_btn_">
+							<i class="fas fa-cog"></i>
+						</a>
+					</div>
+					<div class="route_list">
+						<ul>
+							{% for info_new in info_news|slice:"1:2" %}
+							<li>
+								<a href="{% url 'infos:show' info_new.id %}">
+									<span class="route_top_tag">{{info_new.board_kind}}</span>
+									<div><img src="{{info_new.index_image1}}" alt="세부정보팁"></div>
+									<h6>{{info_new.title}}</h6>
+									<!-- <p class="route_btm_tag"><span>스타뉴스</span><span>｜</span><span>뉴스</span></p> -->
+								</a>
+							</li>
+							{% endfor %}
+							<!-- 큰이미지 -->
+							{% for info_new in info_news|slice:"0:1" %}
+							<li class="wide">
+								<a href="{% url 'infos:show' info_new.id %}">
+									<img src="{{info_new.index_image1}}" alt="">
+									<span class="sub_txt"><b>{{info_new.title}}</b></span>
+								</a>
+							</li>
+							{% endfor %}
+							{% for info_new in info_news|slice:"2:7" %}
+							<li>
+								<a href="{% url 'infos:show' info_new.id %}">
+									<span class="route_top_tag">{{info_new.board_kind}}</span>
+									<div><img src="{{info_new.index_image1}}" alt=""></div>
+									<h6>{{info_new.title}}</h6>
+									<!-- <p class="route_btm_tag"><span>스타뉴스</span><span>｜</span><span>뉴스</span></p> -->
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<a href="{% url 'infos:index' %}" class="btn_more_ margin_b-1">
+							<span>더보기 +</span>
+						</a>
+					</div>
+				</div>
+				<!-- 게시판 -->
+				<div class="main sec sec4">
+					<h2 class="sound_only">여행 관련 글 게시판</h2>
+					<div class="sec_btn_sec4">
+						<a href="{% url 'asks:index' %}"><span class="setup"><i class="fas fa-cog"></i></span></a>
+					</div>
+					<div class="swiper-container swiper-pager swiper-pager2">
+						<div class="swiper-wrapper">
+						  <div class="swiper-slide swiper-slide1">
+							<span class="swiper-pagination-bullet">질문답변</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide2">
+							<span class="swiper-pagination-bullet">정보공유</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide3">
+							<span class="swiper-pagination-bullet">커뮤니티</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide4">
+							<span class="swiper-pagination-bullet">여행코스</span>
+						  </div>
+						</div>
+					</div>
+					<div class="swiper-container swiper5">
+						<div class="swiper-wrapper">
+							<!-- 질문답변 -->
+							<div class="swiper-slide swiper-slide1">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										{% for ask in asks|slice:"0:5" %}
+											{% if ask.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'asks:show' ask.id %}">
+													<dt class="group">{{ask.board_kind}}</dt>
+													<dd class="tit"><span>{{ask.title}} </span>
+														{% if ask.comments > 0 %}<i class="far fa-comment-dots"> {{ask.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{ask.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'asks:show' ask.id %}">
+													<dt class="group">{{ask.board_kind}}</dt>
+													<dd class="tit"><span>{{ask.title}} </span>
+														{% if ask.comments > 0 %}<i class="far fa-comment-dots"> {{ask.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{ask.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+									<div class="group_list group_list_hidden">
+										{% for ask in asks|slice:"5:10" %}
+											{% if ask.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'asks:show' ask.id %}">
+													<dt class="group">{{ask.board_kind}}</dt>
+													<dd class="tit"><span>{{ask.title}} </span>
+														{% if ask.comments > 0 %}<i class="far fa-comment-dots"> {{ask.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{ask.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'asks:show' ask.id %}">
+													<dt class="group">{{ask.board_kind}}</dt>
+													<dd class="tit"><span>{{ask.title}} </span>
+														{% if ask.comments > 0 %}<i class="far fa-comment-dots"> {{ask.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{ask.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div>
+							<!-- 정보공유 -->
+							<div class="swiper-slide swiper-slide2">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										{% for info in infos|slice:"0:5" %}
+											{% if info.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'infos:show' info.id %}">
+													<dt class="group">{{info.board_kind}}</dt>
+													<dd class="tit"><span>{{info.title}} </span>
+														{% if info.comments > 0 %}<i class="far fa-comment-dots"> {{info.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{info.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'infos:show' info.id %}">
+													<dt class="group">{{info.board_kind}}</dt>
+													<dd class="tit"><span>{{info.title}} </span>
+														{% if info.comments > 0 %}<i class="far fa-comment-dots"> {{info.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{info.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+									<div class="group_list group_list_hidden">
+										{% for info in infos|slice:"5:10" %}
+											{% if info.views > moreviewcount %}
+											<a href="{% url 'infos:show' info.id %}">
+												<dl class="selected">
+													<dt class="group">{{info.board_kind}}</dt>
+													<dd class="tit"><span>{{info.title}} </span>
+														{% if info.comments > 0 %}<i class="far fa-comment-dots"> {{info.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{info.upload_date|date:"m.d "}}</dd>
+												</dl>
+											</a>
+											{% else %}
+											<a href="{% url 'infos:show' info.id %}">
+												<dl>
+													<dt class="group">{{info.board_kind}}</dt>
+													<dd class="tit"><span>{{info.title}} </span>
+														{% if info.comments > 0 %}<i class="far fa-comment-dots"> {{info.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{info.upload_date|date:"m.d "}}</dd>
+												</dl>
+											</a>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div>
+							<!-- 커뮤니티  -->
+							<div class="swiper-slide swiper-slide3">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										{% for community in communitys|slice:"0:5" %}
+											{% if community.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'communitys:show' community.id %}">
+													<dt class="group">{{community.board_kind}}</dt>
+													<dd class="tit"><span>{{community.title}} </span>
+														{% if community.comments > 0 %}<i class="far fa-comment-dots"> {{community.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{community.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'communitys:show' community.id %}">
+													<dt class="group">{{community.board_kind}}</dt>
+													<dd class="tit"><span>{{community.title}} </span>
+														{% if community.comments > 0 %}<i class="far fa-comment-dots"> {{community.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{community.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+									<div class="group_list group_list_hidden">
+										{% for community in communitys|slice:"5:10" %}
+											{% if community.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'communitys:show' community.id %}">
+													<dt class="group">{{community.board_kind}}</dt>
+													<dd class="tit"><span>{{community.title}} </span>
+														{% if community.comments > 0 %}<i class="far fa-comment-dots"> {{community.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{community.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'communitys:show' community.id %}">
+													<dt class="group">{{community.board_kind}}</dt>
+													<dd class="tit"><span>{{community.title}} </span>
+														{% if community.comments > 0 %}<i class="far fa-comment-dots"> {{community.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{community.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div>
+							<!-- 여행코스 -->
+							<div class="swiper-slide swiper-slide4">
+								<div class="swiper-slide_wrap">
+									<div class="group_list">
+										{% for course in courses|slice:"0:5" %}
+											{% if course.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'courses:show' course.id %}">
+													<dt class="group">{{course.board_kind}}</dt>
+													<dd class="tit"><span>{{course.title}} </span>
+														{% if course.comments > 0 %}<i class="far fa-comment-dots"> {{course.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{course.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'courses:show' course.id %}">
+													<dt class="group">{{course.board_kind}}</dt>
+													<dd class="tit"><span>{{course.title}} </span>
+														{% if course.comments > 0 %}<i class="far fa-comment-dots"> {{course.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{course.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+									<div class="group_list group_list_hidden">
+										{% for course in courses|slice:"5:10" %}
+											{% if course.views > moreviewcount %}
+											<dl class="selected">
+												<a href="{% url 'courses:show' course.id %}">
+													<dt class="group">{{course.board_kind}}</dt>
+													<dd class="tit"><span>{{course.title}} </span>
+														{% if course.comments > 0 %}<i class="far fa-comment-dots"> {{course.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{course.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% else %}
+											<dl>
+												<a href="{% url 'courses:show' course.id %}">
+													<dt class="group">{{course.board_kind}}</dt>
+													<dd class="tit"><span>{{course.title}} </span>
+														{% if course.comments > 0 %}<i class="far fa-comment-dots"> {{course.comments}} </i>{% endif %}
+													</dd>
+													<dd class="day">{{course.upload_date|date:"m.d "}}</dd>
+												</a>
+											</dl>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</div><!-- swiper-slide_wrap -->
+							</div>
+						</div>
+					</div><!-- swiper5 -->
+					<!-- Add Arrows -->
+					<div class="swiper_next swiper_next2"><span></span></div>
+					<div class="swiper_prev swiper_prev2"><span></span></div>
+					<script>
+						var swiper5 = new Swiper('.swiper5', {
+						 spaceBetween: 10,
+						  loop:true,
+						  loopedSlides: 20, //looped slides should be the same
+						  navigation: {
+						  nextEl: '.swiper_next2',
+						  prevEl: '.swiper_prev2',
+						  },
+						});
+						var swiper_pager2 = new Swiper('.swiper-pager2', {
+						  spaceBetween: 10,
+						  slidesPerView: 4,
+						  loop: true,
+						  touchRatio: 0.2,
+						  slideToClickedSlide: true,
+						  loopedSlides:20, //looped slides should be the same
+						});
+					 swiper5.controller.control = swiper_pager2;
+					 swiper_pager2.controller.control = swiper5;
+					</script>
+					<div class="sec_btn sec_btn_left sec_btn_left1">
+						<span class="all_view_btn"><a href="#"><i class="fas fa-bars"></i></a></span>
+					</div>
+					<!-- 게시판 숨긴메뉴 -->
+					<div class="sec_menu sec4_menu">
+						<ul>
+							<li><a href="{% url 'asks:index'%}">질문답변</a></li>
+							<li><a href="{% url 'infos:index' 'best' %}">베스트Tip</a></li>
+							<li><a href="{% url 'infos:index' 'prepare' %}">여행준비</a></li>
+							<li><a href="{% url 'infos:index' 'cebutip' %}">세부팁</a></li>
+							<li><a href="{% url 'infos:chatting' %}">위고채팅</a></li>
+							<li><a href="{% url 'communitys:index' 'free' %}">자유게시판</a></li>
+							<li><a href="{% url 'communitys:index' 'visit' %}">방문인사</a></li>
+							<li><a href="{% url 'communitys:index' 'withme' %}">동행</a></li>
+							<li><a href="{% url 'communitys:index' 'buysell' %}">사고팔기</a></li>
+							<li><a href="{% url 'courses:index' 'oneday' %}">1일코스</a></li>
+							<li><a href="{% url 'courses:index' 'fiveday' %}">3박5일</a></li>
+							<li><a href="{% url 'courses:index' 'longday' %}">장기코스</a></li>
+						</ul>
+					</div>
+					<a href="{% url 'asks:index' %}" class="btn_more_ margin_b-1">
+						<span>더보기 +</span>
+					</a>
+				</div><!-- 게시판 -->
+
+				<!-- 오늘의인기글 -->
+				<div class="main sec sec5">
+					<h2 class="tit">오늘의 인기글 <span>HOT</span></h2>
+					<div class="hot_topic_list">
+						<ul>
+							{% for today_after in today_afters %}
+							<li><a href="{% url 'afters:show' today_after.id %}"><span><i class="far fa-comments"></i></span>{{today_after.title}}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- <div class="hot_topic_btm_banner">
+						{% for banner in banners.banner_left|slice:"0:1" %}
+						<a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+						{% endfor %}
+					</div> -->
+				</div><!-- sec5 -->
+
+				<div class="sec3_2-title">
+					<h2 class="tit">세부 여행후기</h2>
+				</div>
+				<div class="main sec sec3 tab_style">
+					<h2 class="sound_only">세부 여행후기</h2>
+					<!-- <h2 class="after_h2"><img src="{% static 'images/main/main_59.png' %}" alt="세부 여행 후기"></h2> -->
+					<a href="{% url 'afters:index' %}" class="sec_btn_">
+						<i class="fas fa-cog"></i>
+					</a>
+					<!-- Swiper -->
+					<div class="swiper-container m_touch_nav2">
+						<div class="swiper-wrapper tab">
+							<div class="swiper-slide"><a href="#">전체후기</a></div>
+							<div class="swiper-slide"><a href="#">여행</a></div>
+							<div class="swiper-slide"><a href="#">숙소</a></div>
+							<div class="swiper-slide"><a href="#">맛집</a></div>
+							<div class="swiper-slide"><a href="#" >마사지</a></div>
+							<div class="swiper-slide"><a href="#" >뷰티</a></div>
+							<div class="swiper-slide"><a href="#" >기타</a></div>
+						</div>
+						<span class="gradi"></span>
+					</div>
+					<!-- Initialize Swiper -->
+					<script>
+						var m_touch_nav2 = new Swiper('.m_touch_nav2', {
+						slidesPerView: 5.5,
+						spaceBetween: 5,
+						freeMode: true,
+						});
+					</script>
+					<ul class="tab">
+						<li class="selected swiper-slide"><a href="#">전체후기</a></li>
+						<li class="swiper-slide"><a href="#">여행</a></li>
+						<li class="swiper-slide"><a href="#">숙소</a></li>
+						<li class="swiper-slide"><a href="#">맛집</a></li>
+						<li class="swiper-slide"><a href="#">마사지</a></li>
+						<li class="swiper-slide"><a href="#">뷰티</a></li>
+						<li class="swiper-slide"><a href="#">기타</a></li>
+					</ul>
+					<div class="tab_content tab_content1">
+						<ul>
+							{% for main_after in main_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_after.index_image1}}" alt="">
+									<span class="sub_txt">{{main_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for all_after in all_afters|slice:"0:5" %}
+								{% if all_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' all_after.id %}">
+										<dt class="group">{{all_after.board_kind}}</dt>
+										<dd class="tit"><span>{{all_after.title}} </span>{% if all_after.comments > 0 %}<i class="far fa-comment-dots"> {{all_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{all_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' all_after.id %}">
+										<dt class="group">{{all_after.board_kind}}</dt>
+										<dd class="tit"><span>{{all_after.title}} </span>{% if all_after.comments > 0 %}<i class="far fa-comment-dots"> {{all_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{all_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for all_after in all_afters|slice:"5:10" %}
+								{% if all_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' all_after.id %}">
+										<dt class="group">{{all_after.board_kind}}</dt>
+										<dd class="tit"><span>{{all_after.title}} </span>{% if all_after.comments > 0 %}<i class="far fa-comment-dots"> {{all_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{all_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' all_after.id %}">
+										<dt class="group">{{all_after.board_kind}}</dt>
+										<dd class="tit"><span>{{all_after.title}} </span>{% if all_after.comments > 0 %}<i class="far fa-comment-dots"> {{all_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{all_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content2">
+						<ul>
+							{% for main_tour_after in main_tour_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_tour_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_tour_after.index_image1}}" alt="">
+									<span class="sub_txt">{{main_tour_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for tour_after in tour_afters|slice:"0:5" %}
+								{% if tour_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' tour_after.id %}">
+										<dt class="group">{{tour_after.board_kind}}</dt>
+										<dd class="tit"><span>{{tour_after.title}} </span>{% if tour_after.comments > 0 %}<i class="far fa-comment-dots"> {{tour_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{tour_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' tour_after.id %}">
+										<dt class="group">{{tour_after.board_kind}}</dt>
+										<dd class="tit"><span>{{tour_after.title}} </span>{% if tour_after.comments > 0 %}<i class="far fa-comment-dots"> {{tour_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{tour_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for tour_after in tour_afters|slice:"5:10" %}
+								{% if tour_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' tour_after.id %}">
+										<dt class="group">{{tour_after.board_kind}}</dt>
+										<dd class="tit"><span>{{tour_after.title}} </span>{% if tour_after.comments > 0 %}<i class="far fa-comment-dots"> {{tour_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{tour_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' tour_after.id %}">
+										<dt class="group">{{tour_after.board_kind}}</dt>
+										<dd class="tit"><span>{{tour_after.title}} </span>{% if tour_after.comments > 0 %}<i class="far fa-comment-dots"> {{tour_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{tour_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content3">
+						<ul>
+							{% for main_hotel_after in main_hotel_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_hotel_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_hotel_after.index_image1}}" alt="">
+									<span class="sub_txt">{{main_hotel_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for hotel_after in hotel_afters|slice:"0:5" %}
+								{% if hotel_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' hotel_after.id %}">
+										<dt class="group">{{hotel_after.board_kind}}</dt>
+										<dd class="tit"><span>{{hotel_after.title}} </span>{% if hotel_after.comments > 0 %}<i class="far fa-comment-dots"> {{hotel_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{hotel_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' hotel_after.id %}">
+										<dt class="group">{{hotel_after.board_kind}}</dt>
+										<dd class="tit"><span>{{hotel_after.title}} </span>{% if hotel_after.comments > 0 %}<i class="far fa-comment-dots"> {{hotel_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{hotel_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for hotel_after in hotel_afters|slice:"5:10" %}
+								{% if hotel_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' hotel_after.id %}">
+										<dt class="group">{{hotel_after.board_kind}}</dt>
+										<dd class="tit"><span>{{hotel_after.title}} </span>{% if hotel_after.comments > 0 %}<i class="far fa-comment-dots"> {{hotel_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{hotel_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' hotel_after.id %}">
+										<dt class="group">{{hotel_after.board_kind}}</dt>
+										<dd class="tit"><span>{{hotel_after.title}} </span>{% if hotel_after.comments > 0 %}<i class="far fa-comment-dots"> {{hotel_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{hotel_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content4">
+						<ul>
+							{% for main_food_after in main_food_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_food_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_food_after.index_image1 }}" alt="">
+									<span class="sub_txt">{{main_food_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for food_after in food_afters|slice:"0:5" %}
+								{% if food_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' food_after.id %}">
+										<dt class="group">{{food_after.board_kind}}</dt>
+										<dd class="tit"><span>{{food_after.title}} </span>{% if food_after.comments > 0 %}<i class="far fa-comment-dots"> {{food_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{food_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' food_after.id %}">
+										<dt class="group">{{food_after.board_kind}}</dt>
+										<dd class="tit"><span>{{food_after.title}} </span>{% if food_after.comments > 0 %}<i class="far fa-comment-dots"> {{food_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{food_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for food_after in food_afters|slice:"5:10" %}
+								{% if food_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' food_after.id %}">
+										<dt class="group">{{food_after.board_kind}}</dt>
+										<dd class="tit"><span>{{food_after.title}} </span>{% if food_after.comments > 0 %}<i class="far fa-comment-dots"> {{food_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{food_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' food_after.id %}">
+										<dt class="group">{{food_after.board_kind}}</dt>
+										<dd class="tit"><span>{{food_after.title}} </span>{% if food_after.comments > 0 %}<i class="far fa-comment-dots"> {{food_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{food_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content5">
+						<ul>
+							{% for main_massage_after in main_massage_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_massage_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_massage_after.index_image1 }}" alt="">
+									<span class="sub_txt">{{main_massage_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for massage_after in massage_afters|slice:"0:5" %}
+								{% if massage_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' massage_after.id %}">
+										<dt class="group">{{massage_after.board_kind}}</dt>
+										<dd class="tit"><span>{{massage_after.title}} </span>{% if massage_after.comments > 0 %}<i class="far fa-comment-dots"> {{massage_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{massage_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' massage_after.id %}">
+										<dt class="group">{{massage_after.board_kind}}</dt>
+										<dd class="tit"><span>{{massage_after.title}} </span>{% if massage_after.comments > 0 %}<i class="far fa-comment-dots"> {{massage_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{massage_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for massage_after in massage_afters|slice:"5:10" %}
+								{% if massage_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' massage_after.id %}">
+										<dt class="group">{{massage_after.board_kind}}</dt>
+										<dd class="tit"><span>{{massage_after.title}} </span>{% if massage_after.comments > 0 %}<i class="far fa-comment-dots"> {{massage_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{massage_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' massage_after.id %}">
+										<dt class="group">{{massage_after.board_kind}}</dt>
+										<dd class="tit"><span>{{massage_after.title}} </span>{% if massage_after.comments > 0 %}<i class="far fa-comment-dots"> {{massage_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{massage_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content6">
+						<ul>
+							{% for main_beauty_after in main_beauty_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_beauty_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_beauty_after.index_image1 }}" alt="">
+									<span class="sub_txt">{{main_beauty_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for beauty_after in beauty_afters|slice:"0:5" %}
+								{% if beauty_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' beauty_after.id %}">
+										<dt class="group">{{beauty_after.board_kind}}</dt>
+										<dd class="tit"><span>{{beauty_after.title}} </span>{% if beauty_after.comments > 0 %}<i class="far fa-comment-dots"> {{beauty_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{beauty_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' beauty_after.id %}">
+										<dt class="group">{{beauty_after.board_kind}}</dt>
+										<dd class="tit"><span>{{beauty_after.title}} </span>{% if beauty_after.comments > 0 %}<i class="far fa-comment-dots"> {{beauty_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{beauty_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for beauty_after in beauty_afters|slice:"5:10" %}
+								{% if beauty_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' beauty_after.id %}">
+										<dt class="group">{{beauty_after.board_kind}}</dt>
+										<dd class="tit"><span>{{beauty_after.title}} </span>{% if beauty_after.comments > 0 %}<i class="far fa-comment-dots"> {{beauty_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{beauty_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' beauty_after.id %}">
+										<dt class="group">{{beauty_after.board_kind}}</dt>
+										<dd class="tit"><span>{{beauty_after.title}} </span>{% if beauty_after.comments > 0 %}<i class="far fa-comment-dots"> {{beauty_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{beauty_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="tab_content tab_content7">
+						<ul>
+							{% for main_etc_after in main_etc_afters %}
+							<li>
+								<a href="{% url 'afters:show' main_etc_after.id %}">
+									<span class="icon"><img src="{% static 'images/common/main_58.png' %}" alt=""></span>
+									<img src="{{ main_etc_after.index_image1 }}" alt="">
+									<span class="sub_txt">{{main_etc_after.title}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="group_list">
+							{% for etc_after in etc_afters|slice:"0:5" %}
+								{% if etc_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' etc_after.id %}">
+										<dt class="group">{{etc_after.board_kind}}</dt>
+										<dd class="tit"><span>{{etc_after.title}} </span>{% if etc_after.comments > 0 %}<i class="far fa-comment-dots"> {{etc_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{etc_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' etc_after.id %}">
+										<dt class="group">{{etc_after.board_kind}}</dt>
+										<dd class="tit"><span>{{etc_after.title}} </span>{% if etc_after.comments > 0 %}<i class="far fa-comment-dots"> {{etc_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{etc_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="group_list group_list_hidden">
+							{% for etc_after in etc_afters|slice:"5:10" %}
+								{% if etc_after.views > moreviewcount %}
+								<dl class="selected">
+									<a href="{% url 'afters:show' etc_after.id %}">
+										<dt class="group">{{etc_after.board_kind}}</dt>
+										<dd class="tit"><span>{{etc_after.title}} </span>{% if etc_after.comments > 0 %}<i class="far fa-comment-dots"> {{etc_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{etc_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% else %}
+								<dl>
+									<a href="{% url 'afters:show' etc_after.id %}">
+										<dt class="group">{{etc_after.board_kind}}</dt>
+										<dd class="tit"><span>{{etc_after.title}} </span>{% if etc_after.comments > 0 %}<i class="far fa-comment-dots"> {{etc_after.comments}} </i>{% endif %}</dd>
+										<dd class="day">{{etc_after.upload_date|date:"m.d "}}</dd>
+									</a>
+								</dl>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div><!-- sec3 -->
+				<a href="{% url 'afters:index' %}" class="btn_more_ add_cs_sec3">
+					<span>더보기 +</span>
+				</a>
+
+				<script type="text/javascript">
+					$(function()
+					{
+						var hot_topic = function()
+						{
+							setTimeout(function(){
+								$('.hot_topic_list li:first').animate( {marginTop: '-27px'}, 600, function()
+								{
+									$(this).detach().appendTo('.hot_topic_list ul').removeAttr('style');
+								});
+								hot_topic();
+							}, 3000);
+						};
+						hot_topic();
+					});
+				</script>
+				<div class="main sec m_banner">
+					<h2 class="sound_only">모바일 광고 배너</h2>
+					{% for banner in banners.banner_right|slice:":2" %}
+					<a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}">
+						<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+					</a>
+					{% endfor %}
+				</div>
+				<div class="main sec sec6">
+					<h2 class="sound_only">생생한 여행 게시판</h2>
+					<div class="sec_btn_sec6">
+						<span class="setup"><i class="fas fa-cog"></i></span>
+					</div>
+					<!-- Swiper { -->
+					<div class="swiper-container swiper-pager swiper-pager3">
+						<div class="swiper-wrapper">
+						  <div class="swiper-slide swiper-slide1">
+							<span class="swiper-pagination-bullet">여행샷</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide2">
+							<span class="swiper-pagination-bullet">음식샷</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide3">
+							<span class="swiper-pagination-bullet">숙소샷</span>
+						  </div>
+						   <div class="swiper-slide swiper-slide4">
+							<span class="swiper-pagination-bullet">쇼핑샷</span>
+						  </div>
+						  <div class="swiper-slide swiper-slide5">
+							<span class="swiper-pagination-bullet">공항샷</span>
+						  </div>
+						</div>
+					</div>
+					<div class="swiper-container swiper6">
+						<div class="swiper-wrapper">
+							<!-- 여행샷 -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											{% for main_tour_gallery in main_tour_gallerys %}
+											<li>
+												<a href="{% url 'gallerys:show' main_tour_gallery.id %}">
+													<img src="{{main_tour_gallery.pimg1}}" alt="">
+													<span class="sub_txt"><b>{{main_tour_gallery.content}}</b></span>
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 음식샷 -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											{% for main_food_gallery in main_food_gallerys %}
+											<li>
+												<a href="{% url 'gallerys:show' main_food_gallery.id %}">
+													<img src="{{main_food_gallery.pimg1}}" alt="">
+													<span class="sub_txt"><b>{{main_food_gallery.content}}</b></span>
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 숙소샷 -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											{% for main_hotel_gallery in main_hotel_gallerys %}
+											<li>
+												<a href="{% url 'gallerys:show' main_hotel_gallery.id %}">
+													<img src="{{main_hotel_gallery.pimg1}}" alt="">
+													<span class="sub_txt"><b>{{main_hotel_gallery.content}}</b></span>
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 쇼핑샷 -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											{% for main_shopping_gallery in main_shopping_gallerys %}
+											<li>
+												<a href="{% url 'gallerys:show' main_shopping_gallery.id %}">
+													<img src="{{main_shopping_gallery.pimg1}}" alt="">
+													<span class="sub_txt"><b>{{main_shopping_gallery.content}}</b></span>
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 공항샷 -->
+							<div class="swiper-slide">
+								<div class="swiper-slide_wrap">
+									<div class="subject_list">
+										<ul>
+											{% for main_airport_gallery in main_airport_gallerys %}
+											<li>
+												<a href="{% url 'gallerys:show' main_airport_gallery.id %}">
+													<img src="{{main_airport_gallery.pimg1}}" alt="">
+													<span class="sub_txt"><b>{{main_airport_gallery.content}}</b></span>
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Add Arrows -->
+					<div class="swiper_next swiper_next3"><span></span></div>
+					<div class="swiper_prev swiper_prev3"><span></span></div>
+					<script>
+						var swiper6 = new Swiper('.swiper6', {
+						  spaceBetween: 10,
+						  loop:true,
+						  loopedSlides:20, //looped slides should be the same
+						  navigation: {
+						  nextEl: '.swiper_next3',
+						  prevEl: '.swiper_prev3',
+						  },
+						  autoplay: {
+						   delay: 5000,
+						   disableOnInteraction: false,
+						  },
+						});
+						var swiper_pager3 = new Swiper('.swiper-pager3', {
+						  spaceBetween: 10,
+						  slidesPerView: 5,
+						  loop: true,
+						  touchRatio: 0.2,
+						  slideToClickedSlide: true,
+						  loopedSlides:20, //looped slides should be the same
+						  breakpoints : {// 반응형
+								1079 : { // 테블릿
+									slidesPerView : 5
+								},
+								767 : {  // 모바일
+									slidesPerView : 5
+								}
+							}
+						});
+					 swiper6.controller.control = swiper_pager3;
+					 swiper_pager3.controller.control = swiper6;
+					</script>
+					<!-- } Swiper  -->
+					<div class="sec_btn sec_btn_left sec_btn_left2">
+						<span class="all_view_btn"><a href="#"><i class="fas fa-bars"></i></a></span>
+					</div>
+					<div class="sec_menu sec6_menu">
+						<ul>
+							<li><a href="#"><span></span>여행</a></li>
+							<li><a href="#"><span></span>음식</a></li>
+							<li><a href="#"><span></span>공항</a></li>
+							<li><a href="#"><span></span>리조트</a></li>
+							<li><a href="#"><span></span>쇼핑</a></li>
+						</ul>
+					</div>
+					<a href="javascript:;" class="btn_more_ margin_b-1">
+						<span>더보기 +</span>
+					</a>
+				</div><!-- sec6 -->
+			</div><!-- sec_left -->
+			<!-- } 섹션 왼쪽  -->
+
+			<!-- 섹션 오른쪽 { -->
+			<div class="sec_right">
+				<!--로그인 섹션 -->
+				{% include "pages/_login.html" %}
+				<div class="main sec sec7">
+					<h2 class="sound_only">오늘의 날씨/환율/영어회화 소개</h2>
+					<div class="swiper-container swiper7">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="info_head">
+									<h2 class="tit boder_right">{{rigth_date}}</h2>
+									<a href="#">세부날씨 <i class="fas fa-chevron-right"></i></a>
+								</div>
+								<div class="type_weather">
+									<a href="#" class="info_layer">
+										{% if weather.main == '비' %}
+										<div class="thumb_lg ico_w01"><span class="sound_only">날씨 비</span></div>
+										{% elif weather.main == '안개' %}
+										<div class="thumb_lg ico_w02"><span class="sound_only">날씨 안개</span></div>
+										{% elif weather.main == '맑음' %}
+										<div class="thumb_lg ico_w03"><span class="sound_only">날씨 맑음</span></div>
+										{% elif weather.main == '흐림' %}
+										<div class="thumb_lg ico_w04"><span class="sound_only">날씨 흐림</span></div>
+										{% elif weather.main == '천둥번개' %}
+										<div class="thumb_lg ico_w05"><span class="sound_only">날씨 천둥번개</span></div>
+										{% endif %}
+										<div class="info_temp">
+											<div class="temp_current" ><span class="tc_text">{{ weather.temp }}</span>°C</div>
+											<span class="temp_lowest" ><span class="tl_text">{{ weather.temp_min }}</span>°</span>
+											<span>/</span>
+											<span class="temp_highest"><span class="th_text">{{ weather.temp_max }}</span>°</span>
+										</div>
+										<div class="info_weather">
+											<div class="info_tit" >{{ weather.description }}</div>
+											<!--  클래스명 : 나쁨 .bad, 보통 .normal , 좋음 .good  -->
+											<div class="info_txt" >습도 <span class="normal">{{ weather.humidity }}</span>% 바람 <span class="normal">{{ weather.wind }}</span>m/s</div>
+											<div class="info_txt" ></div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="info_head">
+									<h2 class="tit boder_right">{{rigth_date}}</h2>
+									<a href="#">환율 <i class="fas fa-chevron-right"></i></a>
+								</div>
+								<div class="exchange">
+									<a href="#" class="info_layer">
+										<ul>
+											<li>
+												<dl>
+													<dt><strong>달러</strong><span>USD</span> - <strong>원</strong><span>KRW</span></dt>
+													<dd>
+														<strong>{{ dollar_rate.krw}}</strong>
+														{% if dollar_rate.status_krw > 0 %}
+															<span class="up">{{dollar_rate.status_krw}}</span>
+														{% else %}
+															<span class="down">{{dollar_rate.status_krw | cut:"-" }}</span>
+														{% endif %}
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl>
+													<dt><strong>달러</strong><span>USD</span> - <strong>페소</strong><span>PHP</span></dt>
+													<dd>
+														<strong>{{ dollar_rate.php }}</strong>
+														{% if dollar_rate.status_php >= 0 %}
+														<span class="up">{{dollar_rate.status_php }}</span>
+														{% else %}
+														<span class="down">{{dollar_rate.status_php | cut:"-" }}</span>
+														{% endif %}
+													</dd>
+												</dl>
+											</li>
+										</ul>
+									</a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="info_head">
+									<h2 class="tit boder_right">{{rigth_date}}</h2>
+									<a href="#">세부회화 <i class="fas fa-chevron-right"></i></a>
+								</div>
+								<div class="eng_speaking">
+									<a href="#self" class="info_layer">
+										<p class="kor_sen">{{p_language.data1}}</p>
+										<p class="eng_sen">{{p_language.data2}}</p>
+										<p class="pronun"><b class="point">{{p_language.data3}}</b></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<!-- Add Arrows -->
+						<div class="swiper_next swiper_next4"><span></span></div>
+						<div class="swiper_prev swiper_prev4"><span></span></div>
+					</div>
+				<!-- } Swiper  -->
+				</div>
+				<script>
+					$(document).ready(function(){
+						var swiper7 = new Swiper('.swiper7', {
+						  spaceBetween: 0,
+						  loop:true,
+						  navigation: {
+							  nextEl: '.swiper_next4',
+							  prevEl: '.swiper_prev4',
+						  },
+						  pagination: {
+								el: '.swiper-pagination',
+								type: 'fraction',
+						  },
+						});
+					});
+				</script>
+				<div class="main sec ad_banner">
+					<h2 class="sound_only">광고 배너</h2>
+					{% for banner in banners.banner_right|slice:"0:1" %}
+					<a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}" target="_blank" rel="nofollow">
+						<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+					</a>
+					{% endfor %}
+				</div>
+				<div class="main sec sec9">
+					<h2 class="sound_only">퀴즈 영역</h2>
+					<input type="hidden" name="po_id" value="">
+					<input type="hidden" name="skin_dir" value="">
+					<section id="poll">
+						<header>
+							<h2><img src="{% static 'images/common/main_56.png' %}" alt="위고세부 아이콘"> 위고퀴즈</h2>
+							<a href="#" target="_blank" onclick="" class="btn_result">정답제출</a>
+						</header>
+						<div class="poll_con">
+							<p>{{quiz.data1}}</p>
+							<ul>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data3}}" id="gb_poll_1" checked>
+									<label for="gb_poll_1"><span></span>{{quiz.data3}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data4}}" id="gb_poll_2">
+									<label for="gb_poll_2"><span></span>{{quiz.data4}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data5}}" id="gb_poll_3">
+									<label for="gb_poll_3"><span></span>{{quiz.data5}}</label>
+								</li>
+								<li class="chk_box">
+									<input type="radio" name="gb_poll" value="{{quiz.data6}}" id="gb_poll_4">
+									<label for="gb_poll_4"><span></span>{{quiz.data6}}</label>
+								</li>
+							</ul>
+							<input type="hidden" id ="quiz_result" value="{{quiz.data2}}">
+						</div>
+					</section>
+				</div>
+				<!-- 정답팝업 -->
+				<div class="quiz_layer" id='quiz_correct'>
+					<div class="quiz_h">
+						<h4>위고세부 퀴즈풀이</h4><span class="close"><i class="fas fa-times"></i></span>
+					</div>
+					<div class="quiz_c">
+						<span style="display:block;"><img src="{% static 'images/main/quiz_win.jpg' %}" alt="정답입니다!"></span>
+						<ul>
+							<li>정답풀이</li>
+							<li class="answer">정답 : {{quiz.data2}}</li>
+							<li class="answer_d">정답 풀이 : {{quiz.data7}}</li>
+						</ul>
+						<a href="{% url 'centers:wego_quiz' %}" class="check">100포인트받기</a>
+					</div>
+				</div>
+				<!-- 오답팝업 -->
+				<div class="quiz_layer" id='quiz_wrong'>
+					<div class="quiz_h">
+						<h4>위고세부 퀴즈풀이</h4><span class="close"><i class="fas fa-times"></i></span>
+					</div>
+					<div class="quiz_c">
+						<span style="display:block;"><img src="{% static 'images/main/quiz_lose.jpg' %}" alt="오답입니다!"></span>
+						<ul>
+							<li>오답이에요</li>
+							<li class="answer_d">다시한번 생각해주세요!</li>
+						</ul>
+						<a href="#" class="check" id="quiz_close">확인</a>
+					</div>
+				</div>
+				<script>
+					$(".quiz_h .close, .quiz_c #quiz_close").click(function(){
+						$(".quiz_layer").hide();
+						return false;
+					});
+					$(".sec9 .btn_result").click(function(){
+						var quiz_selected = $("input[name=gb_poll]:checked").val();
+						var quiz_result = $("#quiz_result").val();
+						if(quiz_selected == quiz_result)
+							$("#quiz_correct").show();
+						else
+							$("#quiz_wrong").show();
+						return false;
+					});
+				</script>
+				<!-- 우측 쇼핑부분 -->
+				{% include "pages/_shopping.html" %}
+
+				<div class="main sec m_banner">
+					<h2 class="sound_only">광고 배너</h2>
+					<!-- <a href="#"><img src="{% static 'images/main/main_98.png' %}" alt=""></a>
+					<a href="#"><img src="{% static 'images/main/main_116.png' %}" alt=""></a> -->
+					<a href="#" class="txt_banner">
+						<span class="img">
+							<iframe width="100%" height="150" src="https://www.youtube.com/embed/BvFDUPrPZwM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</span>
+						<ul>
+							<li class="sub_tit">세부 가와산 캐녀닝!</li>
+							<li class="tit">아드레날린 충만! 가와산에서 절벽 다이빙을!</li>
+						</ul>
+					</a>
+					<a href="#" class="txt_banner">
+						<span class="img">
+							<iframe width="100%" height="150" src="https://www.youtube.com/embed/Va4dD6xviHM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</span>
+						<ul>
+							<li class="sub_tit">아찔한 세부 첫날밤~</li>
+							<li class="tit">세부여행VLOG! 화려한 여자들의 세부여행!</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec ad_banner sec11">
+					<h2 class="sound_only">광고 배너</h2>
+					{% for banner in banners.banner_right|slice:"1:2" %}
+					<a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}" target="_blank">
+						<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+					</a>
+					{% endfor %}
+				</div>
+				<div class="main sec sec12 aside_box_style">
+					<h2 class="sound_only">광고 배너 및 정보</h2>
+					<a href="#">
+						<span class="img">
+							<!-- <img src="{% static 'images/main/main_103.png' %}" alt=""> -->
+							<iframe width="189" height="107" src="https://www.youtube.com/embed/BvFDUPrPZwM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</span>
+						<ul>
+							<li class="sub_tit">세부 가와산 캐녀닝 <br/>VLOG!</li>
+							<!-- <li class="tit">세부킹스파</li> -->
+							<li class="txt">
+								 아드레날린 충만!<br/>
+								 가와산에서<br/>
+								 절벽 다이빙을!
+							</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec sec13 aside_box_style">
+					<h2 class="sound_only">광고 배너 및 정보</h2>
+					<a href="#">
+						<span class="img">
+							<iframe width="189" height="107" src="https://www.youtube.com/embed/Va4dD6xviHM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</span>
+						<ul>
+							<li class="sub_tit">아찔한♡<br>세부 첫날밤~</li>
+							<li class="txt">
+								세부여행VLOG!<br>
+								화려한 여자들의<br>
+								세부첫날!
+							</li>
+						</ul>
+					</a>
+				</div>
+				<div class="main sec sec14">
+					<h2 class="sound_only">광고 배너</h2>
+					{% for banner in banners.banner_right|slice:"2:3" %}
+					<a href="{{ banner.link_url }}" class="banner" name="{{ banner.id }}" target="_blank">
+						<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+					</a>
+					{% endfor %}
+				</div>
+				<div class="main sec sec15">
+					<h2 class="sound_only">하단 소메뉴</h2>
+					<ul>
+						<li><a href="https://open.kakao.com/o/gBOQOpMb" target='_blank'><span><img src="{% static 'images/main/main_125.png' %}" alt="실시간 단톡 채팅"></span><span>실시간<br>단톡 채팅</span></a></li>
+						<li><a href="#"><span><img src="{% static 'images/main/main_127.png' %}" alt="기념품배송"></span><span>기념품<br>총알배송</span></a></li>
+						<li><a href="{% url 'promotions:index' %}"><span><img src="{% static 'images/main/main_129.png' %}" alt="홍보업체바로가기"></span><span>홍보업체<br>바로가기</span></a></li>
+					</ul>
+				</div>
+			</div><!-- sec_right -->
+			<!-- } 섹션 오른쪽 -->
+			{% comment %}
+				<!-- 퀵메뉴 왼쪽 -->
+				{% include "pages/_quickmenu.html" %}
+				<!-- 퀵메뉴 오른쪽 -->
+				{% include "pages/_quickmenu2.html" %}
+				<!--팝업-->
+				{% if user.is_authenticated %}
+				{% else %}
+					{% include "partials/popup_main.html" %}
+					{% include "partials/popup_bottom.html" %}
+				{% endif %}
+			{% endcomment %}
+		</div><!-- container_wrap -->
+	</div><!-- container -->
+	<!-- 배너 클릭스크립트 -->
+ 	{% include "pages/_banner.html" %}
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+{% endblock %}

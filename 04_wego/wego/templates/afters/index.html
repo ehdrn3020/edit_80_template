@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+	{% if board_kind == 'all'%}
+	세부 자유여행 후기
+	{% elif board_kind == 'best'%}
+	필리핀 세부 자유여행 가볼만한곳 베스트 - 위고세부
+	{% elif board_kind == 'tour'%}
+	세부여행 자유 호핑 후기 - 위고세부
+	{% elif board_kind == 'hotel'%}
+	세부 막탄 리조트 호텔 - 위고세부
+	{% elif board_kind == 'food'%}
+	세부 막탄 맛집 - 위고세부
+	{% elif board_kind == 'massage'%}
+	세부 마사지 스파 추천 - 위고세부
+	{% elif board_kind == 'beauty'%}
+	세부 네일아트 뷰티샵 - 위고세부
+	{% elif board_kind == 'etc'%}
+	세부 자유여행 액티비티 쇼핑 - 위고세부
+	{% endif %}
+{% endblock %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/sub.css' %}">
+<script type="text/javascript" src="{% static 'js/dist/progressbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="container">
+	<h2 class="sound_only">본문 영역</h2>
+	<div class="container_wrap center_975">
+		<!-- 섹션 왼쪽 { -->
+		<div class="sec_left">
+			<div class="sec_ctg sub_top_nav">
+				<div class="breadcrumb">
+					<h2><a href="{% url 'afters:index' %}">후기</a><i class="fas fa-chevron-right"></i></h2>
+					{% if board_kind == 'all'%}
+					<h3><a href="{% url 'afters:index' %}">전체</a></h3>
+					{% elif board_kind == 'best'%}
+					<h3><a href="{% url 'afters:index' 'best' %}">베스트</a></h3>
+					{% elif board_kind == 'tour'%}
+					<h3><a href="{% url 'afters:index' 'tour' %}">여행</a></h3>
+					{% elif board_kind == 'hotel'%}
+					<h3><a href="{% url 'afters:index' 'hotel' %}">숙소</a></h3>
+					{% elif board_kind == 'food'%}
+					<h3><a href="{% url 'afters:index' 'food' %}">맛집</a></h3>
+					{% elif board_kind == 'massage'%}
+					<h3><a href="{% url 'afters:index' 'massage' %}">마사지</a></h3>
+					{% elif board_kind == 'beauty'%}
+					<h3><a href="{% url 'afters:index' 'beauty' %}">뷰티</a></h3>
+					{% elif board_kind == 'etc'%}
+					<h3><a href="{% url 'afters:index' 'etc' %}">기타</a></h3>
+					{% endif %}
+				</div><!-- breadcrumb -->
+				<div class="article_btn">
+					<a href="{% url 'afters:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+					<a href="{% url 'afters:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="sec board_ctg">
+				<div class="board_ctg_top">
+					<ul>
+						<li {%if board_kind == 'all'%}class="selected"{%endif%}><a href="{% url 'afters:index' %}">전체보기</a></li>
+						<li {%if board_kind == 'best'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'best' %}">베스트</a></li>
+						<li {%if board_kind == 'tour'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'tour' %}">여행</a></li>
+						<li {%if board_kind == 'hotel'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'hotel' %}">숙소</a></li>
+						<li {%if board_kind == 'food'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'food' %}">맛집</a></li>
+						<li {%if board_kind == 'massage'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'massage' %}">마사지</a></li>
+						<li {%if board_kind == 'beauty'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'beauty' %}">뷰티</a></li>
+						<li {%if board_kind == 'etc'%}class="selected"{%endif%}><a href="{% url 'afters:index' 'etc' %}">기타</a></li>
+					</ul>
+				</div><!-- board_ctg_top -->
+				<div class="board_ctg_btm">
+					<div class="board_sch">
+					   <fieldset id="bd_sch">
+					   	<i class="fas fa-search"></i>
+							<legend>사이트 내 전체검색</legend>
+							<form action="{% url 'afters:index' board_kind %}" method="GET">
+								<label for="bd_sch_stx" class="sound_only">검색어 필수</label>
+								<select name="sch_slt" class="bd_sch_select">
+									<option value="제목" {%if request.GET.sch_slt == "제목"%}selected{%endif%}>제목</option>
+									<option value="글쓴이" {%if request.GET.sch_slt == "글쓴이"%}selected{%endif%}>글쓴이</option>
+								</select>
+								<input type="text" name="sch_tx" id="bd_sch_stx" maxlength="20" {%if request.GET.sch_tx != None%}value="{{s_text}}"{%endif%}>
+								<button type="text" id="bd_sch_submit" value="검색">검색</button>
+							</form>
+						</fieldset>
+					</div><!-- board_sch -->
+					<!-- 핫키워드 -->
+					{% include "partials/hot_keyword.html" %}
+				</div>
+			<script type="text/javascript">
+				$(function()
+				{
+					var ticker = function()
+					{
+						setTimeout(function(){
+							$('#bd_ticker li:first').animate( {marginTop: '-25px'}, 400, function()
+							{
+								$(this).detach().appendTo('ul#bd_ticker').removeAttr('style');
+							});
+							ticker();
+						}, 3000);
+					};
+					ticker();
+				});
+			</script>
+			</div><!-- sec -->
+			<div class="sec review_board">
+				<!-- <h4 class="board_data">2019.05.30.</h4> -->
+				<div class="review_board_list">
+					<ul>
+						{% for after in afters %}
+						<li>
+							<span class="left_line"></span>
+							<span class="left_dot"></span>
+							<a href="{% url 'afters:show' after.id %}" class="review_board_link">
+								<div class="review_board_user board_user">
+									<div class="thum"><img class="board_img_profile" src="{{after.user.profile_image}}" alt="썸네일"></div>
+									<div class="info">
+										<span class="level_icon"><img src="{{after.user.level_icon}}" alt="레벨아이콘">{{after.user.username}}</span>&nbsp;&nbsp;&nbsp;
+										{% if after.likes > 0 %}
+										<span class="like_num"><i class="fas fa-heart"></i> {{after.likes|intcomma}} </span>
+										{% endif %}
+										<span class="view_num">조회수 {{after.views|intcomma}}</span>
+
+										{% if after.upload_date|date:"Y-m-d:H" != time %}
+										<span class="time_before">{{after.upload_date|date:"M j일 D P "}}</span>
+										{% else %}
+										<span class="time_before">{{after.upload_date|timesince}} 전</span>
+										{% endif %}
+									</div>
+								</div>
+								{% if after.index_image1 != 'NONE' %}
+								<div class="review_board_img">
+									<ul>
+										{% if after.index_image1 != 'NONE' %}
+											<li><img src="{{ after.index_image1 }}" alt=""></li>
+										{% endif %}
+										{% if after.index_image2 != 'NONE' %}
+											<li><img src="{{ after.index_image2 }}" alt=""></li>
+										{% endif %}
+										{% if after.index_image3 != 'NONE' %}
+											<li><img src="{{ after.index_image3 }}" alt=""></li>
+										{% endif %}
+										{% if after.index_image4 != 'NONE' %}
+											<li><img src="{{ after.index_image4 }}" alt=""></li>
+										{% endif %}
+										{% if after.index_image5 != 'NONE' %}
+											<li><img src="{{ after.index_image5 }}" alt=""></li>
+										{% endif %}
+									</ul>
+								</div>
+								{% endif %}
+								<div class="review_board_tit">
+									<h6>
+									<!-- 글특성 -->
+									{% if after.attribute != 'NONE' %}
+									<span class="ctg_icon">
+										{% if after.attribute == '공지' %}
+										<img src="{% static 'images/common/review_17.png' %}" alt="공지">
+										{% elif after.attribute == '광고' %}
+										<img src="{% static 'images/common/review_25.jpg' %}" alt="광고">
+										{% endif %}
+									</span>
+									{% else %}
+										{% if after.best_published %}
+										<span class="ctg_icon">
+											<img src="{% static 'images/common/review_26.png' %}" alt="베스트">
+										</span>
+										{% endif %}
+									{% endif %}
+									<!-- 제목 -->
+									{{after.title}}
+									<!-- 댓글/뉴/이미지 -->
+									{% if after.comments > 0 %}
+									<span class="score">
+										<i class="far fa-comment-dots"> {{after.comments}}</i>
+									</span>
+									{% endif %}
+									{% if after.upload_date|date:"Y-m-d" == new_date %}
+									<span class="new_icon"><img src="{% static 'images/common/icon_new.jpg' %}" alt="새로운 글"></span>
+									{% endif %}
+									{% if after.index_image1 != 'NONE' %}
+									<span class="photo_cion"><img src="{% static 'images/common/img.gif' %}" alt="이미지 첨부표시"></span>
+									{% endif %}
+									</h6>
+									<p>{{after.index_content}}</p>
+								</div>
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="sec_ctg">
+				<div class="article_btn">
+					<a href="{% url 'afters:index' 'best' %}"><span><img src="{% static 'images/common/review_03.png' %}" alt="베스트"></span>베스트글</a>
+					<a href="{% url 'afters:create' board_kind %}"><span><img src="{% static 'images/common/review_04.png' %}" alt="글쓰기"></span>글쓰기</a>
+				</div><!-- article_btn -->
+			</div>
+			<div class="pager ten">
+				{% if afters.has_other_pages %}
+				<span class="pager_wrap">
+					{% if afters.has_previous %}
+						<a href="?page={{afters.previous_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_prev"></a>
+					{% endif %}
+					{% for i in page_range %}
+						{% if afters.number == i %}
+							<a href="" class="selected">{{i}}</a>
+						{% else %}
+							<a href="?page={{ i }}
+							{% if request.GET.sch_slt %}
+								&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+							{% endif %}">{{i}}</a>
+						{% endif %}
+					{% endfor %}
+					{% if afters.has_next %}
+						<a href="?page={{afters.next_page_number}}
+						{% if request.GET.sch_slt %}
+							&sch_slt={{request.GET.sch_slt}}&sch_tx={{request.GET.sch_tx}}
+						{% endif %}" class="pager_next"></a>
+					{% endif %}
+				</span>
+				{% endif %}
+			</div>
+			<br><br>
+			<div class="slide_ad_banner main_banner">
+				<h2 class="sound_only">메인 슬라이드 배너</h2>
+				<!-- Swiper -->
+			  <div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+					{% for banner in banners.banners_review_left|slice:":2" %}
+					<div class="swiper-slide">
+						<a class="banner" href="#{{ banner.brand_name }}" name="{{ banner.id }}">
+							<img src="{{ banner.photo.url }}" alt="{{ banner.description }}">
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination swiper-pagination1"></div>
+			  </div>
+				<script>
+					   var swiper1 = new Swiper('.swiper1', {
+						  loop:true,
+						  autoplay: {
+						   delay: 4000,
+						   disableOnInteraction: false,
+						  },
+						  pagination: {
+							el: '.swiper-pagination1',
+							clickable: true,
+						  },
+					});
+				</script>
+			</div><!-- main_banner -->
+		</div><!-- } 섹션 왼쪽  -->
+
+		<!-- 섹션 오른쪽 { -->
+		<div class="sub2 sec_right">
+			<!--로그인 섹션 -->
+			{% include "pages/_login.html" %}
+
+			<!--우측 섹션 -->
+			{% include "afters/_index_right.html" %}
+
+			<!-- 우측 쇼핑부분 -->
+			{% include "pages/_shopping.html" %}
+			<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+		</div><!-- } 섹션 오른쪽 -->
+
+		<!-- Quick Menu -->
+		{% include 'pages/_quickmenu.html' %}
+	</div><!-- container_wrap -->
+</div><!-- container -->
+
+<!-- 배너 클릭스크립트 -->
+{% include "pages/_banner.html" %}
+
+{% endblock %}

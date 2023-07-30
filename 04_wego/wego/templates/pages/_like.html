@@ -1,0 +1,19 @@
+<script type="text/javascript">
+  /* 좋아요 클릭수 */
+  $(".clk_like").click(function(){
+    var content_id = {{content.id}}
+    var like_kind = $('#like_kind').val();
+    $.ajax({
+      type: "POST",
+      url: "{% url '"+like_kind+":add_like' %}",
+      data: {'content_id': content_id, 'like_kind': like_kind, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+      dataType: "json",
+      success: function(response){
+          alert(response.message);
+      },
+      error: function(request, status, error){
+          alert("잘못된 접근입니다.")
+      },
+    });
+  });
+  </script>
